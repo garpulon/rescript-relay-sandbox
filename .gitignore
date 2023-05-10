@@ -1,0 +1,26 @@
+# yarn (we are not using zeroinstalls)
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# i mean... 
+node_modules
+
+# parcel
+/.parcel-cache/
+/dist/
+
+# rescript
+/node_modules/
+/lib/
+.bsb.lock
+.merlin
+*.bs.js
+
+
+# mac stuff
+.DS_Store

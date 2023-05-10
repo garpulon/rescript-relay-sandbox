@@ -1,0 +1,27 @@
+{
+  "name": "rescript-project-template",
+  "sources": {
+    "dir": "src",
+    "subdirs": true
+  },
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": true
+  },
+  "suffix": ".bs.js",
+  "jsx": {
+    "version": 4,
+    "mode": "automatic"
+  },
+  "bsc-flags": [
+    "-open Belt"
+  ],
+  "ppx-flags": [
+    "rescript-relay/ppx"
+  ],
+  "bs-dependencies": [
+    "@rescript/react",
+    "rescript-relay",
+    "bs-fetch"
+  ]
+}
