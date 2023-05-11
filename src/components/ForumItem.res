@@ -7,12 +7,12 @@ module ForumFragment = %relay(`
 `)
 
 @react.component
-let make = (~forum) => {
-  let forum = ForumFragment.use(forum)
+let make = (~fragmentRefs) => {
+  let forum = ForumFragment.use(fragmentRefs)
 
   <div className="ForumItem">
     <h1 className="ForumItem-name">
-      <a href={`/forums/${forum.slug}`}> {forum.name->React.string} </a>
+      <Link to={`/forums/${forum.slug}`}> {forum.name->React.string} </Link>
     </h1>
     {forum.description->Js.String2.trim == ""
       ? React.null

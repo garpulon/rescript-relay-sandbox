@@ -1,24 +1,22 @@
-module Query = %relay(`
-  query HomeQuery {
-    query {
-      forums(first: 50) {
-        nodes {
-          id
-          ...ForumItem_forum
-        }
+module QueryFragment = %relay(`
+  fragment Home_query on Query {
+    forums(first: 50) {
+      nodes {
+        id
+        ...ForumItem_forum
       }
     }
   }
 `)
 
 @react.component
-let make = () => {
-  let data = Query.use(~variables=(), ())
+let make = (~fragmentRefs) => {
+  let fragment = QueryFragment.use(fragmentRefs)
 
-  switch data.query.forums {
+  switch fragment.forums {
   | Some(forums) =>
     forums.nodes
-    ->Array.map(forum => <ForumItem key={forum.id} forum={forum.fragmentRefs} />)
+    ->Array.map(({id: key, fragmentRefs}) => <ForumItem key fragmentRefs />)
     ->React.array
   | None => <h1> {`merp`->React.string} </h1>
   }
