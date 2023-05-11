@@ -9,6 +9,7 @@
 
 # i mean... 
 node_modules
+__generated__
 
 # parcel
 /.parcel-cache/

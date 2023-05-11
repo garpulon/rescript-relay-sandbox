@@ -1,6 +1,9 @@
 #!/bin/bash
 
 postgraphile \
+  -n 0.0.0.0 \
+  --cors \
+  --classic-ids \
   --subscriptions \
   --watch \
   --dynamic-json \
@@ -17,3 +20,4 @@ postgraphile \
   --legacy-relations omit \
   --connection $DATABASE_URL \
   --schema app_public
+

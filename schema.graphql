@@ -9,12 +9,12 @@ type Query implements Node {
   """
   The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
   """
-  nodeId: ID!
+  id: ID!
 
   """Fetches an object given its globally unique `ID`."""
   node(
     """The globally unique `ID`."""
-    nodeId: ID!
+    id: ID!
   ): Node
 
   """Reads and enables pagination through a set of `Forum`."""
@@ -45,15 +45,15 @@ type Query implements Node {
     """
     condition: ForumCondition
   ): ForumsConnection
-  forum(id: Int!): Forum
+  forum(rowId: Int!): Forum
   forumBySlug(slug: String!): Forum
-  post(id: Int!): Post
-  topic(id: Int!): Topic
-  userAuthentication(id: Int!): UserAuthentication
+  post(rowId: Int!): Post
+  topic(rowId: Int!): Topic
+  userAuthentication(rowId: Int!): UserAuthentication
   userAuthenticationByServiceAndIdentifier(service: String!, identifier: String!): UserAuthentication
-  userEmail(id: Int!): UserEmail
+  userEmail(rowId: Int!): UserEmail
   userEmailByUserIdAndEmail(userId: Int!, email: String!): UserEmail
-  user(id: Int!): User
+  user(rowId: Int!): User
   userByUsername(username: String!): User
   currentUser: User
 
@@ -82,41 +82,41 @@ type Query implements Node {
   randomNumber: Int
 
   """Reads a single `Forum` using its globally unique `ID`."""
-  forumByNodeId(
+  forumById(
     """The globally unique `ID` to be used in selecting a single `Forum`."""
-    nodeId: ID!
+    id: ID!
   ): Forum
 
   """Reads a single `Post` using its globally unique `ID`."""
-  postByNodeId(
+  postById(
     """The globally unique `ID` to be used in selecting a single `Post`."""
-    nodeId: ID!
+    id: ID!
   ): Post
 
   """Reads a single `Topic` using its globally unique `ID`."""
-  topicByNodeId(
+  topicById(
     """The globally unique `ID` to be used in selecting a single `Topic`."""
-    nodeId: ID!
+    id: ID!
   ): Topic
 
   """Reads a single `UserAuthentication` using its globally unique `ID`."""
-  userAuthenticationByNodeId(
+  userAuthenticationById(
     """
     The globally unique `ID` to be used in selecting a single `UserAuthentication`.
     """
-    nodeId: ID!
+    id: ID!
   ): UserAuthentication
 
   """Reads a single `UserEmail` using its globally unique `ID`."""
-  userEmailByNodeId(
+  userEmailById(
     """The globally unique `ID` to be used in selecting a single `UserEmail`."""
-    nodeId: ID!
+    id: ID!
   ): UserEmail
 
   """Reads a single `User` using its globally unique `ID`."""
-  userByNodeId(
+  userById(
     """The globally unique `ID` to be used in selecting a single `User`."""
-    nodeId: ID!
+    id: ID!
   ): User
 }
 
@@ -125,7 +125,7 @@ interface Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
-  nodeId: ID!
+  id: ID!
 }
 
 """A connection to a list of `Forum` values."""
@@ -150,8 +150,8 @@ type Forum implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
-  nodeId: ID!
-  id: Int!
+  id: ID!
+  rowId: Int!
 
   """An URL-safe alias for the `Forum`."""
   slug: String!
@@ -222,8 +222,8 @@ type Topic implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
-  nodeId: ID!
-  id: Int!
+  id: ID!
+  rowId: Int!
   forumId: Int!
   authorId: Int!
 
@@ -277,10 +277,10 @@ type User implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
-  nodeId: ID!
+  id: ID!
 
   """Unique identifier for the user."""
-  id: Int!
+  rowId: Int!
 
   """Public-facing username (or 'handle') of the user."""
   username: String!
@@ -406,8 +406,8 @@ type UserEmail implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
-  nodeId: ID!
-  id: Int!
+  id: ID!
+  rowId: Int!
   userId: Int!
 
   """The users email address, in `a@b.c` format."""
@@ -475,8 +475,8 @@ A condition to be used against `UserEmail` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
 input UserEmailCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: Int
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: Int
 
   """Checks for equality with the object’s `userId` field."""
   userId: Int
@@ -519,8 +519,8 @@ enum TopicsOrderBy {
 A condition to be used against `Topic` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input TopicCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: Int
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: Int
 
   """Checks for equality with the object’s `forumId` field."""
   forumId: Int
@@ -563,8 +563,8 @@ type Post implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
-  nodeId: ID!
-  id: Int!
+  id: ID!
+  rowId: Int!
   topicId: Int!
   authorId: Int!
 
@@ -612,8 +612,8 @@ enum PostsOrderBy {
 A condition to be used against `Post` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input PostCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: Int
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: Int
 
   """Checks for equality with the object’s `topicId` field."""
   topicId: Int
@@ -672,8 +672,8 @@ enum ForumsOrderBy {
 A condition to be used against `Forum` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input ForumCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: Int
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: Int
 
   """Checks for equality with the object’s `slug` field."""
   slug: String
@@ -698,8 +698,8 @@ type UserAuthentication implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
-  nodeId: ID!
-  id: Int!
+  id: ID!
+  rowId: Int!
 
   """The login service used, e.g. `twitter` or `github`."""
   service: String!
@@ -763,11 +763,11 @@ type Mutation {
   ): CreateUserPayload
 
   """Updates a single `Forum` using its globally unique id and a patch."""
-  updateForumByNodeId(
+  updateForumById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateForumByNodeIdInput!
+    input: UpdateForumByIdInput!
   ): UpdateForumPayload
 
   """Updates a single `Forum` using a unique key and a patch."""
@@ -787,11 +787,11 @@ type Mutation {
   ): UpdateForumPayload
 
   """Updates a single `Post` using its globally unique id and a patch."""
-  updatePostByNodeId(
+  updatePostById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdatePostByNodeIdInput!
+    input: UpdatePostByIdInput!
   ): UpdatePostPayload
 
   """Updates a single `Post` using a unique key and a patch."""
@@ -803,11 +803,11 @@ type Mutation {
   ): UpdatePostPayload
 
   """Updates a single `Topic` using its globally unique id and a patch."""
-  updateTopicByNodeId(
+  updateTopicById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateTopicByNodeIdInput!
+    input: UpdateTopicByIdInput!
   ): UpdateTopicPayload
 
   """Updates a single `Topic` using a unique key and a patch."""
@@ -821,11 +821,11 @@ type Mutation {
   """
   Updates a single `UserAuthentication` using its globally unique id and a patch.
   """
-  updateUserAuthenticationByNodeId(
+  updateUserAuthenticationById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateUserAuthenticationByNodeIdInput!
+    input: UpdateUserAuthenticationByIdInput!
   ): UpdateUserAuthenticationPayload
 
   """Updates a single `UserAuthentication` using a unique key and a patch."""
@@ -845,11 +845,11 @@ type Mutation {
   ): UpdateUserAuthenticationPayload
 
   """Updates a single `UserEmail` using its globally unique id and a patch."""
-  updateUserEmailByNodeId(
+  updateUserEmailById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateUserEmailByNodeIdInput!
+    input: UpdateUserEmailByIdInput!
   ): UpdateUserEmailPayload
 
   """Updates a single `UserEmail` using a unique key and a patch."""
@@ -869,11 +869,11 @@ type Mutation {
   ): UpdateUserEmailPayload
 
   """Updates a single `User` using its globally unique id and a patch."""
-  updateUserByNodeId(
+  updateUserById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateUserByNodeIdInput!
+    input: UpdateUserByIdInput!
   ): UpdateUserPayload
 
   """Updates a single `User` using a unique key and a patch."""
@@ -893,11 +893,11 @@ type Mutation {
   ): UpdateUserPayload
 
   """Deletes a single `Forum` using its globally unique id."""
-  deleteForumByNodeId(
+  deleteForumById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteForumByNodeIdInput!
+    input: DeleteForumByIdInput!
   ): DeleteForumPayload
 
   """Deletes a single `Forum` using a unique key."""
@@ -917,11 +917,11 @@ type Mutation {
   ): DeleteForumPayload
 
   """Deletes a single `Post` using its globally unique id."""
-  deletePostByNodeId(
+  deletePostById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeletePostByNodeIdInput!
+    input: DeletePostByIdInput!
   ): DeletePostPayload
 
   """Deletes a single `Post` using a unique key."""
@@ -933,11 +933,11 @@ type Mutation {
   ): DeletePostPayload
 
   """Deletes a single `Topic` using its globally unique id."""
-  deleteTopicByNodeId(
+  deleteTopicById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteTopicByNodeIdInput!
+    input: DeleteTopicByIdInput!
   ): DeleteTopicPayload
 
   """Deletes a single `Topic` using a unique key."""
@@ -949,11 +949,11 @@ type Mutation {
   ): DeleteTopicPayload
 
   """Deletes a single `UserAuthentication` using its globally unique id."""
-  deleteUserAuthenticationByNodeId(
+  deleteUserAuthenticationById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteUserAuthenticationByNodeIdInput!
+    input: DeleteUserAuthenticationByIdInput!
   ): DeleteUserAuthenticationPayload
 
   """Deletes a single `UserAuthentication` using a unique key."""
@@ -973,11 +973,11 @@ type Mutation {
   ): DeleteUserAuthenticationPayload
 
   """Deletes a single `UserEmail` using its globally unique id."""
-  deleteUserEmailByNodeId(
+  deleteUserEmailById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteUserEmailByNodeIdInput!
+    input: DeleteUserEmailByIdInput!
   ): DeleteUserEmailPayload
 
   """Deletes a single `UserEmail` using a unique key."""
@@ -997,11 +997,11 @@ type Mutation {
   ): DeleteUserEmailPayload
 
   """Deletes a single `User` using its globally unique id."""
-  deleteUserByNodeId(
+  deleteUserById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteUserByNodeIdInput!
+    input: DeleteUserByIdInput!
   ): DeleteUserPayload
 
   """Deletes a single `User` using a unique key."""
@@ -1078,7 +1078,7 @@ input CreateForumInput {
 
 """An input for mutations affecting `Forum`"""
 input ForumInput {
-  id: Int
+  rowId: Int
 
   """An URL-safe alias for the `Forum`."""
   slug: String!
@@ -1184,7 +1184,7 @@ input CreateTopicInput {
 
 """An input for mutations affecting `Topic`"""
 input TopicInput {
-  id: Int
+  rowId: Int
   forumId: Int!
   authorId: Int
 
@@ -1260,7 +1260,7 @@ input CreateUserAuthenticationInput {
 
 """An input for mutations affecting `UserAuthentication`"""
 input UserAuthenticationInput {
-  id: Int
+  rowId: Int
 
   """The login service used, e.g. `twitter` or `github`."""
   service: String!
@@ -1311,7 +1311,7 @@ input CreateUserEmailInput {
 
 """An input for mutations affecting `UserEmail`"""
 input UserEmailInput {
-  id: Int
+  rowId: Int
   userId: Int
 
   """The users email address, in `a@b.c` format."""
@@ -1393,7 +1393,7 @@ input CreateUserInput {
 """An input for mutations affecting `User`"""
 input UserInput {
   """Unique identifier for the user."""
-  id: Int
+  rowId: Int
 
   """Public-facing username (or 'handle') of the user."""
   username: String!
@@ -1433,8 +1433,8 @@ type UpdateForumPayload {
   ): ForumsEdge
 }
 
-"""All input for the `updateForumByNodeId` mutation."""
-input UpdateForumByNodeIdInput {
+"""All input for the `updateForumById` mutation."""
+input UpdateForumByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -1444,7 +1444,7 @@ input UpdateForumByNodeIdInput {
   """
   The globally unique `ID` which will identify a single `Forum` to be updated.
   """
-  nodeId: ID!
+  id: ID!
 
   """
   An object where the defined keys will be set on the `Forum` being updated.
@@ -1456,7 +1456,7 @@ input UpdateForumByNodeIdInput {
 Represents an update to a `Forum`. Fields that are set will be updated.
 """
 input ForumPatch {
-  id: Int
+  rowId: Int
 
   """An URL-safe alias for the `Forum`."""
   slug: String
@@ -1482,7 +1482,7 @@ input UpdateForumInput {
   An object where the defined keys will be set on the `Forum` being updated.
   """
   patch: ForumPatch!
-  id: Int!
+  rowId: Int!
 }
 
 """All input for the `updateForumBySlug` mutation."""
@@ -1531,8 +1531,8 @@ type UpdatePostPayload {
   ): PostsEdge
 }
 
-"""All input for the `updatePostByNodeId` mutation."""
-input UpdatePostByNodeIdInput {
+"""All input for the `updatePostById` mutation."""
+input UpdatePostByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -1542,7 +1542,7 @@ input UpdatePostByNodeIdInput {
   """
   The globally unique `ID` which will identify a single `Post` to be updated.
   """
-  nodeId: ID!
+  id: ID!
 
   """
   An object where the defined keys will be set on the `Post` being updated.
@@ -1568,7 +1568,7 @@ input UpdatePostInput {
   An object where the defined keys will be set on the `Post` being updated.
   """
   patch: PostPatch!
-  id: Int!
+  rowId: Int!
 }
 
 """The output of our update `Topic` mutation."""
@@ -1600,8 +1600,8 @@ type UpdateTopicPayload {
   ): TopicsEdge
 }
 
-"""All input for the `updateTopicByNodeId` mutation."""
-input UpdateTopicByNodeIdInput {
+"""All input for the `updateTopicById` mutation."""
+input UpdateTopicByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -1611,7 +1611,7 @@ input UpdateTopicByNodeIdInput {
   """
   The globally unique `ID` which will identify a single `Topic` to be updated.
   """
-  nodeId: ID!
+  id: ID!
 
   """
   An object where the defined keys will be set on the `Topic` being updated.
@@ -1623,7 +1623,7 @@ input UpdateTopicByNodeIdInput {
 Represents an update to a `Topic`. Fields that are set will be updated.
 """
 input TopicPatch {
-  id: Int
+  rowId: Int
   forumId: Int
   authorId: Int
 
@@ -1648,7 +1648,7 @@ input UpdateTopicInput {
   An object where the defined keys will be set on the `Topic` being updated.
   """
   patch: TopicPatch!
-  id: Int!
+  rowId: Int!
 }
 
 """The output of our update `UserAuthentication` mutation."""
@@ -1674,8 +1674,8 @@ type UpdateUserAuthenticationPayload {
   ): UserAuthenticationsEdge
 }
 
-"""All input for the `updateUserAuthenticationByNodeId` mutation."""
-input UpdateUserAuthenticationByNodeIdInput {
+"""All input for the `updateUserAuthenticationById` mutation."""
+input UpdateUserAuthenticationByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -1685,7 +1685,7 @@ input UpdateUserAuthenticationByNodeIdInput {
   """
   The globally unique `ID` which will identify a single `UserAuthentication` to be updated.
   """
-  nodeId: ID!
+  id: ID!
 
   """
   An object where the defined keys will be set on the `UserAuthentication` being updated.
@@ -1697,7 +1697,7 @@ input UpdateUserAuthenticationByNodeIdInput {
 Represents an update to a `UserAuthentication`. Fields that are set will be updated.
 """
 input UserAuthenticationPatch {
-  id: Int
+  rowId: Int
 
   """The login service used, e.g. `twitter` or `github`."""
   service: String
@@ -1720,7 +1720,7 @@ input UpdateUserAuthenticationInput {
   An object where the defined keys will be set on the `UserAuthentication` being updated.
   """
   patch: UserAuthenticationPatch!
-  id: Int!
+  rowId: Int!
 }
 
 """
@@ -1771,8 +1771,8 @@ type UpdateUserEmailPayload {
   ): UserEmailsEdge
 }
 
-"""All input for the `updateUserEmailByNodeId` mutation."""
-input UpdateUserEmailByNodeIdInput {
+"""All input for the `updateUserEmailById` mutation."""
+input UpdateUserEmailByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -1782,7 +1782,7 @@ input UpdateUserEmailByNodeIdInput {
   """
   The globally unique `ID` which will identify a single `UserEmail` to be updated.
   """
-  nodeId: ID!
+  id: ID!
 
   """
   An object where the defined keys will be set on the `UserEmail` being updated.
@@ -1794,7 +1794,7 @@ input UpdateUserEmailByNodeIdInput {
 Represents an update to a `UserEmail`. Fields that are set will be updated.
 """
 input UserEmailPatch {
-  id: Int
+  rowId: Int
   userId: Int
 
   """The users email address, in `a@b.c` format."""
@@ -1820,7 +1820,7 @@ input UpdateUserEmailInput {
   An object where the defined keys will be set on the `UserEmail` being updated.
   """
   patch: UserEmailPatch!
-  id: Int!
+  rowId: Int!
 }
 
 """All input for the `updateUserEmailByUserIdAndEmail` mutation."""
@@ -1864,8 +1864,8 @@ type UpdateUserPayload {
   ): UsersEdge
 }
 
-"""All input for the `updateUserByNodeId` mutation."""
-input UpdateUserByNodeIdInput {
+"""All input for the `updateUserById` mutation."""
+input UpdateUserByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -1875,7 +1875,7 @@ input UpdateUserByNodeIdInput {
   """
   The globally unique `ID` which will identify a single `User` to be updated.
   """
-  nodeId: ID!
+  id: ID!
 
   """
   An object where the defined keys will be set on the `User` being updated.
@@ -1886,7 +1886,7 @@ input UpdateUserByNodeIdInput {
 """Represents an update to a `User`. Fields that are set will be updated."""
 input UserPatch {
   """Unique identifier for the user."""
-  id: Int
+  rowId: Int
 
   """Public-facing username (or 'handle') of the user."""
   username: String
@@ -1917,7 +1917,7 @@ input UpdateUserInput {
   patch: UserPatch!
 
   """Unique identifier for the user."""
-  id: Int!
+  rowId: Int!
 }
 
 """All input for the `updateUserByUsername` mutation."""
@@ -1947,7 +1947,7 @@ type DeleteForumPayload {
 
   """The `Forum` that was deleted by this mutation."""
   forum: Forum
-  deletedForumNodeId: ID
+  deletedForumId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -1961,8 +1961,8 @@ type DeleteForumPayload {
   ): ForumsEdge
 }
 
-"""All input for the `deleteForumByNodeId` mutation."""
-input DeleteForumByNodeIdInput {
+"""All input for the `deleteForumById` mutation."""
+input DeleteForumByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -1972,7 +1972,7 @@ input DeleteForumByNodeIdInput {
   """
   The globally unique `ID` which will identify a single `Forum` to be deleted.
   """
-  nodeId: ID!
+  id: ID!
 }
 
 """All input for the `deleteForum` mutation."""
@@ -1982,7 +1982,7 @@ input DeleteForumInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  id: Int!
+  rowId: Int!
 }
 
 """All input for the `deleteForumBySlug` mutation."""
@@ -2007,7 +2007,7 @@ type DeletePostPayload {
 
   """The `Post` that was deleted by this mutation."""
   post: Post
-  deletedPostNodeId: ID
+  deletedPostId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -2027,8 +2027,8 @@ type DeletePostPayload {
   ): PostsEdge
 }
 
-"""All input for the `deletePostByNodeId` mutation."""
-input DeletePostByNodeIdInput {
+"""All input for the `deletePostById` mutation."""
+input DeletePostByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2038,7 +2038,7 @@ input DeletePostByNodeIdInput {
   """
   The globally unique `ID` which will identify a single `Post` to be deleted.
   """
-  nodeId: ID!
+  id: ID!
 }
 
 """All input for the `deletePost` mutation."""
@@ -2048,7 +2048,7 @@ input DeletePostInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  id: Int!
+  rowId: Int!
 }
 
 """The output of our delete `Topic` mutation."""
@@ -2061,7 +2061,7 @@ type DeleteTopicPayload {
 
   """The `Topic` that was deleted by this mutation."""
   topic: Topic
-  deletedTopicNodeId: ID
+  deletedTopicId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -2081,8 +2081,8 @@ type DeleteTopicPayload {
   ): TopicsEdge
 }
 
-"""All input for the `deleteTopicByNodeId` mutation."""
-input DeleteTopicByNodeIdInput {
+"""All input for the `deleteTopicById` mutation."""
+input DeleteTopicByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2092,7 +2092,7 @@ input DeleteTopicByNodeIdInput {
   """
   The globally unique `ID` which will identify a single `Topic` to be deleted.
   """
-  nodeId: ID!
+  id: ID!
 }
 
 """All input for the `deleteTopic` mutation."""
@@ -2102,7 +2102,7 @@ input DeleteTopicInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  id: Int!
+  rowId: Int!
 }
 
 """The output of our delete `UserAuthentication` mutation."""
@@ -2115,7 +2115,7 @@ type DeleteUserAuthenticationPayload {
 
   """The `UserAuthentication` that was deleted by this mutation."""
   userAuthentication: UserAuthentication
-  deletedUserAuthenticationNodeId: ID
+  deletedUserAuthenticationId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -2129,8 +2129,8 @@ type DeleteUserAuthenticationPayload {
   ): UserAuthenticationsEdge
 }
 
-"""All input for the `deleteUserAuthenticationByNodeId` mutation."""
-input DeleteUserAuthenticationByNodeIdInput {
+"""All input for the `deleteUserAuthenticationById` mutation."""
+input DeleteUserAuthenticationByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2140,7 +2140,7 @@ input DeleteUserAuthenticationByNodeIdInput {
   """
   The globally unique `ID` which will identify a single `UserAuthentication` to be deleted.
   """
-  nodeId: ID!
+  id: ID!
 }
 
 """All input for the `deleteUserAuthentication` mutation."""
@@ -2150,7 +2150,7 @@ input DeleteUserAuthenticationInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  id: Int!
+  rowId: Int!
 }
 
 """
@@ -2180,7 +2180,7 @@ type DeleteUserEmailPayload {
 
   """The `UserEmail` that was deleted by this mutation."""
   userEmail: UserEmail
-  deletedUserEmailNodeId: ID
+  deletedUserEmailId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -2197,8 +2197,8 @@ type DeleteUserEmailPayload {
   ): UserEmailsEdge
 }
 
-"""All input for the `deleteUserEmailByNodeId` mutation."""
-input DeleteUserEmailByNodeIdInput {
+"""All input for the `deleteUserEmailById` mutation."""
+input DeleteUserEmailByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2208,7 +2208,7 @@ input DeleteUserEmailByNodeIdInput {
   """
   The globally unique `ID` which will identify a single `UserEmail` to be deleted.
   """
-  nodeId: ID!
+  id: ID!
 }
 
 """All input for the `deleteUserEmail` mutation."""
@@ -2218,7 +2218,7 @@ input DeleteUserEmailInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  id: Int!
+  rowId: Int!
 }
 
 """All input for the `deleteUserEmailByUserIdAndEmail` mutation."""
@@ -2244,7 +2244,7 @@ type DeleteUserPayload {
 
   """The `User` that was deleted by this mutation."""
   user: User
-  deletedUserNodeId: ID
+  deletedUserId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -2258,8 +2258,8 @@ type DeleteUserPayload {
   ): UsersEdge
 }
 
-"""All input for the `deleteUserByNodeId` mutation."""
-input DeleteUserByNodeIdInput {
+"""All input for the `deleteUserById` mutation."""
+input DeleteUserByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2269,7 +2269,7 @@ input DeleteUserByNodeIdInput {
   """
   The globally unique `ID` which will identify a single `User` to be deleted.
   """
-  nodeId: ID!
+  id: ID!
 }
 
 """All input for the `deleteUser` mutation."""
@@ -2281,7 +2281,7 @@ input DeleteUserInput {
   clientMutationId: String
 
   """Unique identifier for the user."""
-  id: Int!
+  rowId: Int!
 }
 
 """All input for the `deleteUserByUsername` mutation."""

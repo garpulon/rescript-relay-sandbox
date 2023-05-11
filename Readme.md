@@ -69,7 +69,9 @@ https://parceljs.org/getting-started/webapp/
     </head>
 
     <body>
+    <div id="root">
         <h1>Hello, World!</h1>
+        </div>
     </body>
 
     </html>
@@ -79,7 +81,7 @@ https://rescript-lang.org/docs/react/latest/rendering-elements
 
     // Dom access can actually fail. ReScript
     // is really explicit about handling edge cases!
-    switch ReactDOM.querySelector("body") {
+    switch ReactDOM.querySelector("#root") {
     | Some(rootElement) => {
         let root = ReactDOM.Client.createRoot(rootElement)
         ReactDOM.Client.Root.render(root, <App />)
@@ -146,6 +148,12 @@ https://github.com/graphile/examples/tree/master/db
 
 **contents for shell script are invocation* from [here](https://www.graphile.org/postgraphile/usage-cli/#for-development)
 
+add 3 lines to the shell script file, under line 1. These lines will allow requests by adding CORS headers for development
+
+    -n 0.0.0.0 \
+    --cors \
+    --classic-ids \
+
 add a command to run the dev instance to your package.json scripts
 
     "postgraphile:dev": "DATABASE_URL=postgres://user:password@localhost/relaysandbox ./postgraphile-dev.sh",
@@ -158,9 +166,18 @@ visit the link for graphiql to see what you've got for starters... http://localh
 
 
 # Install & Configure Relay
+
+### More local env bs.... (install watchman)
+Sorry but relay needs this tool. In order to install it you will install important packages it depends on, like glog and folly. If I had to guess these are also made by facebook and the folly package is so named only because the primary platform already had a name, so folly was available.
+
+Mac: https://facebook.github.io/watchman/docs/install#-homebrew
+PC: https://facebook.github.io/watchman/docs/install#windows
+
+
+### VsCode Extension
 Install [relay rescript vscode extension](https://marketplace.visualstudio.com/items?itemName=GabrielNordeborn.vscode-rescript-relay)
 
-
+## Installing Node Packages
 https://rescript-relay-documentation.vercel.app/docs/getting-started
 
     # Add rescript-relay and dependencies to the project
@@ -181,9 +198,20 @@ https://rescript-relay-documentation.vercel.app/docs/getting-started
 
 ### Configure relay & Relay env
 Add a relay.config.js to your project root with some 
-default stuff in it, from [here](https://rescript-relay-documentation.vercel.app/docs/getting-started#configuring-relay)
+default stuff in it
 
+##### relay.config.js
+    # fill with https://rescript-relay-documentation.vercel.app/docs/getting-started#configuring-relay
+    touch relay.config.js
+
+##### RelayEnv.res
+
+    # fill with https://rescript-relay-documentation.vercel.app/docs/getting-started#setting-up-the-relay-environment
     touch ./src/RelayEnv.res
+
+##### artifact dir
+    mkdir ./src/__generated__
+
 
 Then add bs-fetch to bs-dependencies in your bsconfig.json:
 
@@ -195,4 +223,7 @@ Add a rescript port of fetch (...) so the above code compiles
 
     yarn add bs-fetch
 
+Start up your third compiler watcher deal
 
+
+# Making the crappiest forum ever

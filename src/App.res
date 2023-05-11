@@ -1,4 +1,11 @@
 @react.component
 let make = () => {
-  <h1> {React.string("Hello ReScripters!")} </h1>
+  let url = RescriptReactRouter.useUrl()
+
+  switch url.path {
+  //  | list{"user", id} => <User id />
+  | list{} => <Home />
+  | list{"forums", slug} => <Forum slug />
+  | _ => <h1> {"Not found"->React.string} </h1>
+  }
 }
