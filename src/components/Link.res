@@ -1,10 +1,10 @@
 @react.component
-let make = (~to: string, ~children) =>
+let make = (~to as href: string, ~children) =>
   <a
-    href={to}
+    href
     onClick={e => {
       let _ = e->JsxEvent.Mouse.preventDefault
-      let _ = RescriptReactRouter.push(to)
+      let _ = RescriptReactRouter.push(href)
     }}>
     {children}
   </a>

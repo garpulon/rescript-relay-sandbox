@@ -1,5 +1,6 @@
 module TopicFragment = %relay(`
   fragment TopicItem_topic on Topic {
+    rowId
     id
     title
     body
@@ -15,7 +16,7 @@ module TopicFragment = %relay(`
 `)
 
 @react.component
-let make = (~fragmentRefs, ~forum: ForumPage_query_graphql.Types.fragment_forum, ~currentUser) => {
+let make = (~fragmentRefs, ~forum: ForumPage_query_graphql.Types.fragment_forum) => {
   let topic = TopicFragment.use(fragmentRefs)
 
   <tr className="TopicItem">

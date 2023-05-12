@@ -5,32 +5,10 @@ module CurrentUserFragment = %relay(`
     isAdmin
   }
 `)
-module UserBar = {
-  @react.component
-  let make = (~currentUser) => {
-    let currentUser = CurrentUserFragment.useOpt(currentUser)
-
-    switch currentUser {
-    | Some(currentUser) => {
-        let username = currentUser.name->Option.getWithDefault(`User ${currentUser.id}`)
-        let username = currentUser.isAdmin ? `${username} (administrator)` : username
-
-        <span>
-          {`Logged in as ${username}`->React.string}
-          <Link to="/logout"> {`Log out`->React.string} </Link>
-        </span>
-      }
-    | None => <Link to="/login"> {`Login`->React.string} </Link>
-    }
-  }
-}
-module LoginLink = {
-  @react.component
-  let make = () => <Link to="/login"> {`Login`->React.string} </Link>
-}
 
 @react.component
 let make = (~currentUser) => {
+  let currentUser = CurrentUserFragment.useOpt(currentUser)
   <header className="Header">
     <div className="Header-titleContainer">
       <Link to="/">
@@ -39,8 +17,18 @@ let make = (~currentUser) => {
       </Link>
     </div>
     <div>
-      <UserBar currentUser />
-      //<div> {this.renderUser()} </div>
+      {switch currentUser {
+      | Some(currentUser) => {
+          let username = currentUser.name->Option.getWithDefault(`User ${currentUser.id}`)
+          let username = currentUser.isAdmin ? `${username} (administrator)` : username
+
+          <span>
+            {`Logged in as ${username}`->React.string}
+            <Link to="/logout"> {`Log out`->React.string} </Link>
+          </span>
+        }
+      | None => <Link to="/login"> {`Login`->React.string} </Link>
+      }}
     </div>
   </header>
 }

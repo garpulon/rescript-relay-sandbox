@@ -50,12 +50,7 @@ let make = (~fragmentRefs) => {
             ? forum.topics.nodes
               ->Array.map(node => {
                 <React.Fragment key=node.id>
-                  <TopicItem
-                    key={node.id}
-                    fragmentRefs={node.fragmentRefs}
-                    forum={forum}
-                    currentUser={currentUser}
-                  />
+                  <TopicItem key={node.id} fragmentRefs={node.fragmentRefs} forum={forum} />
                 </React.Fragment>
               })
               ->React.array
