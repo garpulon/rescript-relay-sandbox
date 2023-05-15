@@ -23,7 +23,7 @@ drop schema if exists basic_auth cascade;
 \ir 300_utils.sql
 
 -- Users, authentication, emails, etc
-\ir 400_users.sql
+--\ir 400_users.sql
 
 -- Users, authentication, emails, etc
 \ir 401_users_new.sql

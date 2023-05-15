@@ -1,7 +1,7 @@
 module UserFragment = %relay(`
   fragment LoginPage_query on Query {
     currentUser {
-      id
+      email
     }
   }
 `)
@@ -54,23 +54,12 @@ let make = (~fragmentRefs) => {
                       %raw(`location.reload()`)
                     }
 
-                  | Some({jwtToken: None, messages: Some(messages)}) => {
-                      // take only the meat
-                      let message =
-                        messages
-                        ->Array.keepMap(a =>
-                          switch a {
-                          | Some({message}) if message->Js.String2.trim != "" => Some(message)
-                          | _ => None
-                          }
-                        )
-                        ->Js.Array2.joinWith("\n\n")
-
-                      if message != "" {
-                        open Common.URLSearchParams
-                        let qps = Js.Dict.fromArray([("message", message)])
-                        RescriptReactRouter.push(`/error/?${qps->make->toString}`)
-                      }
+                  // note that this pattern match WILL not match multiply errored items, but it is succinct
+                  | Some({jwtToken: None, messages: Some([Some({message})])})
+                    if message->Js.String2.trim != "" => {
+                      open Common.URLSearchParams
+                      let qps = Js.Dict.fromArray([("message", message)])
+                      RescriptReactRouter.push(`/error/?${qps->make->toString}`)
                     }
 
                   | _ => ()

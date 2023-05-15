@@ -37,7 +37,7 @@ grant delete on app_public.forums to graphiledemo_visitor;
 create table app_public.topics (
   id serial primary key,
   forum_id int not null references app_public.forums on delete cascade,
-  author_id int not null default app_public.current_user_id() references app_public.users on delete cascade,
+  author_id citext not null default app_public.current_user_id() references basic_auth.users on delete cascade,
   title text not null check(length(title) > 0),
   body text not null default '',
   created_at timestamptz not null default now(),
@@ -50,7 +50,7 @@ create trigger _100_timestamps
   execute procedure app_private.tg__update_timestamps();
 
 comment on table app_public.topics is
-  E'@omit all\nAn individual message thread within a Forum.';
+  E'@foreignKey (author_id) references app_public.users(email)|@fieldName author\n@omit all\nAn individual message thread within a Forum.';
 comment on column app_public.topics.title is
   E'The title of the `Topic`.';
 comment on column app_public.topics.body is
@@ -86,7 +86,7 @@ $$;
 create table app_public.posts (
   id serial primary key,
   topic_id int not null references app_public.topics on delete cascade,
-  author_id int not null default app_public.current_user_id() references app_public.users on delete cascade,
+  author_id citext not null default app_public.current_user_id() references basic_auth.users on delete cascade,
   body text not null default '',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -97,8 +97,10 @@ create trigger _100_timestamps
   for each row
   execute procedure app_private.tg__update_timestamps();
 
+
+
 comment on table app_public.posts is
-  E'@omit all\nAn individual message thread within a Forum.';
+  E'@foreignKey (author_id) references app_public.users(email)|@fieldName author\n@omit all\nAn individual message thread within a Forum.';
 comment on column app_public.posts.id is
   E'@omit create,update';
 comment on column app_public.posts.topic_id is

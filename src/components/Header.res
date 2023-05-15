@@ -1,7 +1,6 @@
 module CurrentUserFragment = %relay(`
   fragment Header_currentUser on User {
-    id
-    name
+    email
     isAdmin
   }
 `)
@@ -19,8 +18,9 @@ let make = (~currentUser) => {
     <div>
       {switch currentUser {
       | Some(currentUser) => {
-          let username = currentUser.name->Option.getWithDefault(`User ${currentUser.id}`)
-          let username = currentUser.isAdmin ? `${username} (administrator)` : username
+          let username = currentUser.isAdmin
+            ? `${currentUser.email} (administrator)`
+            : currentUser.email
 
           <span>
             {`Logged in as ${username}`->React.string}

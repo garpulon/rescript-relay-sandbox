@@ -17,53 +17,29 @@ grant all on all tables in schema app_public to anon;
 grant execute on all functions in schema app_public to anon;
 grant all on all tables in schema app_public to loggedin;
 
-insert into basic_auth.users values ('drew@jococruise.com', '1234', 'loggedin');
+insert into basic_auth.users values ('drew@jococruise.com', '1234', 'loggedin', true);
 -------------------------
 
 
-
-select app_private.link_or_register_user(
-  null,
-  'github',
-  '6413628',
-  '{}'::json,
-  '{}'::json
-);
-select app_private.link_or_register_user(
-  null,
-  'github',
-  '222222',
-  '{"name":"Chad F"}'::json,
-  '{}'::json
-);
-select app_private.link_or_register_user(
-  null,
-  'github',
-  '333333',
-  '{"name":"Bradley A"}'::json,
-  '{}'::json
-);
-select app_private.link_or_register_user(
-  null,
-  'github',
-  '444444',
-  '{"name":"Sam L"}'::json,
-  '{}'::json
-);
-select app_private.link_or_register_user(
-  null,
-  'github',
-  '555555',
-  '{"name":"Max D"}'::json,
-  '{}'::json
+select app_public.register(
+  'bill@jococruise.com', '12341234'
 );
 
-select app_private.really_create_user(
-  'drew', 'drew@example.com', true, 'Drew W', 'http://placekitten.com/200/300', '1234'
+select app_public.register(
+  'jill@jococruise.com', '12341234'
 );
 
-insert into app_public.user_emails(user_id, email, is_verified) values
-  (1, 'benjie@example.com', true);
+select app_public.register(
+  'ramesh@jococruise.com', '12341234'
+);
+select app_public.register(
+  'sinead@jococruise.com', '12341234'
+);
+
+select app_public.register(
+  'blibbo@jococruise.com', '12341234'
+);
+
 
 insert into app_public.forums(slug, name, description) values
   ('testimonials', 'Testimonials', 'How do you rate PostGraphile?'),
@@ -73,15 +49,15 @@ insert into app_public.forums(slug, name, description) values
 
 
 insert into app_public.topics(forum_id, author_id, title, body) values
-  (1, 2, 'Thank you!', '500-1500 requests per second on a single server is pretty awesome.'),
-  (1, 4, 'PostGraphile is powerful', 'PostGraphile is a powerful, idomatic, and elegant tool.'),
-  (1, 5, 'Recently launched', 'At this point, it’s quite hard for me to come back and enjoy working with REST.'),
-  (3, 1, 'I love cats!', 'They''re the best!');
+  (1, 'jill@jococruise.com', 'Thank you!', '500-1500 requests per second on a single server is pretty awesome.'),
+  (1, 'sinead@jococruise.com', 'PostGraphile is powerful', 'PostGraphile is a powerful, idomatic, and elegant tool.'),
+  (1, 'blibbo@jococruise.com', 'Recently launched', 'At this point, it’s quite hard for me to come back and enjoy working with REST.'),
+  (3, 'bill@jococruise.com', 'I love cats!', 'They''re the best!');
 
 insert into app_public.posts(topic_id, author_id, body) values
-  (1, 1, 'I''m super pleased with the performance - thanks!'),
-  (2, 1, 'Thanks so much!'),
-  (3, 1, 'Tell me about it - GraphQL is awesome!'),
-  (4, 1, 'Dont you just love cats? Cats cats cats cats cats cats cats cats cats cats cats cats Cats cats cats cats cats cats cats cats cats cats cats cats'),
-  (4, 2, 'Yeah cats are really fluffy I enjoy squising their fur they are so goregous and fluffy and squishy and fluffy and gorgeous and squishy and goregous and fluffy and squishy and fluffy and gorgeous and squishy'),
-  (4, 3, 'I love it when they completely ignore you until they want something. So much better than dogs am I rite?');
+  (1, 'bill@jococruise.com', 'I''m super pleased with the performance - thanks!'),
+  (2, 'bill@jococruise.com', 'Thanks so much!'),
+  (3, 'bill@jococruise.com', 'Tell me about it - GraphQL is awesome!'),
+  (4, 'bill@jococruise.com', 'Dont you just love cats? Cats cats cats cats cats cats cats cats cats cats cats cats Cats cats cats cats cats cats cats cats cats cats cats cats'),
+  (4, 'jill@jococruise.com', 'Yeah cats are really fluffy I enjoy squising their fur they are so goregous and fluffy and squishy and fluffy and gorgeous and squishy and goregous and fluffy and squishy and fluffy and gorgeous and squishy'),
+  (4, 'ramesh@jococruise.com', 'I love it when they completely ignore you until they want something. So much better than dogs am I rite?');

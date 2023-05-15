@@ -6,7 +6,7 @@ module TopicFragment = %relay(`
     body
     user: author {
       avatarUrl
-      name
+      email
     }
     posts {
       totalCount
@@ -25,7 +25,7 @@ let make = (~fragmentRefs, ~forum: ForumPage_query_graphql.Types.fragment_forum)
     </td>
     <td className="TopicItem-user">
       {switch topic.user {
-      | Some({name: Some(name)}) if name->Js.String2.trim != "" => name->React.string
+      | Some({email}) => email->React.string
       | _ => React.null
       }}
     </td>

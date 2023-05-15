@@ -9,7 +9,13 @@ let make = () => {
     | list{"forums", slug} => <ForumRoute slug />
     | list{"forums", _, topic} => <TopicRoute topic />
     | list{"login"} => <LoginRoute />
+
     | list{"error"} => <ErrorPage urlSearch=url.search />
+    | list{"logout"} => {
+        Common.InsecureJWTStorage.delete()
+        RescriptReactRouter.replace("/")
+        React.null
+      }
     | _ => <h1> {"Not found"->React.string} </h1>
     }}
   </React.Suspense>

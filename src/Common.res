@@ -25,6 +25,7 @@ module InsecureJWTStorage = {
   let storageKey = "insecure-sandbox-jwt"
   let set = jwt => localStorage->setItem(storageKey, jwt)
   let get = () => localStorage->getItem(storageKey)
+  let delete = () => localStorage->removeItem(storageKey)
 }
 
 module URLSearchParams = {

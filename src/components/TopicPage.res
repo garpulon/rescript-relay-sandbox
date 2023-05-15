@@ -2,7 +2,6 @@ module QueryFragment = %relay(`
   fragment TopicPage_query on Query @argumentDefinitions(topic: { type: "ID!" }) {
     #...CreateNewReplyForm_QueryFragment
     currentUser {
-      id
       isAdmin
       #...ForumItem_CurrentUserFragment
     }
@@ -16,9 +15,8 @@ module QueryFragment = %relay(`
         slug
       }
       user: author {
-        id
         avatarUrl
-        name
+        email
       }
   
       posts {
@@ -52,7 +50,7 @@ let make = (~fragmentRefs) => {
               className="PostItem-avatar"
               src={user.avatarUrl->Option.getWithDefault(Common.avatarImgFallback)}
             />
-            {user.name->Option.getWithDefault(`User ${user.id}`)->React.string}
+            {user.email->React.string}
           </div>
           <div>
             <time className="PostItem-date"> {topic.createdAt->React.string} </time>

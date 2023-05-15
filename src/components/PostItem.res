@@ -5,9 +5,8 @@ module PostFragment = %relay(`
     createdAt
     authorId
     user: author {
-      id
+      email
       avatarUrl
-      name
     }
   }
 `)
@@ -24,8 +23,8 @@ let make = (~post) => {
         | _ => Common.avatarImgFallback
         },
         switch post.user {
-        | Some({name: Some(userName)}) => userName
-        | _ => `User ${post.authorId->Int.toString}`
+        | Some({email}) => email
+        | _ => `User ${post.authorId}`
         },
       )
 

@@ -2,7 +2,6 @@ module QueryFragment = %relay(`
   fragment ForumPage_query on Query
   @argumentDefinitions(slug: { type: "String!" }) {
     currentUser {
-      id
       isAdmin
       #...ForumItem_CurrentUserFragment
     }
