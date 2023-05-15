@@ -80,7 +80,7 @@ $$ language sql stable set search_path from current;
 --------------------------------------------------------------------------------
 
 create table app_private.user_secrets (
-  user_id int not null primary key references app_public.users,
+  user_id int not null primary key references app_public.users on delete cascade,
   password_hash text,
   password_attempts int not null default 0,
   first_failed_password_attempt timestamptz,
@@ -353,6 +353,7 @@ $$ language plpgsql strict security definer volatile set search_path from curren
 
 comment on function app_private.login(username text, password text) is
   E'Returns a user that matches the username/password combo, or null on failure.';
+
 
 --------------------------------------------------------------------------------
 

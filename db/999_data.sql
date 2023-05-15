@@ -34,6 +34,10 @@ select app_private.link_or_register_user(
   '{}'::json
 );
 
+select app_private.really_create_user(
+  'drew', 'drew@example.com', true, 'Drew W', 'http://placekitten.com/200/300', '1234'
+);
+
 insert into app_public.user_emails(user_id, email, is_verified) values
   (1, 'benjie@example.com', true);
 

@@ -12,6 +12,7 @@ let fetchQuery: RescriptRelay.Network.fetchFunctionPromise = (
   _uploadables,
 ) => {
   open Fetch
+
   fetchWithInit(
     "http://localhost:5000/graphql",
     RequestInit.make(
@@ -23,10 +24,16 @@ let fetchQuery: RescriptRelay.Network.fetchFunctionPromise = (
       ->Js.Json.object_
       ->Js.Json.stringify
       ->BodyInit.make,
-      ~headers=HeadersInit.make({
-        "content-type": "application/json",
-        "accept": "application/json",
-      }),
+      ~headers=HeadersInit.makeWithArray(
+        [
+          ("content-type", "application/json"),
+          ("accept", "application/json"),
+          (
+            "authorization",
+            Common.InsecureJWTStorage.get()->Option.mapWithDefault("", jwt => `Bearer ${jwt}`),
+          ),
+        ]->Array.keep(((_, snd)) => snd->Js.String2.trim != ""),
+      ),
       (),
     ),
   ) |> Js.Promise.then_(resp =>

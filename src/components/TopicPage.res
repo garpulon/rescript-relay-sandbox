@@ -50,7 +50,7 @@ let make = (~fragmentRefs) => {
             <img
               alt=""
               className="PostItem-avatar"
-              src={user.avatarUrl->Option.getWithDefault(Constants.avatarImgFallback)}
+              src={user.avatarUrl->Option.getWithDefault(Common.avatarImgFallback)}
             />
             {user.name->Option.getWithDefault(`User ${user.id}`)->React.string}
           </div>

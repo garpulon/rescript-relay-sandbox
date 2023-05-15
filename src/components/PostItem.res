@@ -21,7 +21,7 @@ let make = (~post) => {
       let (avatarUrl, userName) = (
         switch post.user {
         | Some({avatarUrl: Some(avatarUrl)}) => avatarUrl
-        | _ => Constants.avatarImgFallback
+        | _ => Common.avatarImgFallback
         },
         switch post.user {
         | Some({name: Some(userName)}) => userName

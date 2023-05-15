@@ -2,6 +2,9 @@
 
 postgraphile \
   -n 0.0.0.0 \
+  --jwt-token-identifier app_public.jwt_token \
+  --jwt-secret asecretfortesting \
+  --default-role drew \
   --cors \
   --classic-ids \
   --subscriptions \
@@ -18,6 +21,5 @@ postgraphile \
   --allow-explain \
   --enable-query-batching \
   --legacy-relations omit \
-  --connection $DATABASE_URL \
-  --schema app_public
-
+  --schema app_public \
+  --connection $DATABASE_URL

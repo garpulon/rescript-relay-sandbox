@@ -8,7 +8,7 @@ let make = () => {
     | list{} => <HomeRoute />
     | list{"forums", slug} => <ForumRoute slug />
     | list{"forums", _, topic} => <TopicRoute topic />
-    //| list{"login"} => <ForumRoute slug />
+    | list{"login"} => <LoginRoute />
     | _ => <h1> {"Not found"->React.string} </h1>
     }}
   </React.Suspense>

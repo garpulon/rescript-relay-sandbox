@@ -4,6 +4,7 @@ drop schema if exists app_public cascade;
 drop schema if exists app_hidden cascade;
 drop schema if exists app_private cascade;
 drop schema if exists app_jobs cascade;
+drop schema if exists basic_auth cascade;
 
 --------------------------------------------------------------------------------
 
@@ -23,6 +24,9 @@ drop schema if exists app_jobs cascade;
 
 -- Users, authentication, emails, etc
 \ir 400_users.sql
+
+-- Users, authentication, emails, etc
+\ir 401_users_new.sql
 
 --------------------------------------------------------------------------------
 
