@@ -26,3 +26,15 @@ module InsecureJWTStorage = {
   let set = jwt => localStorage->setItem(storageKey, jwt)
   let get = () => localStorage->getItem(storageKey)
 }
+
+module URLSearchParams = {
+  type t
+
+  @new external parse: string => t = "URLSearchParams"
+  @new external make: Js.Dict.t<string> => t = "URLSearchParams"
+
+  @send @return(nullable)
+  external get: (t, string) => option<string> = "get"
+
+  @send external toString: t => string = "toString"
+}

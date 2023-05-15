@@ -64,6 +64,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphile/operation-hooks@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@graphile/operation-hooks@npm:1.0.0"
+  dependencies:
+    graphile-utils: ^4.4.4
+  checksum: 18dcbc7953328d672a44025f966075b5941452158d3a264fa05a672089ed4a80a78e787bdb81e6d3a553c62378a8b060b775aabcab1154ac55a8328f0dd3c50d
+  languageName: node
+  linkType: hard
+
 "@jridgewell/gen-mapping@npm:^0.3.0":
   version: 0.3.3
   resolution: "@jridgewell/gen-mapping@npm:0.3.3"
@@ -1891,7 +1900,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphile-utils@npm:^4.13.0":
+"graphile-utils@npm:^4.13.0, graphile-utils@npm:^4.4.4":
   version: 4.13.0
   resolution: "graphile-utils@npm:4.13.0"
   dependencies:
@@ -3347,6 +3356,7 @@ __metadata:
   resolution: "rescript-relay-sandbox@workspace:."
   dependencies:
     "@graphile-contrib/pg-simplify-inflector": ^6.1.0
+    "@graphile/operation-hooks": ^1.0.0
     "@rescript/react": ^0.11.0
     bs-fetch: ^0.6.2
     parcel: ^2.8.3

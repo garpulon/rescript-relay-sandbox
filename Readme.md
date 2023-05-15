@@ -69,8 +69,8 @@ https://parceljs.org/getting-started/webapp/
     </head>
 
     <body>
-    <div id="root">
-        <h1>Hello, World!</h1>
+        <div id="root">
+            <h1>Hello, World!</h1>
         </div>
     </body>
 
@@ -227,3 +227,21 @@ Start up your third compiler watcher deal
 
 
 # Making the crappiest forum ever
+
+
+
+##
+postgresql 
+
+- install postgresql@15
+- outside of the project, run the following to install pgjwt
+
+    cd ~/Downloads
+    git clone https://github.com/michelp/pgjwt.git
+    
+
+## postgraphile plugins
+We want our errors to come through in Graphql NOT... as fucked up unparseable shit 
+https://github.com/graphile/operation-hooks
+
+  --plugins @graphile/operation-hooks \

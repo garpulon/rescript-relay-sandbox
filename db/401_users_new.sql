@@ -1,10 +1,8 @@
-
 -- keep this all separate
 -- inspired by https://postgrest.org/en/stable/how-tos/sql-user-management.html#sql-user-management
 
 CREATE SCHEMA IF NOT EXISTS basic_auth;
 create extension if not exists pgcrypto;
-create extension if not exists pgjwt;
 
 
 -------------------------------------------------------------------------------
@@ -84,11 +82,23 @@ CREATE TYPE app_public.jwt_token AS (
     exp integer
 );
 
+
+create or replace function app_private.raise_client_message(_level text, _paths text[], _msg text) returns void as $$
+ begin
+      raise notice '%', _msg
+      using errcode = 'OPMSG',
+      detail = json_build_object(
+          'level', _level,
+          'path', _paths
+      )::text
+ return;
+ end;
+ $$ language plpgsql security definer;
+
 -- this should not be in a file
 -- ALTER DATABASE relaysandbox SET "basic_auth.jwt_secret" TO 'asecretfortesting';
 
 -- login should be on your exposed schema
-
 create or replace function
 app_public.login(email text, pass text) returns app_public.jwt_token as $$
 declare
@@ -98,7 +108,9 @@ begin
   -- check email and password
   select basic_auth.user_role(email, pass) into _role;
   if _role is null then
-    raise invalid_password using message = 'invalid user or password';
+    perform app_private.raise_client_message('warn', '{"email", "pass"}', 'invalid user name or password');
+    select null into result;
+    return result;
   end if;
   
   select _role, login.email, extract(epoch from now())::integer + 60*60
@@ -107,6 +119,6 @@ begin
 end;
 $$ language plpgsql security definer;
 
-grant execute on function app_public.login(text,text) to anon;
 
-
+--create or replace function 
+--app_public.register(email text, pass text) returns 

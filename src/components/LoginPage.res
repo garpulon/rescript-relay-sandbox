@@ -9,6 +9,9 @@ module LoginMutation = %relay(`
   mutation LoginPage_LoginMutation($input: LoginInput!) {
     login(input: $input) {
       jwtToken
+      messages {
+        message
+      }
     }
   }
 `)
@@ -50,6 +53,26 @@ let make = (~fragmentRefs) => {
                       // figuring out exactly which data is staled and should be replaced is a task for later
                       %raw(`location.reload()`)
                     }
+
+                  | Some({jwtToken: None, messages: Some(messages)}) => {
+                      // take only the meat
+                      let message =
+                        messages
+                        ->Array.keepMap(a =>
+                          switch a {
+                          | Some({message}) if message->Js.String2.trim != "" => Some(message)
+                          | _ => None
+                          }
+                        )
+                        ->Js.Array2.joinWith("\n\n")
+
+                      if message != "" {
+                        open Common.URLSearchParams
+                        let qps = Js.Dict.fromArray([("message", message)])
+                        RescriptReactRouter.push(`/error/?${qps->make->toString}`)
+                      }
+                    }
+
                   | _ => ()
                   }
                 },

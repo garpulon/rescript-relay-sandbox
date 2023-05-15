@@ -1,3 +1,27 @@
+-- creation of authenticator roles
+reassign owned by anon to drew;
+drop owned by anon;
+drop role if exists anon ;
+
+reassign owned by loggedin to drew;
+drop owned by loggedin;
+drop role  if exists loggedin ;
+
+create role anon noinherit;
+create role loggedin noinherit;
+
+grant usage on schema app_public to anon, loggedin;
+--grant execute on function app_public.login to 
+
+grant all on all tables in schema app_public to anon;
+grant execute on all functions in schema app_public to anon;
+grant all on all tables in schema app_public to loggedin;
+
+insert into basic_auth.users values ('drew@jococruise.com', '1234', 'loggedin');
+-------------------------
+
+
+
 select app_private.link_or_register_user(
   null,
   'github',

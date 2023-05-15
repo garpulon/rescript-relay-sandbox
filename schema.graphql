@@ -1,3 +1,33 @@
+type OperationMessage implements OperationMessageInterface {
+  """The classification or severity of this message."""
+  level: String!
+
+  """
+  A human readable message to be used when the client does not know how to interpret this message.
+  """
+  message: String!
+
+  """
+  A list of path components to the location in the input at which this message was generated.
+  """
+  path: [String!]
+}
+
+interface OperationMessageInterface {
+  """The classification or severity of this message."""
+  level: String!
+
+  """
+  A human readable message to be used when the client does not know how to interpret this message.
+  """
+  message: String!
+
+  """
+  A list of path components to the location in the input at which this message was generated.
+  """
+  path: [String!]
+}
+
 """The root query type which gives access points into the data universe."""
 type Query implements Node {
   """
@@ -1068,6 +1098,7 @@ type CreateForumPayload {
     """The method to use when ordering `Forum`."""
     orderBy: [ForumsOrderBy!] = [PRIMARY_KEY_ASC]
   ): ForumsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the create `Forum` mutation."""
@@ -1125,6 +1156,7 @@ type CreatePostPayload {
     """The method to use when ordering `Post`."""
     orderBy: [PostsOrderBy!] = [PRIMARY_KEY_ASC]
   ): PostsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the create `Post` mutation."""
@@ -1174,6 +1206,7 @@ type CreateTopicPayload {
     """The method to use when ordering `Topic`."""
     orderBy: [TopicsOrderBy!] = [PRIMARY_KEY_ASC]
   ): TopicsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the create `Topic` mutation."""
@@ -1224,6 +1257,7 @@ type CreateUserAuthenticationPayload {
     """The method to use when ordering `UserAuthentication`."""
     orderBy: [UserAuthenticationsOrderBy!] = [PRIMARY_KEY_ASC]
   ): UserAuthenticationsEdge
+  messages: [OperationMessageInterface]
 }
 
 """A `UserAuthentication` edge in the connection."""
@@ -1301,6 +1335,7 @@ type CreateUserEmailPayload {
     """The method to use when ordering `UserEmail`."""
     orderBy: [UserEmailsOrderBy!] = [PRIMARY_KEY_ASC]
   ): UserEmailsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the create `UserEmail` mutation."""
@@ -1352,6 +1387,7 @@ type CreateUserPayload {
     """The method to use when ordering `User`."""
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): UsersEdge
+  messages: [OperationMessageInterface]
 }
 
 """A `User` edge in the connection."""
@@ -1437,6 +1473,7 @@ type UpdateForumPayload {
     """The method to use when ordering `Forum`."""
     orderBy: [ForumsOrderBy!] = [PRIMARY_KEY_ASC]
   ): ForumsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `updateForumById` mutation."""
@@ -1535,6 +1572,7 @@ type UpdatePostPayload {
     """The method to use when ordering `Post`."""
     orderBy: [PostsOrderBy!] = [PRIMARY_KEY_ASC]
   ): PostsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `updatePostById` mutation."""
@@ -1604,6 +1642,7 @@ type UpdateTopicPayload {
     """The method to use when ordering `Topic`."""
     orderBy: [TopicsOrderBy!] = [PRIMARY_KEY_ASC]
   ): TopicsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `updateTopicById` mutation."""
@@ -1678,6 +1717,7 @@ type UpdateUserAuthenticationPayload {
     """The method to use when ordering `UserAuthentication`."""
     orderBy: [UserAuthenticationsOrderBy!] = [PRIMARY_KEY_ASC]
   ): UserAuthenticationsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `updateUserAuthenticationById` mutation."""
@@ -1775,6 +1815,7 @@ type UpdateUserEmailPayload {
     """The method to use when ordering `UserEmail`."""
     orderBy: [UserEmailsOrderBy!] = [PRIMARY_KEY_ASC]
   ): UserEmailsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `updateUserEmailById` mutation."""
@@ -1868,6 +1909,7 @@ type UpdateUserPayload {
     """The method to use when ordering `User`."""
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): UsersEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `updateUserById` mutation."""
@@ -1965,6 +2007,7 @@ type DeleteForumPayload {
     """The method to use when ordering `Forum`."""
     orderBy: [ForumsOrderBy!] = [PRIMARY_KEY_ASC]
   ): ForumsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `deleteForumById` mutation."""
@@ -2031,6 +2074,7 @@ type DeletePostPayload {
     """The method to use when ordering `Post`."""
     orderBy: [PostsOrderBy!] = [PRIMARY_KEY_ASC]
   ): PostsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `deletePostById` mutation."""
@@ -2085,6 +2129,7 @@ type DeleteTopicPayload {
     """The method to use when ordering `Topic`."""
     orderBy: [TopicsOrderBy!] = [PRIMARY_KEY_ASC]
   ): TopicsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `deleteTopicById` mutation."""
@@ -2133,6 +2178,7 @@ type DeleteUserAuthenticationPayload {
     """The method to use when ordering `UserAuthentication`."""
     orderBy: [UserAuthenticationsOrderBy!] = [PRIMARY_KEY_ASC]
   ): UserAuthenticationsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `deleteUserAuthenticationById` mutation."""
@@ -2201,6 +2247,7 @@ type DeleteUserEmailPayload {
     """The method to use when ordering `UserEmail`."""
     orderBy: [UserEmailsOrderBy!] = [PRIMARY_KEY_ASC]
   ): UserEmailsEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `deleteUserEmailById` mutation."""
@@ -2262,6 +2309,7 @@ type DeleteUserPayload {
     """The method to use when ordering `User`."""
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): UsersEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `deleteUserById` mutation."""
@@ -2315,6 +2363,7 @@ type ForgotPasswordPayload {
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `forgotPassword` mutation."""
@@ -2340,6 +2389,7 @@ type LoginPayload {
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+  messages: [OperationMessageInterface]
 }
 
 """
@@ -2378,6 +2428,7 @@ type ResetPasswordPayload {
     """The method to use when ordering `User`."""
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): UsersEdge
+  messages: [OperationMessageInterface]
 }
 
 """All input for the `resetPassword` mutation."""
