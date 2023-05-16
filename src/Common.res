@@ -33,6 +33,7 @@ module URLSearchParams = {
 
   @new external parse: string => t = "URLSearchParams"
   @new external make: Js.Dict.t<string> => t = "URLSearchParams"
+  let fromArray = a => a->Js.Dict.fromArray |> make
 
   @send @return(nullable)
   external get: (t, string) => option<string> = "get"

@@ -14,6 +14,7 @@ let make = () => {
     | list{"logout"} => {
         Common.InsecureJWTStorage.delete()
         RescriptReactRouter.replace("/")
+        let _ = %raw(`location.reload()`)
         React.null
       }
     | _ => <h1> {"Not found"->React.string} </h1>

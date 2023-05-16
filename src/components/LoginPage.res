@@ -43,23 +43,23 @@ let make = (~fragmentRefs) => {
                 },
               )(
                 ~updater=(store, _) => {
+                  // stale all the data in the store
                   store->RescriptRelay.RecordSourceSelectorProxy.invalidateStore
                 },
                 ~onCompleted=(v1, _) => {
                   switch v1.login {
                   | Some({jwtToken: Some(jwtToken)}) => {
                       let _ = Common.InsecureJWTStorage.set(jwtToken)
-                      // this is not a best practice, let's say... but
-                      // figuring out exactly which data is staled and should be replaced is a task for later
-                      %raw(`location.reload()`)
+                      // refresh the store upon renav
+                      RescriptReactRouter.push("/")
                     }
 
                   // note that this pattern match WILL not match multiply errored items, but it is succinct
                   | Some({jwtToken: None, messages: Some([Some({message})])})
                     if message->Js.String2.trim != "" => {
                       open Common.URLSearchParams
-                      let qps = Js.Dict.fromArray([("message", message)])
-                      RescriptReactRouter.push(`/error/?${qps->make->toString}`)
+                      let qps = [("message", message)]
+                      RescriptReactRouter.push(`/error/?${qps->fromArray->toString}`)
                     }
 
                   | _ => ()
