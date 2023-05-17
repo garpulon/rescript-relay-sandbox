@@ -22,6 +22,7 @@
   "bs-dependencies": [
     "@rescript/react",
     "rescript-relay",
+    "@rescript/core",
     "bs-fetch"
   ]
 }

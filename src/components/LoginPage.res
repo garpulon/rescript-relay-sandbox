@@ -25,7 +25,7 @@ let make = (~fragmentRefs) => {
   let (email, setEmail) = React.useState(() => "")
   let (password, setPassword) = React.useState(() => "")
   let onChange = (set, e) => ReactEvent.Form.currentTarget(e)["value"] |> set
-  let isBlank = s => s->Js.String2.trim == ""
+  let isBlank = s => s->RescriptCore.String.trim == ""
 
   isMutating
     ? <Spinner />
@@ -56,7 +56,7 @@ let make = (~fragmentRefs) => {
 
                   // note that this pattern match WILL not match multiply errored items, but it is succinct
                   | Some({jwtToken: None, messages: Some([Some({message})])})
-                    if message->Js.String2.trim != "" => {
+                    if message->RescriptCore.String.trim != "" => {
                       open Common.URLSearchParams
                       let qps = [("message", message)]
                       RescriptReactRouter.push(`/error/?${qps->fromArray->toString}`)

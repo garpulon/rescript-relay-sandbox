@@ -4,6 +4,7 @@
   "dependencies": {
     "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
     "@graphile/operation-hooks": "^1.0.0",
+    "@rescript/core": "^0.3.1",
     "@rescript/react": "^0.11.0",
     "bs-fetch": "^0.6.2",
     "postgraphile": "^4.13.0",

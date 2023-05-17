@@ -90,7 +90,7 @@ let make = (~fragmentRefs) => {
         : React.null}
     </Main>
   | _ => {
-      let _ = Js.Console.log(topic)
+      let _ = RescriptCore.Console.log(topic)
       `Topic not found or malformed`->React.string
     }
   }
