@@ -8,7 +8,7 @@ module TopicFragment = %relay(`
       avatarUrl
       email
     }
-    posts {
+    posts(last: 1000) {
       totalCount
     }
     updatedAt

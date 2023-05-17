@@ -15,7 +15,7 @@ module PostFragment = %relay(`
 let make = (~post) => {
   let post = PostFragment.use(post)
 
-  <article className="PostItem">
+  <article key=post.id className="PostItem">
     {
       let (avatarUrl, userName) = (
         switch post.user {

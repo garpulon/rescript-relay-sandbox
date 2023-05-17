@@ -30,7 +30,7 @@ let make = (~connectionID) => {
     !(slug.value->isBlank || name.value->isBlank || description.value->isBlank)
   }
 
-  <Main>
+  <React.Fragment>
     <form
       onSubmit={e => {
         e->JsxEvent.Form.preventDefault
@@ -84,5 +84,5 @@ let make = (~connectionID) => {
         {(canSubmit ? `Create Forum` : `Not filled out`)->React.string}
       </button>
     </form>
-  </Main>
+  </React.Fragment>
 }

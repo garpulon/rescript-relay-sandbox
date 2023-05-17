@@ -1,12 +1,12 @@
 module QueryFragment = %relay(`
   fragment TopicPage_query on Query @argumentDefinitions(topic: { type: "ID!" }) {
-    #...CreateNewReplyForm_QueryFragment
     currentUser {
       isAdmin
       #...ForumItem_CurrentUserFragment
     }
     topic: topicById(id: $topic) {
       ...TopicItem_topic
+      ...CreateNewReplyForm_topic
       createdAt
       title
       body
@@ -19,10 +19,13 @@ module QueryFragment = %relay(`
         email
       }
   
-      posts {
-        nodes {
-          id
-          ...PostItem_post
+      posts(last: 1000) @connection(key: "TopicPage_posts") {
+        __id
+        edges {
+          node {
+            id
+            ...PostItem_post
+          }
         }
       }
     }
@@ -57,9 +60,12 @@ let make = (~fragmentRefs) => {
             <p className="PostItem-body"> {topic.body->React.string} </p>
           </div>
         </article>
-        {topic.posts.nodes->Array.length > 0
-          ? topic.posts.nodes
-            ->Array.map(node => <PostItem key={node.id} post={node.fragmentRefs} />)
+        {topic.posts.edges->Array.length > 0
+          ? topic.posts.edges
+            ->Array.map(({node: {id: key, fragmentRefs: post} as node}) => {
+              let _ = RescriptCore.Console.log(node)
+              <PostItem key post />
+            })
             ->React.array
           : <div>
               {`There are no replies yet!`->React.string}
@@ -79,13 +85,7 @@ let make = (~fragmentRefs) => {
       {currentUser->Option.isSome
         ? <div>
             <h2> {`Reply to this topic`->React.string} </h2>
-            /* <CreateNewReplyForm
-              data={data}
-              onCreatePost={post => {
-                // TODO: alter the cache
-                data.refetch()
-              }}
-            />*/
+            <CreateNewReplyForm fragmentRefs=topic.fragmentRefs connectionID=topic.posts.__id />
           </div>
         : React.null}
     </Main>
