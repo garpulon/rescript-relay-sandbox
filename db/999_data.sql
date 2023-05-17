@@ -16,6 +16,7 @@ grant usage on schema app_public to anon, loggedin;
 grant all on all tables in schema app_public to anon;
 grant execute on all functions in schema app_public to anon;
 grant all on all tables in schema app_public to loggedin;
+grant all on all sequences in schema app_public to loggedin;
 
 insert into basic_auth.users values ('drew@jococruise.com', '1234', 'loggedin', true);
 -------------------------

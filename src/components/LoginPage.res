@@ -22,10 +22,8 @@ let make = (~fragmentRefs) => {
   let (mutate, isMutating) = LoginMutation.use()
   //  let data = Query.use(~variables=(), ())
 
-  let (email, setEmail) = React.useState(() => "")
-  let (password, setPassword) = React.useState(() => "")
-  let onChange = (set, e) => ReactEvent.Form.currentTarget(e)["value"] |> set
-  let isBlank = s => s->RescriptCore.String.trim == ""
+  let email = Common.State.useState(() => "")
+  let password = Common.State.useState(() => "")
 
   isMutating
     ? <Spinner />
@@ -39,7 +37,11 @@ let make = (~fragmentRefs) => {
               e->JsxEvent.Form.preventDefault
               let _ = mutate(
                 ~variables={
-                  input: RelaySchemaAssets_graphql.make_LoginInput(~email, ~pass=password, ()),
+                  input: RelaySchemaAssets_graphql.make_LoginInput(
+                    ~email=email.value,
+                    ~pass=password.value,
+                    (),
+                  ),
                 },
               )(
                 ~updater=(store, _) => {
@@ -73,19 +75,21 @@ let make = (~fragmentRefs) => {
                 <tr>
                   <th> {`Username / email:`->React.string} </th>
                   <td>
-                    <input type_="text" value={email} onChange={setEmail->onChange} />
+                    <input type_="text" value={email.value} onChange={email.onChange} />
                   </td>
                 </tr>
                 <tr>
                   <th> {`Password:`->React.string} </th>
                   <td>
-                    <input type_="password" value={password} onChange={setPassword->onChange} />
+                    <input type_="password" value={password.value} onChange={password.onChange} />
                   </td>
                 </tr>
               </tbody>
             </table>
             //{this.state.error ? <p> {this.state.error} </p> : null}
-            <button type_="submit" disabled={email->isBlank || password->isBlank}>
+            <button
+              type_="submit"
+              disabled={email.value->Common.isBlank || password.value->Common.isBlank}>
               {`Log in`->React.string}
             </button>
           </form>

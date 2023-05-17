@@ -1,4 +1,21 @@
 let avatarImgFallback = "http://placekitten.com/150/150"
+let isBlank = s => s->RescriptCore.String.trim == ""
+
+module State = {
+  type t<'a> = {
+    value: 'a,
+    set: ('a => 'a) => unit,
+    onChange: ReactEvent.Form.t => unit,
+  }
+
+  let onChange = (set, e) => ReactEvent.Form.currentTarget(e)["value"] |> set
+
+  let useState = initFn => {
+    let (value, set) = React.useState(initFn)
+    let onChange = set->onChange
+    {value, set, onChange}
+  }
+}
 
 module InsecureJWTStorage = {
   open Dom.Storage2
@@ -40,4 +57,33 @@ module URLSearchParams = {
   external get: (t, string) => option<string> = "get"
 
   @send external toString: t => string = "toString"
+}
+
+module URL = {
+  type t = {
+    hash: string,
+    host: string,
+    hostname: string,
+    href: string,
+    origin: string,
+    password: string,
+    pathname: string,
+    port: string,
+    protocol: string,
+    search: string,
+    searchParams: URLSearchParams.t,
+    username: string,
+  }
+
+  @new external dangerouslyParse: string => t = "URL"
+
+  let parse = s => {
+    try {
+      Some(s->dangerouslyParse)
+    } catch {
+    | Js.Exn.Error(_) =>
+      ()
+      None
+    }
+  }
 }
