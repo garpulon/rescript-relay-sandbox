@@ -1,5 +1,6 @@
 let avatarImgFallback = "http://placekitten.com/150/150"
 let isBlank = s => s->RescriptCore.String.trim == ""
+let nForums = 50
 
 module State = {
   type t<'a> = {

@@ -1,14 +1,14 @@
 module CreateForumMutation = %relay(`
-  mutation CreateNewForumForm_CreateForumMutation($input: CreateForumInput!) {
+  mutation CreateNewForumForm_CreateForumMutation(
+    $input: CreateForumInput!
+    $connections: [ID!]!
+  ) {
     createForum(input: $input) {
       query {
         ...HomePage_query
       }
-      forum {
-        id
-        slug
-        name
-        description
+      forum @appendNode(connections: $connections, edgeTypeName: "ForumsEdge") {
+        ...ForumItem_forum
       }
       messages {
         message
@@ -18,7 +18,7 @@ module CreateForumMutation = %relay(`
 `)
 
 @react.component
-let make = () => {
+let make = (~connectionID) => {
   let (mutate, isMutating) = CreateForumMutation.use()
 
   let slug = Common.State.useState(() => "")
@@ -45,6 +45,7 @@ let make = () => {
               ),
               (),
             ),
+            connections: connectionID->Option.mapWithDefault([], a => [a]),
           },
         )()
       }}>

@@ -1,6 +1,7 @@
 module QueryFragment = %relay(`
   fragment HomePage_query on Query {
-    forums(first: 50) @connection(key: "HomePage_forums_connection") {
+    forums(first: 50) @connection(key: "HomePage_forums") {
+      __id
       edges {
         node {
           id
@@ -17,6 +18,10 @@ module QueryFragment = %relay(`
 @react.component
 let make = (~fragmentRefs) => {
   let fragment = QueryFragment.use(fragmentRefs)
+  let connectionID = switch fragment.forums {
+  | Some({__id}) => Some(__id)
+  | _ => None
+  }
 
   <Main>
     <h1> {`Welcome`->React.string} </h1>
@@ -33,8 +38,8 @@ let make = (~fragmentRefs) => {
     <div className="HomePage-forums">
       {switch fragment.forums {
       | Some(forums) =>
-        forums.nodes
-        ->Array.map(({id: key, fragmentRefs}) => <ForumItem key fragmentRefs />)
+        forums.edges
+        ->Array.map(({node: {id: key, fragmentRefs}}) => <ForumItem key fragmentRefs />)
         ->React.array
       | None =>
         <div>
@@ -57,7 +62,7 @@ let make = (~fragmentRefs) => {
       <div>
         <h2> {`Create new forum`->React.string} </h2>
         <p> {`Hello administrator! Would you like to create a new forum?`->React.string} </p>
-        <CreateNewForumForm />
+        <CreateNewForumForm connectionID />
       </div>
     | _ => React.null
     }}
