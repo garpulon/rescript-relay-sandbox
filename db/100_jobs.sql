@@ -10,6 +10,7 @@
 -- URL: https://gist.github.com/benjie/839740697f5a1c46ee8da98a1efac218
 -- Donations: https://www.paypal.me/benjie
 
+CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;
 CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 

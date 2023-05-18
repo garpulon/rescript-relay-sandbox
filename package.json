@@ -2,12 +2,9 @@
   "name": "rescript-relay-sandbox",
   "packageManager": "yarn@3.5.1",
   "dependencies": {
-    "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
-    "@graphile/operation-hooks": "^1.0.0",
     "@rescript/core": "^0.3.1",
     "@rescript/react": "^0.11.0",
     "bs-fetch": "^0.6.2",
-    "postgraphile": "^4.13.0",
     "react": "18",
     "react-dom": "18",
     "react-relay": "14.1.0",
@@ -19,12 +16,16 @@
     "re:build": "rescript build",
     "re:watch": "rescript build -w",
     "parcel:serve": "parcel serve --host localhost ./src/*.html",
-    "postgraphile:dev": "DATABASE_URL=postgres://drew:1234@localhost/relaysandbox ./postgraphile-dev.sh",
+    "postgraphile:dev": "dotenv ./postgraphile-dev.sh",
     "relay:build": "rescript-relay-compiler",
     "relay:watch": "rescript-relay-compiler --watch"
   },
   "devDependencies": {
+    "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
+    "@graphile/operation-hooks": "^1.0.0",
+    "dotenv-cli": "^7.2.1",
     "parcel": "^2.8.3",
+    "postgraphile": "^4.13.0",
     "process": "^0.11.10"
   }
 }

@@ -1,3 +1,5 @@
+.env
+
 # yarn (we are not using zeroinstalls)
 .pnp.*
 .yarn/*
