@@ -21,9 +21,11 @@ which postgraphile can connect to using a connection string
 ## Getting it running
 
 in psql (or pgcli):
+
     create database relayforums;
 
 in bash: 
+
     # assuming you start in the root project dir
     cd ./db;
     psql relayforums < ./reset.sql
