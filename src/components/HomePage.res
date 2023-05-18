@@ -9,6 +9,7 @@ module QueryFragment = %relay(`
         }
       }
     }
+    ...ForumItem_query
     currentUser {
       isAdmin
     }
@@ -39,7 +40,9 @@ let make = (~fragmentRefs) => {
       {switch fragment.forums {
       | Some(forums) =>
         forums.edges
-        ->Array.map(({node: {id: key, fragmentRefs}}) => <ForumItem key fragmentRefs />)
+        ->Array.map(({node: {id: key, fragmentRefs: forum}}) =>
+          <ForumItem key forum query=fragment.fragmentRefs />
+        )
         ->React.array
       | None =>
         <div>

@@ -1,3 +1,11 @@
+module QueryFragment = %relay(`
+  fragment ForumItem_query on Query {
+    currentUser {
+      isAdmin
+    }
+  }
+`)
+
 module ForumFragment = %relay(`
   fragment ForumItem_forum on Forum {
     name
@@ -7,8 +15,9 @@ module ForumFragment = %relay(`
 `)
 
 @react.component
-let make = (~fragmentRefs) => {
-  let forum = ForumFragment.use(fragmentRefs)
+let make = (~forum, ~query) => {
+  let forum = ForumFragment.use(forum)
+  let fragment = QueryFragment.use(query)
 
   <div className="ForumItem">
     <h1 className="ForumItem-name">
@@ -17,6 +26,9 @@ let make = (~fragmentRefs) => {
     {forum.description->RescriptCore.String.trim == ""
       ? React.null
       : <div className="ForumItem-description"> {forum.description->React.string} </div>}
-    //{currentUser && currentUser.isAdmin ? <div className="ForumItem-tools"> [edit] </div> : null}
+    {switch fragment.currentUser {
+    | Some({isAdmin: true}) => <div className="ForumItem-tools"> {`[edit]`->React.string} </div>
+    | _ => React.null
+    }}
   </div>
 }

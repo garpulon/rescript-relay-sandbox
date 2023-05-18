@@ -2,7 +2,6 @@ module QueryFragment = %relay(`
   fragment TopicPage_query on Query @argumentDefinitions(topic: { type: "ID!" }) {
     currentUser {
       isAdmin
-      #...ForumItem_CurrentUserFragment
     }
     topic: topicById(id: $topic) {
       ...TopicItem_topic

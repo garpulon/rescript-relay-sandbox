@@ -20,7 +20,6 @@ module LoginMutation = %relay(`
 let make = (~fragmentRefs) => {
   let fragment = UserFragment.use(fragmentRefs)
   let (mutate, isMutating) = LoginMutation.use()
-  //  let data = Query.use(~variables=(), ())
 
   let email = Common.State.useState(() => "")
   let password = Common.State.useState(() => "")

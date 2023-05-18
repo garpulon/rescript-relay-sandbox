@@ -3,17 +3,20 @@ module QueryFragment = %relay(`
   @argumentDefinitions(slug: { type: "String!" }) {
     currentUser {
       isAdmin
-      #...ForumItem_CurrentUserFragment
     }
   
     forum: forumBySlug(slug: $slug) {
+      ...CreateNewTopicForm_forum
       name
       slug
       description
-      topics {
-        nodes {
-          id
-          ...TopicItem_topic
+      topics(last: 1000) @connection(key: "ForumPage_topics") {
+        __id
+        edges {
+          node {
+            id
+            ...TopicItem_topic
+          }
         }
       }
     }
@@ -45,29 +48,28 @@ let make = (~fragmentRefs) => {
           </tr>
         </thead>
         <tbody>
-          {forum.topics.nodes->Array.length > 0
-            ? forum.topics.nodes
-              ->Array.map(node => {
-                <React.Fragment key=node.id>
-                  <TopicItem key={node.id} fragmentRefs={node.fragmentRefs} forum={forum} />
+          {forum.topics.edges->Array.length > 0
+            ? forum.topics.edges
+              ->Array.map(({node: {id: key, fragmentRefs}}) => {
+                <React.Fragment key>
+                  <TopicItem key fragmentRefs forum={forum} />
                 </React.Fragment>
               })
               ->React.array
             : <tr>
                 <td>
                   {`There are no topics yet!`->React.string}
-                  /*
-                  {currentUser ? (
-                    currentUser.isAdmin ? (
-                      "Create one below..."
-                    ) : (
-                      "Please check back later or contact an admin."
-                    )
-                  ) : (
+                  {switch fragment.currentUser {
+                  | Some({isAdmin: true}) => "Create one below..."->React.string
+                  | Some({isAdmin: false}) =>
+                    "Please check back later or contact an admin."->React.string
+                  | None =>
                     <span>
-                      Perhaps you need to <Link to="/login">log in</Link>?
+                      {`Perhaps you need to `->React.string}
+                      <Link to="/login"> {`log in`->React.string} </Link>
+                      {`?`->React.string}
                     </span>
-                  )}*/
+                  }}
                 </td>
               </tr>}
         </tbody>
@@ -76,13 +78,7 @@ let make = (~fragmentRefs) => {
       | Some(_) =>
         <div>
           <h2> {`Create new topic`->React.string} </h2>
-          /* <CreateNewTopicForm
-            data={data}
-            onCreateTopic={forum => {
-              // TODO: alter the cache
-              data.refetch()
-            }}
-          />*/
+          <CreateNewTopicForm fragmentRefs=forum.fragmentRefs connectionID=forum.topics.__id />
         </div>
       | None => React.null
       }}
