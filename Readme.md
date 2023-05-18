@@ -32,5 +32,18 @@ in bash:
     yarn;
     mkdir ./src/__generated__;
     yarn relay:build;
-    yarn re:watch;
+    yarn re:build;
+
+    touch .env
+    # put in your db urls...
+    echo "DATABASE_URL=postgres://drew:1234@localhost/relayforums" >> .env;
+
+    # now see if postgraphile is serving graphql
+    # it will tell you a url when it starts up
+    # once you can see graphiql, you're in business
+    # you'll want to keep this running
+    yarn postgraphile:dev
+
+    # should give you a different url that will host your
+    # project as you develop
     yarn parcel:serve;
