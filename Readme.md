@@ -88,7 +88,7 @@ setting up the project:
 
    ```sql
    CREATE USER drew WITH PASSWORD '1234';
-   GRANT ALL PRIVILEGES ON DATABASE relayforums TO drew;
+   ALTER USER drew WITH SUPERUSER;
    ```
 
 2. **Run bash commands.**. Assuming you start in the root project directory,
