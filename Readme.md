@@ -29,7 +29,7 @@ Before you begin, ensure you have the following set up:
   Postgraphile can connect to using a connection string.
 - [VSCode](https://code.visualstudio.com/): For coding and utilizing plugins for
   Rescript, rescript-relay, and Relay.
-- [Yarn](https://classic.yarnpkg.com/en/): To manage package dependencies
+- [Yarn](https://yarnpkg.com/): To manage package dependencies
 - [Watchman](https://facebook.github.io/watchman/): A file watching service
   developed by Facebook, which is necessary for Relay.
 - Environment Variables: `DATABASE_URL` for Postgres connection.
@@ -58,7 +58,7 @@ manager for MacOS that makes it easy to install software from the command line.
 3. **VSCode**: Download and install from
    [VSCode's website](https://code.visualstudio.com/download).
 4. **Yarn**: Download and install from
-   [Yarn's website](https://classic.yarnpkg.com/en/docs/install/#windows-stable).
+   [Yarn's website](https://yarnpkg.com/).
 5. **Watchman**: Download and install from
    [Watchman's website](https://facebook.github.io/watchman/docs/install/#buildinstall).
 
@@ -88,7 +88,7 @@ setting up the project:
 
    ```sql
    CREATE USER drew WITH PASSWORD '1234';
-   GRANT ALL PRIVILEGES ON DATABASE relayforums TO drew;
+   ALTER USER drew WITH SUPERUSER;
    ```
 
 2. **Run bash commands.**. Assuming you start in the root project directory,
