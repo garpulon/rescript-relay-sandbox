@@ -27,7 +27,12 @@ let make = (~currentUser) => {
             <Link to="/logout"> {`Log out`->React.string} </Link>
           </span>
         }
-      | None => <Link to="/login"> {`Login`->React.string} </Link>
+      | None =>
+        <div>
+          <Link to="/register"> {`Register`->React.string} </Link>
+          <span> {` `->React.string} </span>
+          <Link to="/login"> {`Login`->React.string} </Link>
+        </div>
       }}
     </div>
   </header>

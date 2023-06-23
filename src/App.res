@@ -9,6 +9,7 @@ let make = () => {
     | list{"forums", slug} => <ForumRoute slug />
     | list{"forums", _, topic} => <TopicRoute topic />
     | list{"login"} => <LoginRoute />
+    | list{"register"} => <RegisterRoute />
 
     | list{"error"} => <ErrorPage urlSearch=url.search />
     | list{"logout"} => {
