@@ -1,4 +1,5 @@
 .env
+app.yaml
 
 # yarn (we are not using zeroinstalls)
 .pnp.*
