@@ -23,6 +23,7 @@ let make = (~fragmentRefs) => {
 
   let email = Common.State.useState(() => "")
   let password = Common.State.useState(() => "")
+  let errorMessage = Common.State.useState(() => "")
 
   isMutating
     ? <Spinner />
@@ -58,9 +59,10 @@ let make = (~fragmentRefs) => {
                   // note that this pattern match WILL not match multiply errored items, but it is succinct
                   | Some({jwtToken: None, messages: Some([Some({message})])})
                     if message->RescriptCore.String.trim != "" => {
-                      open Common.URLSearchParams
+                      /* open Common.URLSearchParams
                       let qps = [("message", message)]
-                      RescriptReactRouter.push(`/error/?${qps->fromArray->toString}`)
+                      RescriptReactRouter.push(`/error/?${qps->fromArray->toString}`) */
+                      errorMessage.set(_prev => message)
                     }
 
                   | _ => ()
@@ -85,7 +87,7 @@ let make = (~fragmentRefs) => {
                 </tr>
               </tbody>
             </table>
-            //{this.state.error ? <p> {this.state.error} </p> : null}
+            <p>{errorMessage.value->React.string}</p>
             <button
               type_="submit"
               disabled={email.value->Common.isBlank || password.value->Common.isBlank}>
