@@ -12,7 +12,7 @@ let make = () => {
 
   <StandardLayout fragmentRefs>
     <React.Suspense fallback={<Spinner />}>
-      <RegisterPage />
+      <RegisterPage fragmentRefs />
     </React.Suspense>
   </StandardLayout>
 }
