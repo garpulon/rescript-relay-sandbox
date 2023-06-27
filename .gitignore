@@ -27,3 +27,6 @@ __generated__
 
 # mac stuff
 .DS_Store
+
+# docker stuff
+docker-compose.override.yml
