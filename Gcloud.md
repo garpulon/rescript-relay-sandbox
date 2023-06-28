@@ -14,5 +14,5 @@ gcloud config set project rescript-relay-sandbox
 ```
 
 ```sh
-./cloud_sql_proxy -instances="rescript-relay-sandbox:us-central1:rescript-relay-sandbox-db"=tcp:5432
+cloud_sql_proxy --port 5431 "rescript-relay-sandbox:us-central1:rescript-relay-sandbox-db"
 ```
