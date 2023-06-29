@@ -1,7 +1,11 @@
-create schema app_public;
-create schema app_private;
+CREATE SCHEMA app_public;
 
-grant usage on schema app_public to graphiledemo_visitor;
+CREATE SCHEMA app_private;
+
+GRANT usage ON SCHEMA app_public TO graphiledemo_visitor;
 
 -- This allows inserts without granting permission to the serial primary key column.
-alter default privileges for role graphiledemo in schema app_public grant usage, select on sequences to graphiledemo_visitor;
+ALTER DEFAULT privileges FOR ROLE graphiledemo IN SCHEMA app_public GRANT usage,
+SELECT
+    ON sequences TO graphiledemo_visitor;
+
