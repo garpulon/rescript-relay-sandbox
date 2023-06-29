@@ -1,7 +1,7 @@
 ## THIS IS A DRAFT
 
-
 # Enable yarn
+
 Assumes Node.js >=18.6
 
     corepack enable
@@ -11,16 +11,17 @@ Assumes Node.js >=18.6
     yarn config set nodeLinker node-modules
 
 # Install rescript
+
 https://rescript-lang.org/docs/manual/latest/installation
 
     yarn add rescript
 
     # get template bsconfig.json
     wget -O ./bsconfig.json https://raw.githubusercontent.com/rescript-lang/rescript-project-template/master/bsconfig.json
-    
+
     # create a folder for source
     mkdir ./src
-    
+
     # add to root bsconfig.json dictionary
     "bsc-flags": [
         "-open Belt"
@@ -32,8 +33,8 @@ https://rescript-lang.org/docs/manual/latest/installation
         "re:watch": "rescript build -w"
     }
 
-
 # Install rescript react
+
 https://rescript-lang.org/docs/react/latest/installation
 
     yarn add react@18 react-dom@18
@@ -42,12 +43,13 @@ https://rescript-lang.org/docs/react/latest/installation
     # add to bsconfig.json
     "jsx": { "version": 4, "mode": "automatic" },
 
-    # update bs-dependencies 
+    # update bs-dependencies
     "bs-dependencies": ["@rescript/react"]
 
 You'll note that when we install packages that are used and compiled by rescript, we must also update bs-dependencies. It's well named, because you think it would be able to infer the dependencies it should try to build from, e.g., package.json. Rescript has gone through a variety of names for a variety of overarching and subsidiary projects within what is now rescript. The compiler used to be called bucklescript, and that is the origin of the 'bs'.
 
 # Add parcel and setup files for hello world
+
     yarn add --dev parcel
 
     touch ./src/index.html
@@ -57,9 +59,8 @@ You'll note that when we install packages that are used and compiled by rescript
     # add parcel watch script to package.json scripts dict
     "parcel:serve": "parcel serve --host localhost ./src/*.html"
 
-    
-
 # ./src/index.html
+
 https://parceljs.org/getting-started/webapp/
 
     <!doctype html>
@@ -80,6 +81,7 @@ https://parceljs.org/getting-started/webapp/
     </html>
 
 # ./src/index.res
+
 https://rescript-lang.org/docs/react/latest/rendering-elements
 
     // Dom access can actually fail. ReScript
@@ -93,13 +95,13 @@ https://rescript-lang.org/docs/react/latest/rendering-elements
     }
 
 # ./src/App.res
+
     @react.component
     let make = () => {
     <div>
             {React.string("Hello ReScripters!")}
     </div>
     }
-
 
 # parcel hello world
 
@@ -112,10 +114,10 @@ once both these commands are running and it builds, you'll
 be able to load the hello world page in your browser at the
 url provided in the parcel window
 
+# postgres...
 
-# postgres... 
-yes, you will need a running postgres instance on your 
-machine. i can't tell you how to install postgres on your 
+yes, you will need a running postgres instance on your
+machine. i can't tell you how to install postgres on your
 machine because everyone needs to install postgres
 by following their own heart. what i mean by this, of course, is that i already have it installed and i used homebrew and i'm not going to be uninstalling it.
 
@@ -124,6 +126,7 @@ THEN, make a database for this project
     postgres=# create database relaysandbox with owner $OWNER;
 
 ### add some tables and schemas
+
 we're going to import the stuff from here, pretty much wholesale. i'll be doing this from my downloads folder. I just downloaded the thing as a zip.
 https://github.com/graphile/examples/tree/master/db
 
@@ -142,14 +145,14 @@ https://github.com/graphile/examples/tree/master/db
     psql relaysandbox < 700_forum.sql
     psql relaysandbox < 999_data.sql
 
-
 # postgraphile install
+
     yarn add postgraphile @graphile-contrib/pg-simplify-inflector
     # we'll be filling this out using contents of the link below this code block*
     touch ./postgraphile-dev.sh
     chmod +x ./postgraphile-dev.sh
 
-**contents for shell script are invocation* from [here](https://www.graphile.org/postgraphile/usage-cli/#for-development)
+\*_contents for shell script are invocation_ from [here](https://www.graphile.org/postgraphile/usage-cli/#for-development)
 
 add 3 lines to the shell script file, under line 1. These lines will allow requests by adding CORS headers for development
 
@@ -167,20 +170,21 @@ start it up (and keep it open)
 
 visit the link for graphiql to see what you've got for starters... http://localhost:5000/
 
-
 # Install & Configure Relay
 
 ### More local env bs.... (install watchman)
+
 Sorry but relay needs this tool. In order to install it you will install important packages it depends on, like glog and folly. If I had to guess these are also made by facebook and the folly package is so named only because the primary platform already had a name, so folly was available.
 
 Mac: https://facebook.github.io/watchman/docs/install#-homebrew
 PC: https://facebook.github.io/watchman/docs/install#windows
 
-
 ### VsCode Extension
+
 Install [relay rescript vscode extension](https://marketplace.visualstudio.com/items?itemName=GabrielNordeborn.vscode-rescript-relay)
 
 ## Installing Node Packages
+
 https://rescript-relay-documentation.vercel.app/docs/getting-started
 
     # Add rescript-relay and dependencies to the project
@@ -200,10 +204,12 @@ https://rescript-relay-documentation.vercel.app/docs/getting-started
     }
 
 ### Configure relay & Relay env
-Add a relay.config.js to your project root with some 
+
+Add a relay.config.js to your project root with some
 default stuff in it
 
 ##### relay.config.js
+
     # fill with https://rescript-relay-documentation.vercel.app/docs/getting-started#configuring-relay
     touch relay.config.js
 
@@ -213,8 +219,8 @@ default stuff in it
     touch ./src/RelayEnv.res
 
 ##### artifact dir
-    mkdir ./src/__generated__
 
+    mkdir ./src/__generated__
 
 Then add bs-fetch to bs-dependencies in your bsconfig.json:
 
@@ -228,23 +234,21 @@ Add a rescript port of fetch (...) so the above code compiles
 
 Start up your third compiler watcher deal
 
-
 # Making the crappiest forum ever
 
-
-
 ##
-postgresql 
+
+postgresql
 
 - install postgresql@15
 - outside of the project, run the following to install pgjwt
 
-    cd ~/Downloads
-    git clone https://github.com/michelp/pgjwt.git
-    
+  cd ~/Downloads
+  git clone https://github.com/michelp/pgjwt.git
 
 ## postgraphile plugins
-We want our errors to come through in Graphql NOT... as fucked up unparseable shit 
+
+We want our errors to come through in Graphql NOT... as fucked up unparseable shit
 https://github.com/graphile/operation-hooks
 
-  --plugins @graphile/operation-hooks \
+--plugins @graphile/operation-hooks \
