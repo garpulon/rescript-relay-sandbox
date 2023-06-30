@@ -104,8 +104,3 @@ where `<type>` is one of the following:
   documentation generation
 
 and `<description>` is a short description of the commit.
-
-## Code Formatting
-
-Code should be formatted using [Prettier](https://prettier.io/). Use the VSCode
-extension to format code automatically on save.
