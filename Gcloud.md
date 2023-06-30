@@ -22,3 +22,10 @@ cloud_sql_proxy --port 5431 "rescript-relay-sandbox:us-central1:rescript-relay-s
 1. [Docker](https://www.docker.com/)
 2. [Docker Compose](https://docs.docker.com/compose/)
 3. [Terraform](https://www.terraform.io/)
+
+```sh
+cd services
+ln -s docker-compose.dev.override.yml docker-compose.override.yml
+touch .env
+...
+```
