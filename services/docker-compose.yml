@@ -1,0 +1,28 @@
+version: '3.6'
+services:
+  postgraphile:
+    build: ./postgraphile
+    
+    # required for GCP
+    platform: linux/amd64
+    
+    ports:
+      - '5001:$PORT'
+    environment: 
+      - DB_NAME
+      - DB_USER
+      - DB_PASS
+      - PORT
+      - GRAPHILE_SCHEMA
+      - GRAPHILE_JWT_TOKEN_IDENTIFIER
+      - GRAPHILE_JWT_TOKEN_SECRET
+      - GRAPHILE_DEFAULT_ROLE
+
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
