@@ -1,0 +1,7 @@
+{
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "pgFormatter.commaBreak": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+}
