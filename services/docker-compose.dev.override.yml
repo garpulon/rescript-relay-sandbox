@@ -1,8 +1,0 @@
-version: '3.6'
-services:
-  postgraphile:
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    image: us-east4-docker.pkg.dev/rescript-relay-sandbox/relay-forums/postgraphile
-    environment: 
-      - DB_HOST

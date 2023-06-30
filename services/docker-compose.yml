@@ -1,18 +1,17 @@
 version: '3.6'
 services:
   postgraphile:
-    build: ./postgraphile
-    
-    # required for GCP
-    platform: linux/amd64
-    
+    image: "$POSTGRAPHILE_IMAGE_NAME"
     ports:
       - '5001:$PORT'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment: 
-      - DB_NAME
-      - DB_USER
-      - DB_PASS
-      - DB_PORT
+      - PGHOST
+      - PGPORT
+      - PGDATABASE
+      - PGUSER
+      - PGPASSWORD
       - PORT
       - GRAPHILE_SCHEMA
       - GRAPHILE_JWT_TOKEN_IDENTIFIER

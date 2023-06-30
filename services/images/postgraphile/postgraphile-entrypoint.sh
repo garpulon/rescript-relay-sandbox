@@ -1,19 +1,4 @@
-#!/bin/bash
-
-if [[ ! -z "${INSTANCE_UNIX_SOCKET}" ]]; then
-  export PGHOST=$INSTANCE_UNIX_SOCKET
-fi
-
-if [ ! "$PGHOST" ]
-then
-  export PGHOST=$DB_HOST
-fi
-
-export PGPORT=$DB_PORT
-export PGDATABASE=$DB_NAME
-export PGUSER=$DB_USER
-export PGPASSWORD=$DB_PASS
-env
+#!/bin/sh
 
 set -euo pipefail
 
