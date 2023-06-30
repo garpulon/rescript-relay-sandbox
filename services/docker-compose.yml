@@ -12,17 +12,9 @@ services:
       - DB_NAME
       - DB_USER
       - DB_PASS
+      - DB_PORT
       - PORT
       - GRAPHILE_SCHEMA
       - GRAPHILE_JWT_TOKEN_IDENTIFIER
       - GRAPHILE_JWT_TOKEN_SECRET
       - GRAPHILE_DEFAULT_ROLE
-
-
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    ports:
-      - "80:80"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-

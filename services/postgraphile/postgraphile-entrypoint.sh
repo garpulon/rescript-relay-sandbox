@@ -9,6 +9,7 @@ then
   export PGHOST=$DB_HOST
 fi
 
+export PGPORT=$DB_PORT
 export PGDATABASE=$DB_NAME
 export PGUSER=$DB_USER
 export PGPASSWORD=$DB_PASS
