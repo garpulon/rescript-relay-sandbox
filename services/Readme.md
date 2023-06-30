@@ -15,6 +15,11 @@ services/images: *build* images that define services
 # 2 layers of env files
 see the docker compose files in services and define any image name variables in services/images/docker-compose.yml
 
+RECOMMENDATION: mash these two together and list everything in services/.env
+
+    cd services/images
+    ln -s ./../.env ./
+
 services/.env: secrets for local service container runtimes
 services/images/.env: secrets for local container build and push
 
