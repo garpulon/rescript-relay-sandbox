@@ -19,6 +19,7 @@ At such a time as load balancing, cloud functions, and other functionality is ne
 ```sh
 gcloud auth login
 gcloud config set project rescript-relay-sandbox
+gcloud auth configure-docker us-east4-docker.pkg.dev
 ```
 
 ## Running the Cloud SQL Proxy
