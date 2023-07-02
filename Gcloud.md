@@ -25,7 +25,6 @@ cloud_sql_proxy --port 5431 "rescript-relay-sandbox:us-central1:rescript-relay-s
 
 ```sh
 cd services
-ln -s docker-compose.dev.override.yml docker-compose.override.yml
 touch .env
 ...
 ```
