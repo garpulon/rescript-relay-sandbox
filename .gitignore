@@ -9,7 +9,7 @@
 !.yarn/sdks
 !.yarn/versions
 
-# i mean... 
+# i mean...
 node_modules
 __generated__
 

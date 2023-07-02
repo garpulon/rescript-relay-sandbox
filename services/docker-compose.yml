@@ -1,0 +1,19 @@
+version: '3.6'
+services:
+  postgraphile:
+    image: "$POSTGRAPHILE_IMAGE_NAME"
+    ports:
+      - '5000:$PORT'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment: 
+      - PGHOST
+      - PGPORT
+      - PGDATABASE
+      - PGUSER
+      - PGPASSWORD
+      - PORT
+      - GRAPHILE_SCHEMA
+      - GRAPHILE_JWT_TOKEN_IDENTIFIER
+      - GRAPHILE_JWT_TOKEN_SECRET
+      - GRAPHILE_DEFAULT_ROLE
