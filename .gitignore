@@ -9,7 +9,7 @@
 !.yarn/sdks
 !.yarn/versions
 
-# i mean... 
+# i mean...
 node_modules
 __generated__
 
@@ -27,6 +27,3 @@ __generated__
 
 # mac stuff
 .DS_Store
-
-# docker stuff
-docker-compose.override.yml
