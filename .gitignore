@@ -25,6 +25,5 @@ __generated__
 .merlin
 *.bs.js
 
-
 # mac stuff
 .DS_Store
