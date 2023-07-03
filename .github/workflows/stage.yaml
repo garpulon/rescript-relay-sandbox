@@ -8,9 +8,6 @@ on:
 jobs:
   build:
     if: github.event.pull_request.merged == true
-    permissions:
-      id-token: write
-      contents: read
     runs-on: ubuntu-latest
     environment: staging
     steps:
