@@ -15,16 +15,16 @@ jobs:
         uses: "actions/checkout@v3"
 
       - name: "setup node"
-          uses: "actions/setup-node@v3"
-          with:
-            node-version: "18.x"
+        uses: "actions/setup-node@v3"
+        with:
+          node-version: "18.x"
 
       - name: "yarn install"
         run: "yarn install"
 
       - name: "rescript build"
         run: "yarn re:build"
-      
+
       - name: "parcel build"
         run: "yarn parcel:build"
 
@@ -34,7 +34,6 @@ jobs:
     permissions:
       id-token: write
       contents: read
-
     runs-on: ubuntu-latest
     environment: staging
     steps:
