@@ -6,8 +6,11 @@ on:
       - main
 
 jobs:
-  build:
+  build_and_deploy:
     if: github.event.pull_request.merged == true
+    permissions:
+      id-token: write
+      contents: read
     runs-on: ubuntu-latest
     environment: staging
     steps:
@@ -34,15 +37,6 @@ jobs:
       - name: "parcel build"
         run: "yarn parcel:build"
 
-  deploy:
-    if: github.event.pull_request.merged == true
-    needs: build
-    permissions:
-      id-token: write
-      contents: read
-    runs-on: ubuntu-latest
-    environment: staging
-    steps:
       - id: "auth"
         uses: "google-github-actions/auth@v1"
         with:
