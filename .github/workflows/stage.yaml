@@ -13,14 +13,18 @@ jobs:
     steps:
       - id: "checkout"
         uses: "actions/checkout@v3"
+
       - name: "setup node"
-          uses: "actions/setup-node@v3"
-          with:
-            node-version: "18.x"
+        uses: "actions/setup-node@v3"
+        with:
+          node-version: "18.x"
+
       - name: "yarn install"
         run: "yarn install"
+
       - name: "rescript build"
         run: "yarn re:build"
+
       - name: "parcel build"
         run: "yarn parcel:build"
 
@@ -38,6 +42,7 @@ jobs:
         with:
           workload_identity_provider: "projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/${{ secrets.POOL }}/providers/${{ secrets.PROVIDER }}"
           service_account: "${{ secrets.GCP_SERVICE_ACCT }}"
+
       - id: "upload-folder"
         uses: "google-github-actions/upload-cloud-storage@v1"
         with:
