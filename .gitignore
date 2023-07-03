@@ -16,6 +16,7 @@ __generated__
 # parcel
 /.parcel-cache/
 /dist/
+/build/
 
 # rescript
 /node_modules/

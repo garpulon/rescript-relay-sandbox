@@ -1,0 +1,56 @@
+name: Static Site Deploy
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  build:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - id: "checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "setup node"
+          uses: "actions/setup-node@v3"
+          with:
+            node-version: "18.x"
+
+      - name: "yarn install"
+        run: "yarn install"
+
+      - name: "rescript build"
+        run: "yarn re:build"
+      
+      - name: "parcel build"
+        run: "yarn parcel:build"
+  
+  deploy:
+    needs: build
+    if: github.event.pull_request.merged == true
+    permissions:
+      id-token: write
+      contents: read
+
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          workload_identity_provider: "projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/${{ secrets.POOL }}/providers/${{ secrets.PROVIDER }}"
+          service_account: "${{ secrets.GCP_SERVICE_ACCT }}"
+
+      - id: "deploy"
+        uses: "google-github-actions/deploy-cloudrun@v1"
+        with:
+          service: "${{ secrets.SERVICE }}"
+          image: "${{ secrets.IMAGE }}"
+          region: "${{ secrets.REGION }}"
+          platform: managed
+          allow-unauthenticated: true
+          env-vars: |
+            REACT_APP_API_URL=${{ secrets.API_URL }}
