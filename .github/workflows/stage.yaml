@@ -22,6 +22,9 @@ jobs:
       - name: "yarn install"
         run: "yarn install"
 
+      - name: "relay build"
+        run: "yarn relay:build"
+
       - name: "rescript build"
         run: "yarn re:build"
 
