@@ -15,7 +15,7 @@
   "scripts": {
     "re:build": "rescript build",
     "re:watch": "rescript build -w",
-    "parcel:serve": "parcel serve --host localhost ./src/*.html",
+    "parcel:serve": "NODE_ENV='development' parcel serve --host localhost ./src/*.html",
     "parcel:build": "parcel build ./src/*.html --public-url ./ --dist-dir ./build",
     "postgraphile:dev": "dotenv ./postgraphile-dev.sh",
     "relay:build": "rescript-relay-compiler",
