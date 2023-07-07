@@ -22,12 +22,14 @@ gcloud config set project rescript-relay-sandbox
 ```
 
 ## Running the Cloud SQL Proxy
+
 ```sh
 cloud_sql_proxy --port 5431 "rescript-relay-sandbox:us-central1:rescript-relay-sandbox-db"
 ```
 
 ## Local Development
-Add a ```.env``` file to the ```services``` directory with the following variables:
+
+Add a `.env` file to the `services` directory with the following variables:
 
 ```sh
 PORT
@@ -43,21 +45,28 @@ GRAPHILE_DEFAULT_ROLE
 POSTGRAPHILE_IMAGE_NAME
 ```
 
-Symlink ```services/.env``` file to ```services/images/.env```:
+Symlink `services/.env` file to `services/images/.env`:
 
 ```sh
 cd services/images
 ln -s ./../.env ./
 ```
 
-In one terminal, run the ```clous-sql-proxy```:
+In one terminal, run the `clous-sql-proxy`:
+
 ```sh
 cloud_sql_proxy --port 5431 "rescript-relay-sandbox:us-central1:rescript-relay-sandbox-db"
 ```
 
-_Note: choose the appropriate port based on your ```.env``` file!_
+_Note: choose the appropriate port based on your `.env` file!_
 
-Within ```services```, build and run:
+_Another note: you will need to update the permissions on the user you are using to connect to the database by running the following SQL:_
+
+```sql
+GRANT loggedin TO [username];
+```
+
+Within `services`, build and run:
 
 ```sh
 docker-compose build
@@ -67,13 +76,16 @@ docker-compose up
 # Further Notes:
 
 ## Kompose
+
 https://kompose.io will translate docker-compose files into kubernetes deployment files
 
 ## 2 layers of compose files
-services: *run* services that are defined as images
-services/images: *build* images that define services
+
+services: _run_ services that are defined as images
+services/images: _build_ images that define services
 
 ## 2 layers of env files
+
 see the docker compose files in services and define any image name variables in services/images/docker-compose.yml
 
 RECOMMENDATION: mash these two together and list everything in services/.env
