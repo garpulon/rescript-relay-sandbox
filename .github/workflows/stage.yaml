@@ -34,6 +34,8 @@ jobs:
 
       - name: "rescript build"
         run: "yarn re:build"
+        env:
+          GRAPHILE_URL: "${{ vars.GRAPHILE_URL }}"
 
       - name: "parcel build"
         run: "yarn parcel:build"
