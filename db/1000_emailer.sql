@@ -1,4 +1,6 @@
-CREATE OR REPLACE FUNCTION app_public.send_simple_email(email citext, subject text, body text, html text)
+DROP FUNCTION IF EXISTS app_public.send_simple_email(email citext, subject text, body text, html text);
+
+CREATE FUNCTION app_public.send_simple_email(email citext, subject text, body text, html text)
     RETURNS bool
     AS $$
 DECLARE
@@ -11,9 +13,9 @@ BEGIN
             app_private.raise_client_message('warn', '{"email"}', 'no email address provided');
         RETURN FALSE;
     END IF;
-    IF trimmedEmail !~* '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$' THEN
+    IF trimmedEmail !~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$' THEN
         PERFORM
-            app_private.raise_client_message('warn', '{"email"}', 'invalid email address');
+            app_private.raise_client_message('warn', '{"email"}', 'oops invalid email address');
         RETURN FALSE;
     END IF;
     SELECT
