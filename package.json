@@ -29,7 +29,10 @@
     "push:all:dev": "npm run push:graphile-worker:dev & npm run push:postgraphile:dev &",
     "push:graphile-worker:prod": "dotenv ./containers.sh push graphile-worker prod",
     "push:postgraphile:prod": "dotenv ./containers.sh push postgraphile prod",
-    "push:all:prod": "npm run push:graphile-worker:prod & npm run push:postgraphile:prod &"
+    "push:all:prod": "npm run push:graphile-worker:prod & npm run push:postgraphile:prod &",
+    "run:graphile-worker:dev": "docker-compose up graphile-worker-dev",
+    "run:postgraphile:dev": "docker-compose up postgraphile-dev",
+    "run:all:dev": "npm run run:graphile-worker:dev & npm run run:postgraphile:dev &"
   },
   "devDependencies": {
     "dotenv-cli": "^7.2.1",
