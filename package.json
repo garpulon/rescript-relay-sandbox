@@ -32,12 +32,10 @@
     "push:all:prod": "npm run push:graphile-worker:prod & npm run push:postgraphile:prod &",
     "run:graphile-worker:dev": "docker-compose up graphile-worker-dev",
     "run:postgraphile:dev": "docker-compose up postgraphile-dev",
-    "run:all:dev": "npm run run:graphile-worker:dev & npm run run:postgraphile:dev &"
+    "run:all:dev": "docker-compose up postgraphile-dev graphile-worker-dev"
   },
   "devDependencies": {
     "dotenv-cli": "^7.2.1",
-    "parcel": "^2.8.3",
-    "postgraphile": "^4.13.0",
-    "process": "^0.11.10"
+    "parcel": "^2.8.3"
   }
 }
