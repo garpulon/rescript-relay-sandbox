@@ -106,11 +106,11 @@ setting up the project:
    ```
 
 3. **Create a `.env` file.**. In the root directory, create a file called `.env`
-   and add the database connection string:
+   and add the following:
 
    ```bash
-   touch .env;
-   echo "DATABASE_URL=postgres://drew:1234@localhost/relayforums" >> .env;
+   DATABASE_URL=postgres://drew:1234@localhost/relayforums # or the Cloud SQL connection string
+   GRAPHILE_URL=http://localhost:5000/graphql
    ```
 
 4. **Start the Postgraphile server.**. In the root directory, run the following.

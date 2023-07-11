@@ -13,9 +13,11 @@
     "rescript-relay": "^1.1.1"
   },
   "scripts": {
-    "parcel:serve": "parcel serve --host localhost ./src/*.html",
     "re:build": "rescript build",
     "re:watch": "rescript build -w",
+    "parcel:serve": "NODE_ENV='development' parcel serve --host localhost ./src/*.html",
+    "parcel:build": "parcel build ./src/*.html --public-url / --dist-dir ./build",
+    "postgraphile:dev": "dotenv ./postgraphile-dev.sh",
     "relay:build": "rescript-relay-compiler",
     "relay:watch": "rescript-relay-compiler --watch",
     "build:graphile-worker:dev": "dotenv ./containers.sh build graphile-worker dev",

@@ -18,6 +18,7 @@ npm-cache
 # parcel
 /.parcel-cache/
 /dist/
+/build/
 
 # rescript
 /node_modules/
@@ -25,7 +26,6 @@ lib/
 .bsb.lock
 .merlin
 *.bs.js
-
 
 # mac stuff
 .DS_Store

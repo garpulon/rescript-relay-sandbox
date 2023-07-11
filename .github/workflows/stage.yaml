@@ -1,0 +1,55 @@
+name: Static Site Deploy
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+env:
+  GRAPHILE_URL: "${{ vars.GRAPHILE_URL }}"
+
+jobs:
+  build_and_deploy:
+    if: github.event.pull_request.merged == true
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - id: "checkout"
+        uses: "actions/checkout@v3"
+
+      - name: "setup node"
+        uses: "actions/setup-node@v3"
+        with:
+          node-version: "18.x"
+          cache: "yarn"
+
+      - name: "yarn install"
+        run: "yarn install"
+
+      - name: "make src/__generated__"
+        run: "mkdir -p src/__generated__"
+
+      - name: "relay build"
+        run: "yarn relay:build"
+
+      - name: "rescript build"
+        run: "yarn re:build"
+
+      - name: "parcel build"
+        run: "yarn parcel:build"
+
+      - id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          workload_identity_provider: "projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/${{ secrets.POOL }}/providers/${{ secrets.PROVIDER }}"
+          service_account: "${{ secrets.GCP_SERVICE_ACCT }}"
+
+      - id: "upload-folder"
+        uses: "google-github-actions/upload-cloud-storage@v1"
+        with:
+          path: "build"
+          destination: "${{ secrets.GS_BUCKET }}"
+          parent: false
