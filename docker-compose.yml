@@ -20,7 +20,7 @@ services:
   graphile-worker-dev:
     image: "$GRAPHILE_WORKER_IMAGE_NAME-dev"
     environment: 
-      - "NODE_ENV=development"
+      - NODE_ENV=development
       - SENDGRID_API_KEY
       - PGDSN="postgresql://$PGUSER:$PGPASSWORD@$PGHOST:$PGPORT/$PGDATABASE"
     volumes:
