@@ -25,6 +25,14 @@ let make = (~currentUser) => {
           <span>
             {`Logged in as ${username}`->React.string}
             <Link to="/logout"> {`Log out`->React.string} </Link>
+            {if currentUser.isAdmin {
+              <span>
+                {` `->React.string}
+                <Link to="/emailer"> {`Emailer`->React.string} </Link>
+              </span>
+            } else {
+              <span />
+            }}
           </span>
         }
       | None =>
