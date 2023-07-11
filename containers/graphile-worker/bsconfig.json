@@ -1,0 +1,22 @@
+{
+    "name": "tasks",
+    "sources": {
+        "dir": "src",
+        "subdirs": true
+    },
+    "package-specs": {
+        "module": "commonjs",
+        "in-source": true
+    },
+    "suffix": ".bs.js",
+    "jsx": {
+        "version": 4,
+        "mode": "automatic"
+    },
+    "bsc-flags": [
+        "-open Belt"
+    ],
+    "bs-dependencies": [
+        "@rescript/core"
+    ]
+}

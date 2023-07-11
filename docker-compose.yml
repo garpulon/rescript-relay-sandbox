@@ -1,0 +1,39 @@
+version: '3.6'
+services:
+  postgraphile-dev:
+    image: "$POSTGRAPHILE_IMAGE_NAME-dev"
+    ports:
+      - '5000:5000'
+    environment: 
+      - "NODE_ENV=development"
+      - PGHOST
+      - PGPORT
+      - PGDATABASE
+      - PGUSER
+      - PGPASSWORD
+      - PORT
+      - GRAPHILE_SCHEMA
+      - GRAPHILE_JWT_TOKEN_IDENTIFIER
+      - GRAPHILE_JWT_TOKEN_SECRET
+      - GRAPHILE_DEFAULT_ROLE
+
+  graphile-worker-dev:
+    image: "$GRAPHILE_WORKER_IMAGE_NAME-dev"
+    environment: 
+      - "NODE_ENV=development"
+      - SENDGRID_API_KEY
+      - PGDSN="postgresql://$PGUSER:$PGPASSWORD@$PGHOST:$PGPORT/$PGDATABASE"
+    volumes:
+      - ./containers/graphile-worker/src:/workspace/src
+
+
+  graphile-worker-tty:
+    image: "$GRAPHILE_WORKER_IMAGE_NAME"
+    environment: 
+      - SENDGRID_API_KEY
+      - PGDSN="postgresql://$PGUSER:$PGPASSWORD@$PGHOST:$PGPORT/$PGDATABASE"
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+    entrypoint: /usr/bin/env
+
