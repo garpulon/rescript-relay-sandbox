@@ -16,6 +16,8 @@ services:
       - GRAPHILE_JWT_TOKEN_IDENTIFIER
       - GRAPHILE_JWT_TOKEN_SECRET
       - GRAPHILE_DEFAULT_ROLE
+    volumes:
+      - "./schema.graphql:/workspace/schema.graphql"
 
   graphile-worker-dev:
     image: "$GRAPHILE_WORKER_IMAGE_NAME-dev"
