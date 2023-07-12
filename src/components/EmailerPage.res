@@ -16,7 +16,7 @@ let make = (~fragmentRefs) => {
   }
 
   switch isAdmin {
-  | true => <CreateNewEmailForm fragmentRefs userEmail />
+  | true => <CreateNewEmailForm userEmail />
   | false => <div> {`Not authorized`->React.string} </div>
   }
 }

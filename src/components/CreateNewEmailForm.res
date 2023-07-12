@@ -4,16 +4,21 @@ module SendSimpleEmailMutation = %relay(`
   ) {
     sendSimpleEmail(input: $input) {
       boolean
+      messages {
+        message
+        path
+      }
     }
   }
 `)
 
 @react.component
-let make = (~fragmentRefs, ~userEmail) => {
+let make = (~userEmail) => {
   let (mutate, isMutating) = SendSimpleEmailMutation.use()
   let email = Common.State.useState(() => "")
   let subject = Common.State.useState(() => "")
   let text = Common.State.useState(() => "")
+  let error = Common.State.useState(() => "")
 
   switch userEmail {
   | Some(userEmail) =>
@@ -23,7 +28,7 @@ let make = (~fragmentRefs, ~userEmail) => {
         onSubmit={e => {
           e->JsxEvent.Form.preventDefault
           let html = `<p>${text.value}</p>`
-          Js.Console.log(html)
+          error.set(_ => "")
           let _ = mutate(
             ~variables={
               input: RelaySchemaAssets_graphql.make_SendSimpleEmailInput(
@@ -36,7 +41,17 @@ let make = (~fragmentRefs, ~userEmail) => {
             },
             ~onCompleted=(resp, err) => {
               if err == None {
-                Js.Console.log(resp)
+                switch resp.sendSimpleEmail {
+                | Some({boolean: Some(true)}) => {
+                    Js.Console.log("Email sent")
+                    email.set(_ => "")
+                    subject.set(_ => "")
+                    text.set(_ => "")
+                  }
+                | Some({boolean: Some(false), messages: Some([Some({message})])}) =>
+                  error.set(_ => message)
+                | _ => ()
+                }
               } else {
                 Js.Console.log(err)
               }
@@ -64,6 +79,10 @@ let make = (~fragmentRefs, ~userEmail) => {
         <br />
         <button disabled={isMutating} type_="submit"> {"Send email"->React.string} </button>
       </form>
+      {switch error.value {
+      | "" => <div />
+      | error => <div style={ReactDOM.Style.make(~color=`red`, ())}> {error->React.string} </div>
+      }}
     </div>
   | None => <div> {"Not logged in"->React.string} </div>
   }
