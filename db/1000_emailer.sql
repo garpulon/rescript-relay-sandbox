@@ -42,12 +42,13 @@ EXCEPTION
     RAISE NOTICE E'Got exception:
         SQLSTATE: % 
         SQLERRM: %', SQLSTATE, SQLERRM;
-    RAISE NOTICE '%', message_text;
+    RAISE NOTICE '%', v_msg;
     PERFORM
         app_private.raise_client_message('warn', '{"general_error"}', 'general error');
     RETURN FALSE;
 END;
 
 $$
-LANGUAGE plpgsql;
+LANGUAGE plpgsql
+SECURITY DEFINER;
 

@@ -22,15 +22,24 @@ let make = (~fragmentRefs, ~userEmail) => {
       <form
         onSubmit={e => {
           e->JsxEvent.Form.preventDefault
+          let html = `<p>${text.value}</p>`
+          Js.Console.log(html)
           let _ = mutate(
             ~variables={
               input: RelaySchemaAssets_graphql.make_SendSimpleEmailInput(
                 ~email=email.value,
                 ~subject=subject.value,
                 ~body=text.value,
-                ~html=`<p>${text.value}</p>`,
+                ~html,
                 (),
               ),
+            },
+            ~onCompleted=(resp, err) => {
+              if err == None {
+                Js.Console.log(resp)
+              } else {
+                Js.Console.log(err)
+              }
             },
             ~onError=err => {
               Js.Console.log(err)
