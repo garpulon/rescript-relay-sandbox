@@ -9,6 +9,11 @@ DECLARE
     v_hint text;
     v_context text;
 BEGIN
+    IF NOT app_public.current_user_is_admin() THEN
+        PERFORM
+            app_private.raise_client_message('warn', '{"auth"}', 'not authorized');
+        RETURN FALSE;
+    END IF;
     SELECT
         trim(email) INTO trimmedEmail;
     IF trimmedEmail IS NULL THEN
