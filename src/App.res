@@ -10,6 +10,7 @@ let make = () => {
     | list{"forums", _, topic} => <TopicRoute topic />
     | list{"login"} => <LoginRoute />
     | list{"register"} => <RegisterRoute />
+    | list{"emailer"} => <EmailerRoute />
 
     | list{"error"} => <ErrorPage urlSearch=url.search />
     | list{"logout"} => {

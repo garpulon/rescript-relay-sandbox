@@ -12,6 +12,8 @@
 # i mean...
 node_modules
 __generated__
+# we keep the folders in the dirs so the cache can be populated
+npm-cache
 
 # parcel
 /.parcel-cache/
@@ -20,7 +22,7 @@ __generated__
 
 # rescript
 /node_modules/
-/lib/
+lib/
 .bsb.lock
 .merlin
 *.bs.js

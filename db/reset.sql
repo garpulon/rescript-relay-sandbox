@@ -31,3 +31,6 @@ DROP SCHEMA IF EXISTS basic_auth CASCADE;
 -- Forum tables
 \ir 700_forum.sql
 \ir 999_data.sql
+--------------------------------------------------------------------------------
+-- Emailer function
+\ir 1000_emailer.sql

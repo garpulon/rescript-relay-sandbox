@@ -1,0 +1,15 @@
+{
+  "name": "postgraphile",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "./postgraphile_start.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "postgraphile": "^4.13.0",
+    "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
+    "@graphile/operation-hooks": "^1.0.0"
+  }
+}

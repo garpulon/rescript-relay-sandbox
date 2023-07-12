@@ -7,7 +7,7 @@
     "bs-fetch": "^0.6.2",
     "react": "18",
     "react-dom": "18",
-    "react-relay": "14.1.0",
+    "react-relay": "15.x.x",
     "relay-runtime": "14.1.0",
     "rescript": "^10.1.4",
     "rescript-relay": "^1.1.1"
@@ -19,14 +19,25 @@
     "parcel:build": "parcel build ./src/*.html --public-url / --dist-dir ./build",
     "postgraphile:dev": "dotenv ./postgraphile-dev.sh",
     "relay:build": "rescript-relay-compiler",
-    "relay:watch": "rescript-relay-compiler --watch"
+    "relay:watch": "rescript-relay-compiler --watch",
+    "build:graphile-worker:dev": "dotenv ./containers.sh build graphile-worker dev",
+    "build:postgraphile:dev": "dotenv ./containers.sh build postgraphile dev",
+    "build:all:dev": "npm run build:graphile-worker:dev && npm run build:postgraphile:dev",
+    "build:graphile-worker:prod": "dotenv ./containers.sh build graphile-worker prod",
+    "build:postgraphile:prod": "dotenv ./containers.sh build postgraphile prod",
+    "build:all:prod": "npm run build:graphile-worker:prod && npm run build:postgraphile:prod",
+    "push:graphile-worker:dev": "dotenv ./containers.sh push graphile-worker dev",
+    "push:postgraphile:dev": "dotenv ./containers.sh push postgraphile dev",
+    "push:all:dev": "npm run push:graphile-worker:dev & npm run push:postgraphile:dev &",
+    "push:graphile-worker:prod": "dotenv ./containers.sh push graphile-worker prod",
+    "push:postgraphile:prod": "dotenv ./containers.sh push postgraphile prod",
+    "push:all:prod": "npm run push:graphile-worker:prod & npm run push:postgraphile:prod &",
+    "run:graphile-worker:dev": "docker-compose up graphile-worker-dev",
+    "run:postgraphile:dev": "docker-compose up postgraphile-dev",
+    "run:all:dev": "docker-compose up postgraphile-dev graphile-worker-dev"
   },
   "devDependencies": {
-    "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
-    "@graphile/operation-hooks": "^1.0.0",
     "dotenv-cli": "^7.2.1",
-    "parcel": "^2.8.3",
-    "postgraphile": "^4.13.0",
-    "process": "^0.11.10"
+    "parcel": "^2.8.3"
   }
 }

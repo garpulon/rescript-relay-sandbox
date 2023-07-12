@@ -60,12 +60,6 @@ cloud_sql_proxy --port 5431 "rescript-relay-sandbox:us-central1:rescript-relay-s
 
 _Note: choose the appropriate port based on your `.env` file!_
 
-_Another note: you will need to update the permissions on the user you are using to connect to the database by running the following SQL:_
-
-```sql
-GRANT loggedin TO [username];
-```
-
 Within `services`, build and run:
 
 ```sh
@@ -92,6 +86,3 @@ RECOMMENDATION: mash these two together and list everything in services/.env
 
     cd services/images
     ln -s ./../.env ./
-
-services/.env: secrets for local service container runtimes
-services/images/.env: secrets for local container build and push
