@@ -1,6 +1,4 @@
-DROP FUNCTION IF EXISTS app_public.send_simple_email(email citext, subject text, body text, html text);
-
-CREATE FUNCTION app_public.send_simple_email(email citext, subject text, body text, html text)
+CREATE OR REPLACE FUNCTION app_public.send_simple_email(email citext, subject text, body text, html text)
     RETURNS bool
     AS $$
 DECLARE
