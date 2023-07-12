@@ -5,6 +5,11 @@ CREATE FUNCTION app_public.send_simple_email(email citext, subject text, body te
     AS $$
 DECLARE
     trimmedEmail text;
+    v_state text;
+    v_msg text;
+    v_detail text;
+    v_hint text;
+    v_context text;
 BEGIN
     SELECT
         trim(email) INTO trimmedEmail;
@@ -15,16 +20,31 @@ BEGIN
     END IF;
     IF trimmedEmail !~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$' THEN
         PERFORM
-            app_private.raise_client_message('warn', '{"email"}', 'oops invalid email address');
+            app_private.raise_client_message('warn', '{"email"}', 'invalid email address');
         RETURN FALSE;
     END IF;
-    SELECT
-        graphile_worker.add_job('sendgrid_single.bs', json_build_object('to', trimmedEmail, 'from', 'test@jococruise.com', 'subject', subject, 'text', body, 'html', html)::text);
+    PERFORM
+        graphile_worker.add_job('sendgrid_single.bs'::text, json_build_object('to', trimmedEmail, 'from', 'test@jococruise.com', 'subject', subject, 'text', body, 'html', html)::json);
     RETURN TRUE;
 EXCEPTION
     WHEN OTHERS THEN
-        PERFORM
-            app_private.raise_client_message('warn', '{"general_error"}', 'invalid email address');
+        get stacked diagnostics v_state = returned_sqlstate,
+        v_msg = message_text,
+        v_detail = pg_exception_detail,
+        v_hint = pg_exception_hint,
+        v_context = pg_exception_context;
+    RAISE NOTICE E'Got exception:
+        state  : %
+        message: %
+        detail : %
+        hint   : %
+        context: %', v_state, v_msg, v_detail, v_hint, v_context;
+    RAISE NOTICE E'Got exception:
+        SQLSTATE: % 
+        SQLERRM: %', SQLSTATE, SQLERRM;
+    RAISE NOTICE '%', message_text;
+    PERFORM
+        app_private.raise_client_message('warn', '{"general_error"}', 'general error');
     RETURN FALSE;
 END;
 
