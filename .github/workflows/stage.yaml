@@ -33,13 +33,13 @@ jobs:
         run: "mkdir -p src/__generated__"
 
       - name: "relay build"
-        run: "npm relay:build"
+        run: "npm run relay:build"
 
       - name: "rescript build"
-        run: "npm re:build"
+        run: "npm run re:build"
 
       - name: "parcel build"
-        run: "npm parcel:build"
+        run: "npm run parcel:build"
 
       - id: "auth"
         uses: "google-github-actions/auth@v1"
