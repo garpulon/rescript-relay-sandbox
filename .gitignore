@@ -1,4 +1,4 @@
-.env
+*.env
 
 # yarn (we are not using zeroinstalls)
 .pnp.*
