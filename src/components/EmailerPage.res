@@ -16,7 +16,15 @@ let make = (~fragmentRefs) => {
   }
 
   switch isAdmin {
-  | true => <CreateNewEmailForm userEmail />
+  | true =>
+    <div style={ReactDOM.Style.make(~display=`grid`, ~gridTemplateColumns="2", ())}>
+      <div>
+        <CreateNewEmailForm userEmail />
+      </div>
+      <div style={ReactDOM.Style.make(~gridColumnStart="2", ())}>
+        <Emailer fragmentRefs />
+      </div>
+    </div>
   | false => <div> {`Not authorized`->React.string} </div>
   }
 }
