@@ -37,9 +37,7 @@
     "run:all:dev": "docker-compose up postgraphile-dev graphile-worker-dev"
   },
   "devDependencies": {
-    "@parcel/css": "^1.14.0",
-    "@parcel/transformer-css": "^2.9.3",
     "dotenv-cli": "^7.2.1",
-    "parcel": "^2.8.3"
+    "parcel": "^2.9.3"
   }
 }
