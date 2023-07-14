@@ -25,24 +25,22 @@ let make = (~fragmentRefs) => {
 
   <div>
     <h1> {"Email templates"->React.string} </h1>
-    <form>
-      <select
-        onChange={e =>
-          setSelectedId(_ => {
-            let v = ReactEvent.Form.target(e)["value"]
-            v == "" ? None : Some(v)
-          })}>
-        <option value=""> {"Select a value"->React.string} </option>
-        {React.array(options)}
-      </select>
-      <br />
-      {switch selectedId {
-      | Some(templateId) => {
-          Js.Console.log(templateId)
-          <EmailEditor templateId />
-        }
-      | None => <div />
-      }}
-    </form>
+    <select
+      onChange={e =>
+        setSelectedId(_ => {
+          let v = ReactEvent.Form.target(e)["value"]
+          v == "" ? None : Some(v)
+        })}>
+      <option value=""> {"Select a value"->React.string} </option>
+      {React.array(options)}
+    </select>
+    <br />
+    {switch selectedId {
+    | Some(templateId) => {
+        Js.Console.log(templateId)
+        <EmailEditor templateId />
+      }
+    | None => <div />
+    }}
   </div>
 }
