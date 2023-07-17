@@ -24,11 +24,33 @@ let make = (~fragmentRefs) => {
   | _ => None
   }
 
+  let primary = React.useRef(Js.Nullable.null)
+  let warning = React.useRef(Js.Nullable.null)
+
+  open Sl.Alert
+
+  let onClickPrimary = _ => {
+    primary.current->Js.Nullable.toOption->Belt.Option.forEach(toast)
+  }
+
+  let onClickWarning = _ => {
+    warning.current->Js.Nullable.toOption->Belt.Option.forEach(toast)
+  }
+
   <Main>
     <h1> {`Welcome`->React.string} </h1>
-    <Shoelace.SlButton variant={#success} size={#large}>
+    <Sl.Button variant={#primary} size={#large} onClick={onClickPrimary}>
       {`Click me`->React.string}
-    </Shoelace.SlButton>
+    </Sl.Button>
+    <Sl.Alert ref={primary} variant={#primary} duration=3000 closable={true}>
+      {`Hiii`->React.string}
+    </Sl.Alert>
+    <Sl.Button variant={#warning} size={#large} onClick={onClickWarning}>
+      {`Click me`->React.string}
+    </Sl.Button>
+    <Sl.Alert ref={warning} variant={#warning} duration=3000 closable={true}>
+      {`Uh oh!`->React.string}
+    </Sl.Alert>
     <p className="WelcomeMessage">
       {`Welcome to the PostGraphile forum demo. Here you can see how we have
           harnessed the power of PostGraphile to quickly and easily make a
