@@ -26,6 +26,9 @@ let make = (~fragmentRefs) => {
 
   <Main>
     <h1> {`Welcome`->React.string} </h1>
+    <Shoelace.SlButton variant={#success} size={#large}>
+      {`Click me`->React.string}
+    </Shoelace.SlButton>
     <p className="WelcomeMessage">
       {`Welcome to the PostGraphile forum demo. Here you can see how we have
           harnessed the power of PostGraphile to quickly and easily make a
