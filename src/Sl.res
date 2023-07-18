@@ -25,7 +25,20 @@ module Base = {
     | #smooth
   ]
 
+  type focusOptions = {
+    preventScroll?: string,
+    focusVisible?: string,
+  }
+
   type updateComplete = Js.Promise.t<unit> => unit
+
+  type validityStateObj
+
+  type validationMessage
+
+  type reactEvent
+
+  type eventHandler = reactEvent => unit
 }
 
 /* SlAlert */
@@ -46,10 +59,10 @@ module Alert = {
     ~closable: bool=?,
     ~duration: int=?,
     ~onClick: cb => unit=?,
-    ~onSlShow: unit => unit=?,
-    ~onSlAfterShow: unit => unit=?,
-    ~onSlHide: unit => unit=?,
-    ~onSlAfterHide: unit => unit=?,
+    ~onSlShow: eventHandler=?,
+    ~onSlAfterShow: eventHandler=?,
+    ~onSlHide: eventHandler=?,
+    ~onSlAfterHide: eventHandler=?,
     ~updateComplete: updateComplete=?,
     ~ref: React.ref<Js.Nullable.t<alert>>=?,
   ) => React.element = "SlAvatar"
@@ -91,11 +104,6 @@ module Button = {
   include Base
   type btn
 
-  type focusOptions = {
-    preventScroll?: string,
-    focusVisible?: string,
-  }
-
   @send external click: btn => unit = "click"
   @send external blur: btn => unit = "blur"
   @send external focus: (btn, ~options: focusOptions=?) => unit = "focus"
@@ -129,10 +137,10 @@ module Button = {
     ~formMethod: [#post | #get]=?,
     ~formNoValidate: bool=?,
     ~formTarget: [#_blank | #_parent | #_top | #_self]=?, // or string...
-    ~onSlBlur: unit => unit=?,
-    ~onSlFocus: unit => unit=?,
-    ~onSlInvalid: unit => unit=?,
-    ~updateComplete: updateComplete=?,
+    ~onSlBlur: eventHandler=?,
+    ~onSlFocus: eventHandler=?,
+    ~onSlInvalid: eventHandler=?,
+    ~updateComplete: reactEvent=?,
   ) => React.element = "SlButton"
 }
 
@@ -158,6 +166,8 @@ module Carousel = {
     slide: slide,
   }
 
+  type slideChangeEvent = {detail: eventDetail}
+
   @send external previous: (carousel, ~behavior: scrollBehavior=?) => unit = "previous"
   @send external next: (carousel, ~behavior: scrollBehavior=?) => unit = "next"
   @send
@@ -175,7 +185,7 @@ module Carousel = {
     ~slidesPerMove: int=?,
     ~orientation: [#horizontal | #vertical]=?,
     ~mouseDragging: bool=?,
-    ~onSlSlideChange: unit => eventDetail=?,
+    ~onSlSlideChange: eventHandler=?,
     ~updateComplete: updateComplete=?,
   ) => React.element = "SlCarousel"
 }
@@ -184,6 +194,67 @@ module Carousel = {
 module CarouselItem = {
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (~children: React.element=?) => React.element = "SlCarouselItem"
+}
+
+/* SlCheckbox */
+module Checkbox = {
+  include Base
+  type check
+
+  @send external click: check => unit = "click"
+  @send external blur: check => unit = "blur"
+  @send external focus: (check, ~options: focusOptions=?) => unit = "focus"
+  @send external getForm: check => option<Dom.htmlFormElement> = "getForm"
+  @send external firstUpdated: check => unit = "firstUpdated"
+  @send external checkValidity: check => bool = "checkValidity"
+  @send external reportValidity: check => bool = "reportValidity"
+  @send external setCustomValidity: (check, ~message: string) => unit = "setCustomValidity"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~name: string=?,
+    ~value: string=?,
+    ~size: size=?,
+    ~disabled: bool=?,
+    ~checked: bool=?,
+    ~indeterminate: bool=?,
+    ~defaultChecked: bool=?,
+    ~form: string=?,
+    ~required: bool=?,
+    ~validity: unit => validityStateObj=?,
+    ~validationMessage: unit => validationMessage=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlBlur: eventHandler=?,
+    ~onSlChange: eventHandler=?,
+    ~onSlFocus: eventHandler=?,
+    ~onSlInput: eventHandler=?,
+    ~onSlInvalid: eventHandler=?,
+  ) => React.element = "SlCheckbox"
+}
+
+/* SlDialog */
+module Dialog = {
+  include Base
+  type dialog
+
+  @send external show: dialog => unit = "show"
+  @send external hide: dialog => unit = "hide"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~\"open": bool,
+    ~label: string=?,
+    ~noHeader: bool=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlShow: eventHandler=?,
+    ~onSlAfterShow: eventHandler=?,
+    ~onSlHide: eventHandler=?,
+    ~onSlAfterHide: eventHandler=?,
+    ~onSlInitialFocus: eventHandler=?,
+    ~onSlRequestClose: eventHandler=?,
+  ) => React.element = "SlDialog"
 }
 
 @module("@shoelace-style/shoelace/dist/utilities/base-path.js")
