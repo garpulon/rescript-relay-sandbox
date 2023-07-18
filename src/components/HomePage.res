@@ -42,7 +42,7 @@ let make = (~fragmentRefs) => {
     <Sl.Button variant={#primary} size={#large} onClick={onClickPrimary}>
       {`Click me`->React.string}
     </Sl.Button>
-    <Sl.Alert ref={primary} variant={#primary} closable={true}>
+    <Sl.Alert ref={primary} variant={#primary} duration=3000 closable={true}>
       <Sl.Icon slot="icon" library="default" name="info-circle" />
       {`Hiii`->React.string}
     </Sl.Alert>

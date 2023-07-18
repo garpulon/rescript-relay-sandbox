@@ -510,6 +510,38 @@ module Input = {
   ) => React.element = "SlInput"
 }
 
+/* SlMenu */
+module Menu = {
+  include Base
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (~children: React.element=?, ~onSlSelect: eventHandler=?) => React.element =
+    "SlMenu"
+}
+
+/* SlMenuItem */
+module MenuItem = {
+  include Base
+  type t
+
+  @send external getTextLabel: t => string = "getTextLabel"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~\"type": [#normal | #checkbox]=?,
+    ~checked: bool=?,
+    ~value: string=?,
+    ~disabled: bool=?,
+    ~updateComplete: updateComplete=?,
+  ) => React.element = "SlMenuItem"
+}
+
+/* SlMenuLabel */
+module MenuLabel = {
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (~children: React.element=?) => React.element = "SlMenuLabel"
+}
+
 /* Registration Functions */
 type img
 type registerOptions = {
