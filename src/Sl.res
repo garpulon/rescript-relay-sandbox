@@ -513,8 +513,11 @@ module Input = {
 module Menu = {
   include Base
   @module("@shoelace-style/shoelace/dist/react/") @react.component
-  external make: (~children: React.element=?, ~onSlSelect: eventHandler=?) => React.element =
-    "SlMenu"
+  external make: (
+    ~children: React.element=?,
+    ~style: ReactDOM.Style.t=?,
+    ~onSlSelect: eventHandler=?,
+  ) => React.element = "SlMenu"
 }
 
 /* SlMenuItem */
