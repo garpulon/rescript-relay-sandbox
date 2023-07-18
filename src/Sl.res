@@ -20,6 +20,11 @@ module Base = {
     | #large
   ]
 
+  type scrollBehavior = [
+    | #auto
+    | #smooth
+  ]
+
   type updateComplete = Js.Promise.t<unit> => unit
 }
 
@@ -140,6 +145,45 @@ module ButtonGroup = {
     ~label: string=?,
     ~updateComplete: updateComplete=?,
   ) => React.element = "SlButtonGroup"
+}
+
+/* SlCarousel */
+module Carousel = {
+  include Base
+  type carousel
+  type slide
+
+  type eventDetail = {
+    index: int,
+    slide: slide,
+  }
+
+  @send external previous: (carousel, ~behavior: scrollBehavior=?) => unit = "previous"
+  @send external next: (carousel, ~behavior: scrollBehavior=?) => unit = "next"
+  @send
+  external goToSlide: (carousel, ~index: int, ~behavior: scrollBehavior=?) => unit = "goToSlide"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~loop: bool=?,
+    ~navigation: bool=?,
+    ~pagination: bool=?,
+    ~autoplay: bool=?,
+    ~autoplayInterval: int=?,
+    ~slidesPerPage: int=?,
+    ~slidesPerMove: int=?,
+    ~orientation: [#horizontal | #vertical]=?,
+    ~mouseDragging: bool=?,
+    ~onSlSlideChange: unit => eventDetail=?,
+    ~updateComplete: updateComplete=?,
+  ) => React.element = "SlCarousel"
+}
+
+/* SlCarouselItem */
+module CarouselItem = {
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (~children: React.element=?) => React.element = "SlCarouselItem"
 }
 
 @module("@shoelace-style/shoelace/dist/utilities/base-path.js")
