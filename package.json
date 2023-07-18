@@ -35,7 +35,9 @@
     "push:all:prod": "npm run push:graphile-worker:prod & npm run push:postgraphile:prod &",
     "run:graphile-worker:dev": "docker-compose up graphile-worker-dev",
     "run:postgraphile:dev": "docker-compose up postgraphile-dev",
-    "run:all:dev": "docker-compose up postgraphile-dev graphile-worker-dev"
+    "run:all:dev": "docker-compose up postgraphile-dev graphile-worker-dev",
+    "shoelace:prepare": "mkdir -p src/static/sl-assets; npm run shoelace:copy-assets",
+    "shoelace:copy-assets": "cp -r node_modules/@shoelace-style/shoelace/dist/assets src/static/sl-assets"
   },
   "devDependencies": {
     "dotenv-cli": "^7.2.1",
