@@ -309,6 +309,49 @@ module Dropdown = {
   ) => React.element = "SlDropdown"
 }
 
+/* SlFormatDate */
+module FormatDate = {
+  include Base
+
+  type d = Js.Date.t
+
+  type date =
+    | Date(d)
+    | String(string)
+
+  type shortLong = [
+    | #short
+    | #long
+  ]
+
+  type stringFormats = [
+    | #narrow
+    | #shortLong
+  ]
+
+  type numericFormats = [
+    | #numeric
+    | #"2-digit"
+  ]
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~date: date=?,
+    ~weekday: stringFormats=?,
+    ~era: stringFormats=?,
+    ~year: numericFormats=?,
+    ~month: [#stringFormats | #numericFormats]=?,
+    ~day: numericFormats=?,
+    ~hour: numericFormats=?,
+    ~minute: numericFormats=?,
+    ~second: numericFormats=?,
+    ~timeZoneName: shortLong=?,
+    ~timeZone: string=?,
+    ~hourFormat: [#auto | #12 | #24]=?,
+    ~updateComplete: updateComplete=?,
+  ) => React.element = "SlFormatDate"
+}
+
 @module("@shoelace-style/shoelace/dist/utilities/base-path.js")
 external setBasePath: string => unit = "setBasePath"
 
