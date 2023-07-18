@@ -352,6 +352,25 @@ module FormatDate = {
   ) => React.element = "SlFormatDate"
 }
 
+/* SlFormatNumber */
+module FormatNumber = {
+  include Base
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~value: int=?,
+    ~\"type": [#currency | #decimal | #percent]=?,
+    ~noGrouping: bool=?,
+    ~currency: string=?,
+    ~currencyDisplay: [#symbol | #narrowSymbol | #code | #name]=?,
+    ~minimumIntegerDigits: int=?,
+    ~maximumFractionDigits: int=?,
+    ~minimumSignificantDigits: int=?,
+    ~maximumSignificantDigits: int=?,
+    ~updateComplete: updateComplete=?,
+  ) => React.element = "SlFormatDate"
+}
+
 @module("@shoelace-style/shoelace/dist/utilities/base-path.js")
 external setBasePath: string => unit = "setBasePath"
 
