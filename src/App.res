@@ -1,5 +1,3 @@
-let _ = Sl.setBasePath("/static/sl-assets")
-
 @react.component
 let make = () => {
   let url = RescriptReactRouter.useUrl()
