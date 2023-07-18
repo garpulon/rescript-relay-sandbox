@@ -205,7 +205,7 @@ module Checkbox = {
   @send external click: check => unit = "click"
   @send external blur: check => unit = "blur"
   @send external focus: (check, ~options: focusOptions=?) => unit = "focus"
-  @send external getForm: check => option<Dom.htmlFormElement> = "getForm"
+  @send external getForm: check => Js.Nullable.t<Dom.htmlFormElement> = "getForm"
   @send external firstUpdated: check => unit = "firstUpdated"
   @send external checkValidity: check => bool = "checkValidity"
   @send external reportValidity: check => bool = "reportValidity"
@@ -371,8 +371,157 @@ module FormatNumber = {
   ) => React.element = "SlFormatDate"
 }
 
+/* SlIcon */
+module Icon = {
+  include Base
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~name: string=?,
+    ~src: string=?,
+    ~label: string=?,
+    ~slot: string=?,
+    ~library: string=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlLoad: eventHandler=?,
+    ~onSlError: eventHandler=?,
+  ) => React.element = "SlIcon"
+}
+
+/* SlIconButton */
+module IconButton = {
+  include Base
+  type icnBtn
+
+  @send external click: icnBtn => unit = "click"
+  @send external blur: icnBtn => unit = "blur"
+  @send external focus: (icnBtn, ~options: focusOptions=?) => unit = "focus"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~name: string=?,
+    ~src: string=?,
+    ~label: string=?,
+    ~slot: string=?,
+    ~target: [#_blank | #_parent | #_top | #_self]=?,
+    ~href: string=?,
+    ~download: string=?,
+    ~library: string=?,
+    ~disabled: bool=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlBlur: eventHandler=?,
+    ~onSlFocus: eventHandler=?,
+  ) => React.element = "SlIconButton"
+}
+
+/* SlInput */
+module Input = {
+  include Base
+  type input
+
+  type inputType = [
+    | #date
+    | #"datetime-local"
+    | #email
+    | #number
+    | #password
+    | #search
+    | #tel
+    | #text
+    | #time
+    | #url
+  ]
+
+  type stepType = [#int(int) | #any]
+
+  @send external blur: input => unit = "blur"
+  @send external select: input => unit = "select"
+  @send external focus: (input, ~options: focusOptions=?) => unit = "focus"
+  @send
+  external setSelectionRange: (
+    input,
+    ~selectionStart: int,
+    ~selectionEnd: int,
+    ~selectionDirection: [#forward | #backward | #none],
+  ) => unit = "setSelectionRange"
+  @send
+  external setRangeText: (
+    input,
+    ~replacement: string,
+    ~start: int,
+    ~end: int,
+    ~selectMode: [#select | #start | #end | #preserve],
+  ) => unit = "setRangeText"
+  @send external showPicker: input => unit = "showPicker"
+  @send external stepUp: input => unit = "stepUp"
+  @send external stepDown: input => unit = "stepDown"
+  @send external getForm: input => Js.Nullable.t<Dom.htmlFormElement> = "getForm"
+  @send external checkValidity: input => bool = "checkValidity"
+  @send external reportValidity: input => bool = "reportValidity"
+  @send external setCustomValidity: (input, ~message: string) => unit = "setCustomValidity"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~\"type": inputType=?,
+    ~name: string=?,
+    ~value: string=?,
+    ~defaultValue: string=?,
+    ~size: size=?,
+    ~filled: bool=?,
+    ~pill: bool=?,
+    ~label: string=?,
+    ~slot: string=?,
+    ~helpText: string=?,
+    ~clearable: bool=?,
+    ~disabled: bool=?,
+    ~readonly: bool=?,
+    ~passwordToggle: bool=?,
+    ~noSpinButtons: bool=?,
+    ~form: string=?,
+    ~required: bool=?,
+    ~pattern: string=?,
+    ~minlength: int=?,
+    ~maxlength: int=?,
+    ~min: int=?,
+    ~max: int=?,
+    ~step: stepType=?,
+    ~autocapitalize: [#off | #on | #none | #sentences | #words | #characters]=?,
+    ~autocorrect: [#on | #off]=?,
+    ~autocomplete: string=?,
+    ~autofocus: bool=?,
+    ~spellcheck: bool=?,
+    ~inputmode: [#none | #text | #decimal | #numeric | #tel | #search | #email | #url]=?,
+    ~valueAsDate: Js.Nullable.t<Js.Date.t>=?,
+    ~valueAsNumber: float=?,
+    ~validity: unit => validityStateObj=?,
+    ~validationMessage: unit => validationMessage=?,
+    ~target: [#_blank | #_parent | #_top | #_self]=?,
+    ~href: string=?,
+    ~download: string=?,
+    ~library: string=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlBlur: eventHandler=?,
+    ~onSlChange: eventHandler=?,
+    ~onSlClear: eventHandler=?,
+    ~onSlInput: eventHandler=?,
+    ~onSlFocus: eventHandler=?,
+    ~onSlInvalid: eventHandler=?,
+  ) => React.element = "SlInput"
+}
+
+/* Registration Functions */
+type img
+type registerOptions = {
+  resolver: string => string,
+  mutator?: img => unit,
+}
+
 @module("@shoelace-style/shoelace/dist/utilities/base-path.js")
 external setBasePath: string => unit = "setBasePath"
 
 @module("@shoelace-style/shoelace/dist/utilities/base-path.js")
 external getBasePath: unit => string = "getBasePath"
+
+@module("@shoelace-style/shoelace/dist/utilities/icon-library.js")
+external registerIconLibrary: (string, registerOptions) => unit = "registerIconLibrary"
