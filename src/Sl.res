@@ -44,12 +44,11 @@ module Base = {
 /* SlAlert */
 module Alert = {
   include Base
-  type alert
-  type cb
+  type t
 
-  @send external toast: alert => unit = "toast"
-  @send external show: alert => unit = "show"
-  @send external hide: alert => unit = "hide"
+  @send external toast: t => unit = "toast"
+  @send external show: t => unit = "show"
+  @send external hide: t => unit = "hide"
 
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
@@ -58,13 +57,13 @@ module Alert = {
     ~\"open": bool=?,
     ~closable: bool=?,
     ~duration: int=?,
-    ~onClick: cb => unit=?,
+    ~onClick: unit => unit=?,
     ~onSlShow: eventHandler=?,
     ~onSlAfterShow: eventHandler=?,
     ~onSlHide: eventHandler=?,
     ~onSlAfterHide: eventHandler=?,
     ~updateComplete: updateComplete=?,
-    ~ref: React.ref<Js.Nullable.t<alert>>=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlAlert"
 }
 
@@ -102,16 +101,16 @@ module Badge = {
 /* SlButton */
 module Button = {
   include Base
-  type btn
+  type t
 
-  @send external click: btn => unit = "click"
-  @send external blur: btn => unit = "blur"
-  @send external focus: (btn, ~options: focusOptions=?) => unit = "focus"
-  @send external getForm: btn => option<Dom.htmlFormElement> = "getForm"
-  @send external firstUpdated: btn => unit = "firstUpdated"
-  @send external checkValidity: btn => bool = "checkValidity"
-  @send external reportValidity: btn => bool = "reportValidity"
-  @send external setCustomValidity: (btn, ~message: string) => unit = "setCustomValidity"
+  @send external click: t => unit = "click"
+  @send external blur: t => unit = "blur"
+  @send external focus: (t, ~options: focusOptions=?) => unit = "focus"
+  @send external getForm: t => option<Dom.htmlFormElement> = "getForm"
+  @send external firstUpdated: t => unit = "firstUpdated"
+  @send external checkValidity: t => bool = "checkValidity"
+  @send external reportValidity: t => bool = "reportValidity"
+  @send external setCustomValidity: (t, ~message: string) => unit = "setCustomValidity"
 
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
@@ -159,20 +158,20 @@ module ButtonGroup = {
 /* SlCarousel */
 module Carousel = {
   include Base
-  type carousel
-  type slide
+  type t
+  type s
 
   type eventDetail = {
     index: int,
-    slide: slide,
+    slide: s,
   }
 
   type slideChangeEvent = {detail: eventDetail}
 
-  @send external previous: (carousel, ~behavior: scrollBehavior=?) => unit = "previous"
-  @send external next: (carousel, ~behavior: scrollBehavior=?) => unit = "next"
+  @send external previous: (t, ~behavior: scrollBehavior=?) => unit = "previous"
+  @send external next: (t, ~behavior: scrollBehavior=?) => unit = "next"
   @send
-  external goToSlide: (carousel, ~index: int, ~behavior: scrollBehavior=?) => unit = "goToSlide"
+  external goToSlide: (t, ~index: int, ~behavior: scrollBehavior=?) => unit = "goToSlide"
 
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
@@ -200,16 +199,16 @@ module CarouselItem = {
 /* SlCheckbox */
 module Checkbox = {
   include Base
-  type check
+  type t
 
-  @send external click: check => unit = "click"
-  @send external blur: check => unit = "blur"
-  @send external focus: (check, ~options: focusOptions=?) => unit = "focus"
-  @send external getForm: check => Js.Nullable.t<Dom.htmlFormElement> = "getForm"
-  @send external firstUpdated: check => unit = "firstUpdated"
-  @send external checkValidity: check => bool = "checkValidity"
-  @send external reportValidity: check => bool = "reportValidity"
-  @send external setCustomValidity: (check, ~message: string) => unit = "setCustomValidity"
+  @send external click: t => unit = "click"
+  @send external blur: t => unit = "blur"
+  @send external focus: (t, ~options: focusOptions=?) => unit = "focus"
+  @send external getForm: t => Js.Nullable.t<Dom.htmlFormElement> = "getForm"
+  @send external firstUpdated: t => unit = "firstUpdated"
+  @send external checkValidity: t => bool = "checkValidity"
+  @send external reportValidity: t => bool = "reportValidity"
+  @send external setCustomValidity: (t, ~message: string) => unit = "setCustomValidity"
 
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
@@ -237,10 +236,10 @@ module Checkbox = {
 /* SlDialog */
 module Dialog = {
   include Base
-  type dialog
+  type t
 
-  @send external show: dialog => unit = "show"
-  @send external hide: dialog => unit = "hide"
+  @send external show: t => unit = "show"
+  @send external hide: t => unit = "hide"
 
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
@@ -269,7 +268,7 @@ module Divider = {
 /* SlDropdown */
 module Dropdown = {
   include Base
-  type dropdown
+  type t
 
   type placement = [
     | #top
@@ -286,9 +285,9 @@ module Dropdown = {
     | #"left-end"
   ]
 
-  @send external show: dropdown => unit = "show"
-  @send external hide: dropdown => unit = "hide"
-  @send external reposition: dropdown => unit = "reposition"
+  @send external show: t => unit = "show"
+  @send external hide: t => unit = "hide"
+  @send external reposition: t => unit = "reposition"
 
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
@@ -391,11 +390,11 @@ module Icon = {
 /* SlIconButton */
 module IconButton = {
   include Base
-  type icnBtn
+  type t
 
-  @send external click: icnBtn => unit = "click"
-  @send external blur: icnBtn => unit = "blur"
-  @send external focus: (icnBtn, ~options: focusOptions=?) => unit = "focus"
+  @send external click: t => unit = "click"
+  @send external blur: t => unit = "blur"
+  @send external focus: (t, ~options: focusOptions=?) => unit = "focus"
 
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
@@ -417,7 +416,7 @@ module IconButton = {
 /* SlInput */
 module Input = {
   include Base
-  type input
+  type t
 
   type inputType = [
     | #date
@@ -434,31 +433,31 @@ module Input = {
 
   type stepType = [#int(int) | #any]
 
-  @send external blur: input => unit = "blur"
-  @send external select: input => unit = "select"
-  @send external focus: (input, ~options: focusOptions=?) => unit = "focus"
+  @send external blur: t => unit = "blur"
+  @send external select: t => unit = "select"
+  @send external focus: (t, ~options: focusOptions=?) => unit = "focus"
   @send
   external setSelectionRange: (
-    input,
+    t,
     ~selectionStart: int,
     ~selectionEnd: int,
     ~selectionDirection: [#forward | #backward | #none],
   ) => unit = "setSelectionRange"
   @send
   external setRangeText: (
-    input,
+    t,
     ~replacement: string,
     ~start: int,
     ~end: int,
     ~selectMode: [#select | #start | #end | #preserve],
   ) => unit = "setRangeText"
-  @send external showPicker: input => unit = "showPicker"
-  @send external stepUp: input => unit = "stepUp"
-  @send external stepDown: input => unit = "stepDown"
-  @send external getForm: input => Js.Nullable.t<Dom.htmlFormElement> = "getForm"
-  @send external checkValidity: input => bool = "checkValidity"
-  @send external reportValidity: input => bool = "reportValidity"
-  @send external setCustomValidity: (input, ~message: string) => unit = "setCustomValidity"
+  @send external showPicker: t => unit = "showPicker"
+  @send external stepUp: t => unit = "stepUp"
+  @send external stepDown: t => unit = "stepDown"
+  @send external getForm: t => Js.Nullable.t<Dom.htmlFormElement> = "getForm"
+  @send external checkValidity: t => bool = "checkValidity"
+  @send external reportValidity: t => bool = "reportValidity"
+  @send external setCustomValidity: (t, ~message: string) => unit = "setCustomValidity"
 
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
@@ -540,6 +539,89 @@ module MenuItem = {
 module MenuLabel = {
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (~children: React.element=?) => React.element = "SlMenuLabel"
+}
+
+/* SlOption */
+module Option = {
+  include Base
+  type t
+
+  @send external getTextLabel: t => string = "getTextLabel"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~value: string=?,
+    ~disabled: bool=?,
+    ~updateComplete: updateComplete=?,
+  ) => React.element = "SlOption"
+}
+
+/* SlRadio */
+module Radio = {
+  include Base
+  type t
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~value: string=?,
+    ~size: size=?,
+    ~disabled: bool=?,
+    ~onSlBlur: eventHandler=?,
+    ~onSlFocus: eventHandler=?,
+    ~updateComplete: updateComplete=?,
+  ) => React.element = "SlRadio"
+}
+
+/* SlRadioButton */
+module RadioButton = {
+  include Base
+  type t
+
+  @send external focus: (t, ~options: focusOptions=?) => unit = "focus"
+  @send external blur: t => unit = "focus"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~value: string=?,
+    ~size: size=?,
+    ~disabled: bool=?,
+    ~pill: bool=?,
+    ~onSlBlur: eventHandler=?,
+    ~onSlFocus: eventHandler=?,
+    ~updateComplete: updateComplete=?,
+  ) => React.element = "SlRadio"
+}
+
+/* SlRadioGroup */
+module RadioGroup = {
+  include Base
+  type t
+
+  @send external getForm: t => Js.Nullable.t<Dom.htmlFormElement> = "getForm"
+  @send external checkValidity: t => bool = "checkValidity"
+  @send external reportValidity: t => bool = "reportValidity"
+  @send external setCustomValidity: (t, ~message: string) => unit = "setCustomValidity"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~label: string=?,
+    ~helpText: string=?,
+    ~name: string=?,
+    ~value: string=?,
+    ~size: size=?,
+    ~form: string=?,
+    ~required: bool=?,
+    ~validity: unit => validityStateObj=?,
+    ~validationMessage: unit => validationMessage=?,
+    ~onSlChange: eventHandler=?,
+    ~onSlInput: eventHandler=?,
+    ~onSlInvalid: eventHandler=?,
+    ~updateComplete: updateComplete=?,
+  ) => React.element = "SlRadioGroup"
 }
 
 /* Registration Functions */
