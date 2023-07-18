@@ -30,6 +30,21 @@ module Base = {
     focusVisible?: string,
   }
 
+  type shortLong = [
+    | #short
+    | #long
+  ]
+
+  type stringFormats = [
+    | #narrow
+    | #shortLong
+  ]
+
+  type numericFormats = [
+    | #numeric
+    | #"2-digit"
+  ]
+
   type updateComplete = Js.Promise.t<unit> => unit
 
   type validityStateObj
@@ -312,30 +327,9 @@ module Dropdown = {
 module FormatDate = {
   include Base
 
-  type d = Js.Date.t
-
-  type date =
-    | Date(d)
-    | String(string)
-
-  type shortLong = [
-    | #short
-    | #long
-  ]
-
-  type stringFormats = [
-    | #narrow
-    | #shortLong
-  ]
-
-  type numericFormats = [
-    | #numeric
-    | #"2-digit"
-  ]
-
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
-    ~date: date=?,
+    ~date: string=?,
     ~weekday: stringFormats=?,
     ~era: stringFormats=?,
     ~year: numericFormats=?,
@@ -625,6 +619,21 @@ module RadioGroup = {
     ~onSlInvalid: eventHandler=?,
     ~updateComplete: updateComplete=?,
   ) => React.element = "SlRadioGroup"
+}
+
+/* SlRelativeTime */
+module RelativeTime = {
+  include Base
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~date: string=?,
+    ~format: stringFormats=?,
+    ~numeric: [#always | #auto]=?,
+    ~sync: bool=?,
+    ~lang: string=?,
+    ~updateComplete: updateComplete=?,
+  ) => React.element = "SlRelativeTime"
 }
 
 /* Registration Functions */
