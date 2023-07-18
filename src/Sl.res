@@ -65,7 +65,7 @@ module Alert = {
     ~onSlAfterHide: eventHandler=?,
     ~updateComplete: updateComplete=?,
     ~ref: React.ref<Js.Nullable.t<alert>>=?,
-  ) => React.element = "SlAvatar"
+  ) => React.element = "SlAlert"
 }
 
 /* SlAvatar */
@@ -81,7 +81,7 @@ module Avatar = {
     ~onClick: unit => unit=?, // IDK is this necessary?
     ~shape: [#circle | #square | #rounded]=?,
     ~updateComplete: updateComplete=?,
-  ) => React.element = "SlAlert"
+  ) => React.element = "SlAvatar"
 }
 
 /* SlBadge */
@@ -141,6 +141,7 @@ module Button = {
     ~onSlFocus: eventHandler=?,
     ~onSlInvalid: eventHandler=?,
     ~updateComplete: reactEvent=?,
+    ~slot: string=?,
   ) => React.element = "SlButton"
 }
 
@@ -255,6 +256,57 @@ module Dialog = {
     ~onSlInitialFocus: eventHandler=?,
     ~onSlRequestClose: eventHandler=?,
   ) => React.element = "SlDialog"
+}
+
+/* SlDivider */
+module Divider = {
+  include Base
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (~vertical: bool=?, ~updateComplete: updateComplete=?) => React.element =
+    "SlDivider"
+}
+
+/* SlDropdown */
+module Dropdown = {
+  include Base
+  type dropdown
+
+  type placement = [
+    | #top
+    | #"top-start"
+    | #"top-end"
+    | #bottom
+    | #"bottom-start"
+    | #"bottom-end"
+    | #right
+    | #"right-start"
+    | #"right-end"
+    | #left
+    | #"left-start"
+    | #"left-end"
+  ]
+
+  @send external show: dropdown => unit = "show"
+  @send external hide: dropdown => unit = "hide"
+  @send external reposition: dropdown => unit = "reposition"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~\"open": bool=?,
+    ~placement: placement=?,
+    ~disabled: bool=?,
+    ~stayOpenOnSelect: bool=?,
+    ~containingElement: Dom.htmlElement=?,
+    ~distance: int=?,
+    ~skidding: int=?,
+    ~hoist: bool=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlShow: eventHandler=?,
+    ~onSlAfterShow: eventHandler=?,
+    ~onSlHide: eventHandler=?,
+    ~onSlAfterHide: eventHandler=?,
+  ) => React.element = "SlDropdown"
 }
 
 @module("@shoelace-style/shoelace/dist/utilities/base-path.js")
