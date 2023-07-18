@@ -19,6 +19,8 @@ module Base = {
     | #medium
     | #large
   ]
+
+  type updateComplete = Js.Promise.t<unit> => unit
 }
 
 /* SlAlert */
@@ -43,14 +45,14 @@ module Alert = {
     ~onSlAfterShow: unit => unit=?,
     ~onSlHide: unit => unit=?,
     ~onSlAfterHide: unit => unit=?,
+    ~updateComplete: updateComplete=?,
     ~ref: React.ref<Js.Nullable.t<alert>>=?,
   ) => React.element = "SlAvatar"
 }
 
 /* SlAvatar */
 module Avatar = {
-  type cb
-
+  include Base
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
     ~children: React.element=?,
@@ -58,15 +60,15 @@ module Avatar = {
     ~label: string,
     ~initials: string=?,
     ~loading: [#eager | #"lazy"]=?,
-    ~onClick: cb => unit=?, // IDK is this necessary?
+    ~onClick: unit => unit=?, // IDK is this necessary?
     ~shape: [#circle | #square | #rounded]=?,
+    ~updateComplete: updateComplete=?,
   ) => React.element = "SlAlert"
 }
 
 /* SlBadge */
 module Badge = {
   include Base
-  type cb
 
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
@@ -74,9 +76,9 @@ module Badge = {
     ~variant: variant=?,
     ~pill: bool=?,
     ~pulse: bool=?,
-    ~onClick: cb => unit=?,
-  ) => // IDK is this necessary?
-  React.element = "SlBadge"
+    ~onClick: unit => unit=?,
+    ~updateComplete: updateComplete=?,
+  ) => React.element = "SlBadge"
 }
 
 /* SlButton */
@@ -125,7 +127,19 @@ module Button = {
     ~onSlBlur: unit => unit=?,
     ~onSlFocus: unit => unit=?,
     ~onSlInvalid: unit => unit=?,
+    ~updateComplete: updateComplete=?,
   ) => React.element = "SlButton"
+}
+
+/* SlButtonGroup */
+module ButtonGroup = {
+  include Base
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~label: string=?,
+    ~updateComplete: updateComplete=?,
+  ) => React.element = "SlButtonGroup"
 }
 
 @module("@shoelace-style/shoelace/dist/utilities/base-path.js")
