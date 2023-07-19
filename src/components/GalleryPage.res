@@ -236,6 +236,41 @@ let make = () => {
       <Sl.FormatNumber value=5.5 \"type"={#decimal} lang="fr" />
     </span>
     <br />
+    <br />
+    <Sl.Divider />
+    <h2> {`Switch`->React.string} </h2>
+    <Sl.Switch name="Clicker" />
+    <br />
+    <br />
+    <Sl.Divider />
+    <h2> {`Tree`->React.string} </h2>
+    <Sl.Tree
+      selection={#multiple}
+      onSlSelectionChange={e => {
+        let arr = e.detail.selection->Array.map(node => {
+          switch node.attributes {
+          | Some({value: {value}}) => Some(value)
+          | _ => None
+          }
+        })
+        Js.Console.log(arr)
+      }}>
+      <Sl.TreeItem value="hi">
+        {`Item 1`->React.string}
+        <Sl.TreeItem value="we">
+          {`Item A`->React.string}
+          <Sl.TreeItem value="are"> {`Item Z`->React.string} </Sl.TreeItem>
+          <Sl.TreeItem value="testing"> {`Item Y`->React.string} </Sl.TreeItem>
+          <Sl.TreeItem value="how"> {`Item x`->React.string} </Sl.TreeItem>
+        </Sl.TreeItem>
+        <Sl.TreeItem value="this"> {`Item B`->React.string} </Sl.TreeItem>
+        <Sl.TreeItem value="goes"> {`Item C`->React.string} </Sl.TreeItem>
+      </Sl.TreeItem>
+      <Sl.TreeItem value="selecting"> {`Item 2`->React.string} </Sl.TreeItem>
+      <Sl.TreeItem value="multiple"> {`Item 3`->React.string} </Sl.TreeItem>
+    </Sl.Tree>
+    <br />
+    <br />
     <Sl.Divider />
     <p style={ReactDOM.Style.make(~textAlign=`right`, ())}>
       <Link to="/">

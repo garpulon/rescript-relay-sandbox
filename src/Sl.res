@@ -943,12 +943,20 @@ module Tooltip = {
 module Tree = {
   include Base
 
+  type val = {value: string}
+  type value = {value: val}
+  type treeItem = {attributes: option<value>}
+  type detailType = {selection: array<treeItem>}
+  type select = {detail: detailType}
+  type selectEvent = select => unit
+
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
     ~children: React.element=?,
+    ~value: string=?,
     ~selection: [#single | #multiple | #leaf]=?,
     ~updateComplete: updateComplete=?,
-    ~onSlSelectionChange: eventHandler=?,
+    ~onSlSelectionChange: selectEvent=?,
     ~style: ReactDOM.Style.t=?,
   ) => React.element = "SlTree"
 }
@@ -966,6 +974,7 @@ module TreeItem = {
     ~expanded: bool=?,
     ~selected: bool=?,
     ~disabled: bool=?,
+    ~value: string=?,
     ~\"lazy": bool=?,
     ~updateComplete: updateComplete=?,
     ~onSlExpand: eventHandler=?,
