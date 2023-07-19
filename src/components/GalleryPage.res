@@ -7,6 +7,8 @@ let make = () => {
 
   let (dialogOpen, setDialogOpen) = React.useState(() => false)
 
+  let handleClick = (e: ReactEvent.Form.t) => Js.Console.log(ReactEvent.Form.target(e)["value"])
+
   open Sl.Alert
 
   let onClickPrimary = _ => {
@@ -65,6 +67,38 @@ let make = () => {
       <br />
       <br />
       <Sl.Divider />
+      <h2> {`Dropdown`->React.string} </h2>
+      <Sl.Dropdown>
+        <Sl.Button slot="trigger" caret={true}> {`Dropdown`->React.string} </Sl.Button>
+        <Sl.Menu
+          onSlSelect={e => {
+            let item = e.detail.item
+            Js.Console.log(item)
+          }}>
+          <Sl.MenuItem value="item-1" onClick={handleClick}> {`Item 1`->React.string} </Sl.MenuItem>
+          <Sl.MenuItem value="item-2"> {`Item 2`->React.string} </Sl.MenuItem>
+          <Sl.MenuItem value="item-3"> {`Item 3`->React.string} </Sl.MenuItem>
+          <Sl.Divider />
+          <Sl.MenuItem \"type"={#checkbox} checked={true} value="item-checkbox">
+            {`Checkbox`->React.string}
+          </Sl.MenuItem>
+          <Sl.MenuItem disabled={true} value="item-disabled">
+            {`Can't click me`->React.string}
+          </Sl.MenuItem>
+          <Sl.Divider />
+          <Sl.MenuItem value="item-gift">
+            {`Free Gift`->React.string}
+            <Sl.Icon slot="prefix" name="gift" />
+          </Sl.MenuItem>
+          <Sl.MenuItem value="item-like">
+            {`Like This!`->React.string}
+            <Sl.Icon slot="suffix" name="heart" />
+          </Sl.MenuItem>
+        </Sl.Menu>
+      </Sl.Dropdown>
+      <br />
+      <br />
+      <Sl.Divider />
       <h2> {`Multiple Select`->React.string} </h2>
       <Sl.Select
         label="Select a Few"
@@ -96,18 +130,30 @@ let make = () => {
       <br />
       <br />
       <Sl.Divider />
-      <h2> {`Button Groups`->React.string} </h2>
+      <h2> {`Button Groups and Tooltips`->React.string} </h2>
       <Sl.ButtonGroup label="No Pill">
-        <Sl.Button size={#medium}> {`Left`->React.string} </Sl.Button>
-        <Sl.Button size={#medium}> {`Center`->React.string} </Sl.Button>
-        <Sl.Button size={#medium}> {`Right`->React.string} </Sl.Button>
+        <Sl.Tooltip content="Up" trigger="click">
+          <Sl.Button size={#medium}> {`Left`->React.string} </Sl.Button>
+        </Sl.Tooltip>
+        <Sl.Tooltip content="Down" placement={#bottom} trigger="click">
+          <Sl.Button size={#medium}> {`Center`->React.string} </Sl.Button>
+        </Sl.Tooltip>
+        <Sl.Tooltip content="Right" placement={#right} trigger="click">
+          <Sl.Button size={#medium}> {`Right`->React.string} </Sl.Button>
+        </Sl.Tooltip>
       </Sl.ButtonGroup>
       <br />
       <br />
       <Sl.ButtonGroup label="Pill">
-        <Sl.Button size={#medium} pill={true}> {`Left`->React.string} </Sl.Button>
-        <Sl.Button size={#medium} pill={true}> {`Center`->React.string} </Sl.Button>
-        <Sl.Button size={#medium} pill={true}> {`Right`->React.string} </Sl.Button>
+        <Sl.Tooltip content="Up">
+          <Sl.Button size={#medium} pill={true}> {`Left`->React.string} </Sl.Button>
+        </Sl.Tooltip>
+        <Sl.Tooltip content="Down" placement={#bottom}>
+          <Sl.Button size={#medium} pill={true}> {`Center`->React.string} </Sl.Button>
+        </Sl.Tooltip>
+        <Sl.Tooltip content="Right" placement={#right}>
+          <Sl.Button size={#medium} pill={true}> {`Right`->React.string} </Sl.Button>
+        </Sl.Tooltip>
       </Sl.ButtonGroup>
       <br />
       <br />

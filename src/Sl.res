@@ -90,7 +90,7 @@ module Alert = {
     ~\"open": bool=?,
     ~closable: bool=?,
     ~duration: int=?,
-    ~onClick: unit => unit=?,
+    ~onClick: eventHandler=?,
     ~onSlShow: eventHandler=?,
     ~onSlAfterShow: eventHandler=?,
     ~onSlHide: eventHandler=?,
@@ -110,7 +110,7 @@ module Avatar = {
     ~label: string,
     ~initials: string=?,
     ~loading: [#eager | #"lazy"]=?,
-    ~onClick: unit => unit=?, // IDK is this necessary?
+    ~onClick: eventHandler=?, // IDK is this necessary?
     ~shape: [#circle | #square | #rounded]=?,
     ~updateComplete: updateComplete=?,
   ) => React.element = "SlAvatar"
@@ -126,7 +126,7 @@ module Badge = {
     ~variant: variant=?,
     ~pill: bool=?,
     ~pulse: bool=?,
-    ~onClick: unit => unit=?,
+    ~onClick: eventHandler=?,
     ~updateComplete: updateComplete=?,
   ) => React.element = "SlBadge"
 }
@@ -159,7 +159,7 @@ module Button = {
     ~outline: bool=?,
     ~name: string=?,
     ~href: string=?,
-    ~onClick: unit => unit=?,
+    ~onClick: eventHandler=?,
     ~target: [#_blank | #_parent | #_top | #_self]=?,
     ~rel: [#noreferrer_noopener]=?,
     ~download: string=?,
@@ -519,11 +519,15 @@ module Input = {
 /* SlMenu */
 module Menu = {
   include Base
+
+  type detailType = {item: Dom.htmlElement}
+  type select = {detail: detailType}
+  type selectEvent = select => unit
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
     ~children: React.element=?,
     ~style: ReactDOM.Style.t=?,
-    ~onSlSelect: eventHandler=?,
+    ~onSlSelect: selectEvent=?,
   ) => React.element = "SlMenu"
 }
 
@@ -541,7 +545,7 @@ module MenuItem = {
     ~checked: bool=?,
     ~value: string=?,
     ~disabled: bool=?,
-    ~onClick: unit => unit=?,
+    ~onClick: eventHandler=?,
     ~updateComplete: updateComplete=?,
     ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlMenuItem"
