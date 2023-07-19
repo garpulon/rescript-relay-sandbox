@@ -53,6 +53,18 @@ let make = (~fragmentRefs) => {
       <Sl.Icon slot="icon" library="default" name="exclamation-triangle" />
       {`Uh oh!`->React.string}
     </Sl.Alert>
+    <Sl.Select
+      label="Select a Few"
+      value={String("option-1 option-2 option-3")}
+      multiple={true}
+      clearable={true}>
+      <Sl.Option value="option-1"> {"Option 1"->React.string} </Sl.Option>
+      <Sl.Option value="option-2"> {"Option 2"->React.string} </Sl.Option>
+      <Sl.Option value="option-3"> {"Option 3"->React.string} </Sl.Option>
+      <Sl.Option value="option-4"> {"Option 4"->React.string} </Sl.Option>
+      <Sl.Option value="option-5"> {"Option 5"->React.string} </Sl.Option>
+      <Sl.Option value="option-6"> {"Option 6"->React.string} </Sl.Option>
+    </Sl.Select>
     <p className="WelcomeMessage">
       {`Welcome to the PostGraphile forum demo. Here you can see how we have
           harnessed the power of PostGraphile to quickly and easily make a

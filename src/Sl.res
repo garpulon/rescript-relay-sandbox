@@ -202,13 +202,15 @@ module Carousel = {
     ~mouseDragging: bool=?,
     ~onSlSlideChange: eventHandler=?,
     ~updateComplete: updateComplete=?,
+    ~style: ReactDOM.Style.t=?,
   ) => React.element = "SlCarousel"
 }
 
 /* SlCarouselItem */
 module CarouselItem = {
   @module("@shoelace-style/shoelace/dist/react/") @react.component
-  external make: (~children: React.element=?) => React.element = "SlCarouselItem"
+  external make: (~children: React.element=?, ~style: ReactDOM.Style.t=?) => React.element =
+    "SlCarouselItem"
 }
 
 /* SlCheckbox */
@@ -269,6 +271,7 @@ module Dialog = {
     ~onSlAfterHide: eventHandler=?,
     ~onSlInitialFocus: eventHandler=?,
     ~onSlRequestClose: eventHandler=?,
+    ~style: ReactDOM.Style.t=?,
   ) => React.element = "SlDialog"
 }
 
@@ -646,20 +649,20 @@ module Select = {
   @send external blur: t => unit = "blur"
   @send external focus: (t, ~options: focusOptions=?) => unit = "focus"
   @send external getForm: t => Js.Nullable.t<Dom.htmlFormElement> = "getForm"
-  @send external firstUpdated: t => unit = "firstUpdated"
   @send external checkValidity: t => bool = "checkValidity"
   @send external reportValidity: t => bool = "reportValidity"
   @send external setCustomValidity: (t, ~message: string) => unit = "setCustomValidity"
 
-  type multiSelect = array<string>
-  type singleSelect = string
+  type multi =
+    | String(string)
+    | StringArray(array<string>)
 
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
     ~children: React.element=?,
     ~name: string=?,
-    ~value: [#multiSelect | #singleSelect]=?,
-    ~defaultValue: [#multiSelect | #singleSelect]=?,
+    ~value: multi=?,
+    ~defaultValue: multi=?,
     ~size: size=?,
     ~placeholder: string=?,
     ~multiple: bool=?,
@@ -695,6 +698,100 @@ module Select = {
 module Spinner = {
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (~style: ReactDOM.Style.t=?) => React.element = "SlSpinner"
+}
+
+/* SlSwitch */
+module Switch = {
+  include Base
+  type t
+
+  @send external click: t => unit = "click"
+  @send external blur: t => unit = "blur"
+  @send external focus: (t, ~options: focusOptions=?) => unit = "focus"
+  @send external getForm: t => Js.Nullable.t<Dom.htmlFormElement> = "getForm"
+  @send external checkValidity: t => bool = "checkValidity"
+  @send external reportValidity: t => bool = "reportValidity"
+  @send external setCustomValidity: (t, ~message: string) => unit = "setCustomValidity"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~name: string=?,
+    ~value: string=?,
+    ~size: size=?,
+    ~style: ReactDOM.Style.t=?,
+    ~disabled: bool=?,
+    ~checked: bool=?,
+    ~defaultChecked: bool=?,
+    ~form: string=?,
+    ~required: bool=?,
+    ~validity: unit => validityStateObj=?,
+    ~validationMessage: unit => validationMessage=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlChange: eventHandler=?,
+    ~onSlInput: eventHandler=?,
+    ~onSlInvalid: eventHandler=?,
+    ~onSlFocus: eventHandler=?,
+    ~onSlBlur: eventHandler=?,
+  ) => React.element = "SlSwitch"
+}
+
+/* SlTab */
+module Tab = {
+  include Base
+  type t
+
+  @send external blur: t => unit = "blur"
+  @send external focus: (t, ~options: focusOptions=?) => unit = "focus"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~panel: string=?,
+    ~active: bool=?,
+    ~closable: bool=?,
+    ~disabled: bool=?,
+    ~slot: string=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlClose: eventHandler=?,
+  ) => React.element = "SlTab"
+}
+
+/* SlTabGroup */
+module TabGroup = {
+  include Base
+  type t
+
+  @send external show: t => unit = "show"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~placement: [#top | #bottom | #start | #end]=?,
+    ~activation: [#auto | #manual]=?,
+    ~noScrollControls: bool=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlTabShow: eventHandler=?,
+    ~onSlTabHide: eventHandler=?,
+    ~style: ReactDOM.Style.t=?,
+  ) => React.element = "SlTabGroup"
+}
+
+/* SlTabPanel */
+module TabPanel = {
+  include Base
+  type t
+
+  @send external blur: t => unit = "blur"
+  @send external focus: (t, ~options: focusOptions=?) => unit = "focus"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~name: string=?,
+    ~active: bool=?,
+    ~updateComplete: updateComplete=?,
+    ~style: ReactDOM.Style.t=?,
+  ) => React.element = "SlTabPanel"
 }
 
 /* Registration Functions */
