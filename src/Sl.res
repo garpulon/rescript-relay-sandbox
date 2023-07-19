@@ -636,6 +636,67 @@ module RelativeTime = {
   ) => React.element = "SlRelativeTime"
 }
 
+/* SlSelect */
+module Select = {
+  include Base
+  type t
+
+  @send external show: t => unit = "show"
+  @send external hide: t => unit = "hide"
+  @send external blur: t => unit = "blur"
+  @send external focus: (t, ~options: focusOptions=?) => unit = "focus"
+  @send external getForm: t => Js.Nullable.t<Dom.htmlFormElement> = "getForm"
+  @send external firstUpdated: t => unit = "firstUpdated"
+  @send external checkValidity: t => bool = "checkValidity"
+  @send external reportValidity: t => bool = "reportValidity"
+  @send external setCustomValidity: (t, ~message: string) => unit = "setCustomValidity"
+
+  type multiSelect = array<string>
+  type singleSelect = string
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~name: string=?,
+    ~value: [#multiSelect | #singleSelect]=?,
+    ~defaultValue: [#multiSelect | #singleSelect]=?,
+    ~size: size=?,
+    ~placeholder: string=?,
+    ~multiple: bool=?,
+    ~maxOptionsVisible: int=?,
+    ~disabled: bool=?,
+    ~clearable: bool=?,
+    ~\"open": bool=?,
+    ~hoist: bool=?,
+    ~filled: bool=?,
+    ~pill: bool=?,
+    ~label: string=?,
+    ~placement: [#top | #bottom]=?,
+    ~helpText: string=?,
+    ~form: string=?,
+    ~required: bool=?,
+    ~validity: unit => validityStateObj=?,
+    ~validationMessage: unit => validationMessage=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlChange: eventHandler=?,
+    ~onSlInput: eventHandler=?,
+    ~onSlInvalid: eventHandler=?,
+    ~onSlClear: eventHandler=?,
+    ~onSlFocus: eventHandler=?,
+    ~onSlBlur: eventHandler=?,
+    ~onSlShow: eventHandler=?,
+    ~onSlAfterShow: eventHandler=?,
+    ~onSlHide: eventHandler=?,
+    ~onSlAfterHide: eventHandler=?,
+  ) => React.element = "SlSelect"
+}
+
+/* SlSpinner */
+module Spinner = {
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (~style: ReactDOM.Style.t=?) => React.element = "SlSpinner"
+}
+
 /* Registration Functions */
 type img
 type registerOptions = {
