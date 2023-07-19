@@ -542,6 +542,7 @@ module MenuItem = {
     ~checked: bool=?,
     ~value: string=?,
     ~disabled: bool=?,
+    ~onClick: unit => unit=?,
     ~updateComplete: updateComplete=?,
     ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlMenuItem"

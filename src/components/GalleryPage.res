@@ -26,7 +26,7 @@ let make = () => {
     <h1> {`Component Gallery`->React.string} </h1>
     <div>
       <h2> {`Buttons and Alerts`->React.string} </h2>
-      <Sl.Button variant={#primary} size={#large} onClick={onClickPrimary}>
+      <Sl.Button variant={#primary} size={#small} onClick={onClickPrimary}>
         {`Click me`->React.string}
       </Sl.Button>
       <Sl.Alert ref={primary} variant={#primary} duration=3000 closable={true}>
@@ -35,7 +35,7 @@ let make = () => {
       </Sl.Alert>
       <br />
       <br />
-      <Sl.Button variant={#warning} size={#large} onClick={onClickWarning}>
+      <Sl.Button variant={#warning} size={#medium} onClick={onClickWarning}>
         {`Click me`->React.string}
       </Sl.Button>
       <Sl.Alert ref={warning} variant={#warning} duration=3000 closable={true}>
@@ -60,6 +60,9 @@ let make = () => {
         <Sl.Icon slot="icon" library="default" name="exclamation-octagon" />
         {`Uh oh!`->React.string}
       </Sl.Alert>
+      <br />
+      <br />
+      <Sl.Divider />
       <h2> {`Multiple Select`->React.string} </h2>
       <Sl.Select
         label="Select a Few"
@@ -73,9 +76,57 @@ let make = () => {
         <Sl.Option value="option-5"> {"Option 5"->React.string} </Sl.Option>
         <Sl.Option value="option-6"> {"Option 6"->React.string} </Sl.Option>
       </Sl.Select>
+      <br />
+      <br />
+      <Sl.Divider />
+      <h2> {`Badges`->React.string} </h2>
+      <span>
+        <Sl.Badge> {`Default`->React.string} </Sl.Badge>
+        {` `->React.string}
+        <Sl.Badge variant={#success} pill={true}> {`Success`->React.string} </Sl.Badge>
+        {` `->React.string}
+        <Sl.Badge variant={#danger} pulse={true}> {`Danger`->React.string} </Sl.Badge>
+      </span>
+      <br />
+      <br />
+      <Sl.Divider />
+      <h2> {`Button Groups`->React.string} </h2>
+      <Sl.ButtonGroup label="No Pill">
+        <Sl.Button size={#medium}> {`Left`->React.string} </Sl.Button>
+        <Sl.Button size={#medium}> {`Center`->React.string} </Sl.Button>
+        <Sl.Button size={#medium}> {`Right`->React.string} </Sl.Button>
+      </Sl.ButtonGroup>
+      <br />
+      <br />
+      <Sl.ButtonGroup label="Pill">
+        <Sl.Button size={#medium} pill={true}> {`Left`->React.string} </Sl.Button>
+        <Sl.Button size={#medium} pill={true}> {`Center`->React.string} </Sl.Button>
+        <Sl.Button size={#medium} pill={true}> {`Right`->React.string} </Sl.Button>
+      </Sl.ButtonGroup>
+      <br />
+      <br />
+      <Sl.ButtonGroup label="Split Button Example">
+        <Sl.Button variant={#success} outline={true}> {`Save`->React.string} </Sl.Button>
+        <Sl.Dropdown placement={#"bottom-end"}>
+          <Sl.Button slot="trigger" variant={#success} caret={true} outline={true} />
+          <Sl.Menu>
+            <Sl.MenuItem> {`Save`->React.string} </Sl.MenuItem>
+            <Sl.MenuItem> {`Save as`->React.string} </Sl.MenuItem>
+            <Sl.MenuItem> {`Save all`->React.string} </Sl.MenuItem>
+          </Sl.Menu>
+        </Sl.Dropdown>
+      </Sl.ButtonGroup>
     </div>
-    <p>
-      <Link to="/"> {`Return home`->React.string} </Link>
+    <br />
+    <br />
+    <Sl.Divider />
+    <p style={ReactDOM.Style.make(~textAlign=`right`, ())}>
+      <Link to="/">
+        <Sl.Button variant={#primary}>
+          {`Return home`->React.string}
+          <Sl.Icon slot="suffix" name="arrow-up-right" />
+        </Sl.Button>
+      </Link>
     </p>
   </Main>
 }
