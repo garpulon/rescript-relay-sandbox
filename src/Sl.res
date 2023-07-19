@@ -8,10 +8,14 @@ module Base = {
     | #danger
   ]
 
-  type defTextVariant = [
-    | #default
+  type textVariant = [
     | variant
     | #text
+  ]
+
+  type defTextVariant = [
+    | #default
+    | textVariant
   ]
 
   type size = [
@@ -43,6 +47,21 @@ module Base = {
   type numericFormats = [
     | #numeric
     | #"2-digit"
+  ]
+
+  type placement = [
+    | #top
+    | #"top-start"
+    | #"top-end"
+    | #bottom
+    | #"bottom-start"
+    | #"bottom-end"
+    | #right
+    | #"right-start"
+    | #"right-end"
+    | #left
+    | #"left-start"
+    | #"left-end"
   ]
 
   type updateComplete = Js.Promise.t<unit> => unit
@@ -156,6 +175,7 @@ module Button = {
     ~onSlInvalid: eventHandler=?,
     ~updateComplete: reactEvent=?,
     ~slot: string=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlButton"
 }
 
@@ -203,6 +223,7 @@ module Carousel = {
     ~onSlSlideChange: eventHandler=?,
     ~updateComplete: updateComplete=?,
     ~style: ReactDOM.Style.t=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlCarousel"
 }
 
@@ -247,6 +268,7 @@ module Checkbox = {
     ~onSlFocus: eventHandler=?,
     ~onSlInput: eventHandler=?,
     ~onSlInvalid: eventHandler=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlCheckbox"
 }
 
@@ -272,6 +294,7 @@ module Dialog = {
     ~onSlInitialFocus: eventHandler=?,
     ~onSlRequestClose: eventHandler=?,
     ~style: ReactDOM.Style.t=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlDialog"
 }
 
@@ -287,21 +310,6 @@ module Divider = {
 module Dropdown = {
   include Base
   type t
-
-  type placement = [
-    | #top
-    | #"top-start"
-    | #"top-end"
-    | #bottom
-    | #"bottom-start"
-    | #"bottom-end"
-    | #right
-    | #"right-start"
-    | #"right-end"
-    | #left
-    | #"left-start"
-    | #"left-end"
-  ]
 
   @send external show: t => unit = "show"
   @send external hide: t => unit = "hide"
@@ -323,6 +331,7 @@ module Dropdown = {
     ~onSlAfterShow: eventHandler=?,
     ~onSlHide: eventHandler=?,
     ~onSlAfterHide: eventHandler=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlDropdown"
 }
 
@@ -407,6 +416,7 @@ module IconButton = {
     ~updateComplete: updateComplete=?,
     ~onSlBlur: eventHandler=?,
     ~onSlFocus: eventHandler=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlIconButton"
 }
 
@@ -503,6 +513,7 @@ module Input = {
     ~onSlInput: eventHandler=?,
     ~onSlFocus: eventHandler=?,
     ~onSlInvalid: eventHandler=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlInput"
 }
 
@@ -532,6 +543,7 @@ module MenuItem = {
     ~value: string=?,
     ~disabled: bool=?,
     ~updateComplete: updateComplete=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlMenuItem"
 }
 
@@ -554,6 +566,7 @@ module Option = {
     ~value: string=?,
     ~disabled: bool=?,
     ~updateComplete: updateComplete=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlOption"
 }
 
@@ -592,6 +605,7 @@ module RadioButton = {
     ~onSlBlur: eventHandler=?,
     ~onSlFocus: eventHandler=?,
     ~updateComplete: updateComplete=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlRadio"
 }
 
@@ -621,6 +635,7 @@ module RadioGroup = {
     ~onSlInput: eventHandler=?,
     ~onSlInvalid: eventHandler=?,
     ~updateComplete: updateComplete=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlRadioGroup"
 }
 
@@ -691,6 +706,7 @@ module Select = {
     ~onSlAfterShow: eventHandler=?,
     ~onSlHide: eventHandler=?,
     ~onSlAfterHide: eventHandler=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlSelect"
 }
 
@@ -732,6 +748,7 @@ module Switch = {
     ~onSlInvalid: eventHandler=?,
     ~onSlFocus: eventHandler=?,
     ~onSlBlur: eventHandler=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlSwitch"
 }
 
@@ -753,6 +770,7 @@ module Tab = {
     ~slot: string=?,
     ~updateComplete: updateComplete=?,
     ~onSlClose: eventHandler=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlTab"
 }
 
@@ -773,6 +791,7 @@ module TabGroup = {
     ~onSlTabShow: eventHandler=?,
     ~onSlTabHide: eventHandler=?,
     ~style: ReactDOM.Style.t=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlTabGroup"
 }
 
@@ -791,7 +810,173 @@ module TabPanel = {
     ~active: bool=?,
     ~updateComplete: updateComplete=?,
     ~style: ReactDOM.Style.t=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
   ) => React.element = "SlTabPanel"
+}
+
+/* SlTag */
+module Tag = {
+  include Base
+  type t
+
+  @send external blur: t => unit = "blur"
+  @send external focus: (t, ~options: focusOptions=?) => unit = "focus"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~variant: textVariant=?,
+    ~size: size=?,
+    ~pill: bool=?,
+    ~removable: bool=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlRemove: eventHandler=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
+  ) => React.element = "SlTag"
+}
+
+/* SlTextArea */
+module TextArea = {
+  include Base
+  type t
+
+  type scrollPosition = {
+    top?: int,
+    left?: int,
+  }
+
+  @send external select: t => unit = "select"
+  @send external blur: t => unit = "blur"
+  @send external focus: (t, ~options: focusOptions=?) => unit = "focus"
+  @send external scrollPosition: (t, ~position: scrollPosition) => unit = "scrollPosition"
+  @send
+  external setSelectionRange: (
+    t,
+    ~selectionStart: int,
+    ~selectionEnd: int,
+    ~selectionDirection: [#forward | #back | #none],
+  ) => unit = "setSelectionRange"
+  @send
+  external setRangeText: (
+    t,
+    ~replacement: string,
+    ~start: int,
+    ~end: int,
+    ~selectMode: [#select | #start | #end | #preserve],
+  ) => unit = "setRangeText"
+  @send external getForm: t => Js.Nullable.t<Dom.htmlFormElement> = "getForm"
+  @send external checkValidity: t => bool = "checkValidity"
+  @send external reportValidity: t => bool = "reportValidity"
+  @send external setCustomValidity: (t, ~message: string) => unit = "setCustomValidity"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~name: string=?,
+    ~value: string=?,
+    ~size: size=?,
+    ~filled: bool=?,
+    ~label: string=?,
+    ~helpText: string=?,
+    ~placeholder: string=?,
+    ~rows: int=?,
+    ~resize: bool=?,
+    ~disabled: bool=?,
+    ~readonly: bool=?,
+    ~form: string=?,
+    ~required: bool=?,
+    ~minlength: int=?,
+    ~maxlength: int=?,
+    ~autocapitalize: [#off | #on | #none | #sentences | #words | #characters]=?,
+    ~autocorrect: [#on | #off]=?,
+    ~autocomplete: string=?,
+    ~autofocus: bool=?,
+    ~enterkeyhint: [#enter | #done | #go | #next | #previous | #search | #send]=?,
+    ~spellcheck: bool=?,
+    ~inputmode: [#none | #text | #decimal | #numeric | #tel | #search | #email | #url]=?,
+    ~validity: unit => validityStateObj=?,
+    ~validationMessage: unit => validationMessage=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlChange: eventHandler=?,
+    ~onSlInput: eventHandler=?,
+    ~onSlInvalid: eventHandler=?,
+    ~onSlFocus: eventHandler=?,
+    ~onSlBlur: eventHandler=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
+  ) => React.element = "SlTextArea"
+}
+
+/* SlTooltip */
+module Tooltip = {
+  include Base
+  type t
+
+  @send external show: t => unit = "show"
+  @send external hide: (t, ~options: focusOptions=?) => unit = "hide"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~content: string=?,
+    ~placement: placement=?,
+    ~disabled: bool=?,
+    ~distance: int=?,
+    ~\"open": bool=?,
+    ~skidding: int=?,
+    ~trigger: string=?, // "click", "hover", "focus", "manual" -- can be any number separated by space; default "hover focus"
+    ~hoist: bool=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlShow: eventHandler=?,
+    ~onSlHide: eventHandler=?,
+    ~onSlAfterShow: eventHandler=?,
+    ~onSlAfterHide: eventHandler=?,
+    ~style: ReactDOM.Style.t=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
+  ) => React.element = "SlTooltip"
+}
+
+/* SlTree */
+module Tree = {
+  include Base
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~selection: [#single | #multiple | #leaf]=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlSelectionChange: eventHandler=?,
+    ~style: ReactDOM.Style.t=?,
+  ) => React.element = "SlTree"
+}
+
+/* SlTreeItem */
+module TreeItem = {
+  include Base
+  type t
+
+  @send external getChildrenItems: (t, ~includeDisabled: bool=?) => unit = "show"
+
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (
+    ~children: React.element=?,
+    ~expanded: bool=?,
+    ~selected: bool=?,
+    ~disabled: bool=?,
+    ~\"lazy": bool=?,
+    ~updateComplete: updateComplete=?,
+    ~onSlExpand: eventHandler=?,
+    ~onSlAfterExpand: eventHandler=?,
+    ~onSlCollapse: eventHandler=?,
+    ~onSlAfterCollapse: eventHandler=?,
+    ~onSlLazyChange: eventHandler=?,
+    ~onSlLazyLoad: eventHandler=?,
+    ~ref: React.ref<Js.Nullable.t<t>>=?,
+  ) => React.element = "SlTreeItem"
+}
+
+/* SlVisuallyHidden */
+module VisuallyHidden = {
+  @module("@shoelace-style/shoelace/dist/react/") @react.component
+  external make: (~children: React.element=?) => React.element = "SlVisuallyHidden"
 }
 
 /* Registration Functions */
