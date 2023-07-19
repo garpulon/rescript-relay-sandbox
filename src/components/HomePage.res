@@ -35,6 +35,13 @@ let make = (~fragmentRefs) => {
       </Link>
       {` to see how to get started with your own forum schema design.`->React.string}
     </p>
+    <h1> {`Component Gallery`->React.string} </h1>
+    <Link to="/gallery">
+      <Sl.Button variant={#success}>
+        {`Check it out`->React.string}
+        <Sl.Icon slot="suffix" name="arrow-up-right" />
+      </Sl.Button>
+    </Link>
     <h1> {`Forum List`->React.string} </h1>
     <div className="HomePage-forums">
       {switch fragment.forums {

@@ -5,6 +5,8 @@ let make = () => {
   let success = React.useRef(Js.Nullable.null)
   let danger = React.useRef(Js.Nullable.null)
 
+  let (dialogOpen, setDialogOpen) = React.useState(() => false)
+
   open Sl.Alert
 
   let onClickPrimary = _ => {
@@ -67,6 +69,10 @@ let make = () => {
       <Sl.Select
         label="Select a Few"
         value={String("option-1 option-2 option-3")}
+        onSlChange={e => {
+          let v = ReactEvent.Form.target(e)["value"]
+          Js.Console.log(v)
+        }}
         multiple={true}
         clearable={true}>
         <Sl.Option value="option-1"> {"Option 1"->React.string} </Sl.Option>
@@ -117,6 +123,20 @@ let make = () => {
         </Sl.Dropdown>
       </Sl.ButtonGroup>
     </div>
+    <br />
+    <br />
+    <Sl.Divider />
+    <h2> {`Dialog`->React.string} </h2>
+    <Sl.Dialog
+      label="Dialog Engaged" \"open"={dialogOpen} onSlAfterHide={_ => setDialogOpen(_ => false)}>
+      {`We're discoursing here in this dialog. Discourse discourse discourse.`->React.string}
+      <Sl.Button slot="footer" variant={#primary} onClick={_ => setDialogOpen(_ => false)}>
+        {`Close`->React.string}
+      </Sl.Button>
+    </Sl.Dialog>
+    <Sl.Button onClick={_ => setDialogOpen(_ => true)}>
+      {`Engage in Dialog`->React.string}
+    </Sl.Button>
     <br />
     <br />
     <Sl.Divider />

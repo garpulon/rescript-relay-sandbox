@@ -70,8 +70,7 @@ module Base = {
 
   type validationMessage
 
-  type reactEvent
-
+  type reactEvent = ReactEvent.Form.t
   type eventHandler = reactEvent => unit
 }
 
