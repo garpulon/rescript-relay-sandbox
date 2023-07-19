@@ -1,7 +1,6 @@
 {
   "name": "rescript-relay-sandbox",
   "packageManager": "yarn@3.5.1",
-  "type": "module",
   "dependencies": {
     "@rescript/core": "^0.3.1",
     "@rescript/react": "^0.11.0",
