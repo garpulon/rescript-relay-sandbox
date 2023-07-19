@@ -11,7 +11,7 @@ let make = () => {
     | list{"login"} => <LoginRoute />
     | list{"register"} => <RegisterRoute />
     | list{"emailer"} => <EmailerRoute />
-
+    | list{"gallery"} => <GalleryRoute />
     | list{"error"} => <ErrorPage urlSearch=url.search />
     | list{"logout"} => {
         Common.InsecureJWTStorage.delete()
