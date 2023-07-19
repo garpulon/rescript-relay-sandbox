@@ -186,6 +186,57 @@ let make = () => {
     <br />
     <br />
     <Sl.Divider />
+    <h2> {`Number and Date Formatting`->React.string} </h2>
+    <h3> {`Relative Time`->React.string} </h3>
+    <Sl.RelativeTime date={(Js.Date.now() -. 200000.0)->Js.Date.fromFloat->Js.Date.toISOString} />
+    <br />
+    <Sl.RelativeTime date={(Js.Date.now() +. 9000000.0)->Js.Date.fromFloat->Js.Date.toISOString} />
+    <br />
+    <br />
+    <Sl.RelativeTime
+      date={(Js.Date.now() -. 800000.0)->Js.Date.fromFloat->Js.Date.toISOString} lang="ru-RU"
+    />
+    <br />
+    <Sl.RelativeTime
+      date={(Js.Date.now() +. 600000.0)->Js.Date.fromFloat->Js.Date.toISOString} lang="zh-CN"
+    />
+    <h3> {`Format Time`->React.string} </h3>
+    <Sl.FormatDate date={Js.Date.make()->Js.Date.toISOString} />
+    <br />
+    <Sl.FormatDate
+      date={Js.Date.make()->Js.Date.toISOString}
+      weekday={#long}
+      year={#numeric}
+      day={#"2-digit"}
+      month={#long}
+    />
+    <h3> {`Format Number`->React.string} </h3>
+    <span>
+      {`Currency (USD): `->React.string}
+      <Sl.FormatNumber value=177.5 currency="USD" \"type"={#currency} />
+    </span>
+    <br />
+    <span>
+      {`Currency (EUR): `->React.string}
+      <Sl.FormatNumber value=177.5 currency="EUR" \"type"={#currency} currencyDisplay={#name} />
+    </span>
+    <br />
+    <span>
+      {`Currency (JPY): `->React.string}
+      <Sl.FormatNumber value=177.5 currency="JPY" \"type"={#currency} currencyDisplay={#symbol} />
+    </span>
+    <br />
+    <span>
+      {`Percent: `->React.string}
+      <Sl.FormatNumber value=0.5 \"type"={#percent} />
+    </span>
+    <br />
+    <span>
+      {`Decimal (FR): `->React.string}
+      <Sl.FormatNumber value=5.5 \"type"={#decimal} lang="fr" />
+    </span>
+    <br />
+    <Sl.Divider />
     <p style={ReactDOM.Style.make(~textAlign=`right`, ())}>
       <Link to="/">
         <Sl.Button variant={#primary}>

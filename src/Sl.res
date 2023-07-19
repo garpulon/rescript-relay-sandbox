@@ -41,7 +41,7 @@ module Base = {
 
   type stringFormats = [
     | #narrow
-    | #shortLong
+    | shortLong
   ]
 
   type numericFormats = [
@@ -344,7 +344,7 @@ module FormatDate = {
     ~weekday: stringFormats=?,
     ~era: stringFormats=?,
     ~year: numericFormats=?,
-    ~month: [#stringFormats | #numericFormats]=?,
+    ~month: [stringFormats | numericFormats]=?,
     ~day: numericFormats=?,
     ~hour: numericFormats=?,
     ~minute: numericFormats=?,
@@ -362,17 +362,18 @@ module FormatNumber = {
 
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
-    ~value: int=?,
+    ~value: float=?,
     ~\"type": [#currency | #decimal | #percent]=?,
     ~noGrouping: bool=?,
     ~currency: string=?,
+    ~lang: string=?,
     ~currencyDisplay: [#symbol | #narrowSymbol | #code | #name]=?,
     ~minimumIntegerDigits: int=?,
     ~maximumFractionDigits: int=?,
     ~minimumSignificantDigits: int=?,
     ~maximumSignificantDigits: int=?,
     ~updateComplete: updateComplete=?,
-  ) => React.element = "SlFormatDate"
+  ) => React.element = "SlFormatNumber"
 }
 
 /* SlIcon */
