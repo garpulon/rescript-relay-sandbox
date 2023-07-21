@@ -1,3 +1,50 @@
+type name = {
+  firstName: string,
+  lastName: string,
+}
+type person = {
+  name: name,
+  address: string,
+  city: string,
+  state: string,
+}
+
+type columnDef = {
+  accessorKey: string,
+  header: string,
+  size: int,
+}
+
+let data: array<person> = [
+  {
+    name: {
+      firstName: "John",
+      lastName: "Doe",
+    },
+    address: "61 Erdman Ford",
+    city: "East Daphne",
+    state: "Kentucky",
+  },
+  {
+    name: {
+      firstName: "Jane",
+      lastName: "Doe",
+    },
+    address: "769 Dominic Grove",
+    city: "Columbus",
+    state: "Ohio",
+  },
+  {
+    name: {
+      firstName: "Joe",
+      lastName: "Doe",
+    },
+    address: "566 Brakus Inlet",
+    city: "South Linda",
+    state: "West Virginia",
+  },
+]
+
 @react.component
 let make = () => {
   let primary = React.useRef(Js.Nullable.null)
@@ -26,6 +73,35 @@ let make = () => {
   let onClickDanger = _ => {
     danger.current->Js.Nullable.toOption->Belt.Option.forEach(toast)
   }
+
+  let columns: array<columnDef> = React.useMemo1(() => [
+    {
+      accessorKey: "name.firstName",
+      header: "First Name",
+      size: 150,
+    },
+    {
+      accessorKey: "name.lastName",
+      header: "Last Name",
+      size: 150,
+    },
+    {
+      accessorKey: "address",
+      header: "Address",
+      size: 200,
+    },
+    {
+      accessorKey: "city",
+      header: "City",
+      size: 150,
+    },
+    {
+      accessorKey: "state",
+      header: "State",
+      size: 150,
+    },
+  ], [])
+
   <Main>
     <h1> {`Component Gallery`->React.string} </h1>
     <div>
@@ -269,6 +345,11 @@ let make = () => {
       <Sl.TreeItem value="selecting"> {`Item 2`->React.string} </Sl.TreeItem>
       <Sl.TreeItem value="multiple"> {`Item 3`->React.string} </Sl.TreeItem>
     </Sl.Tree>
+    <br />
+    <br />
+    <Sl.Divider />
+    <h2> {`Table`->React.string} </h2>
+    <Mr.Table columns={columns} data={data} />
     <br />
     <br />
     <Sl.Divider />

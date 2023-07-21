@@ -524,6 +524,7 @@ module Menu = {
   type detailType = {item: Dom.htmlElement}
   type select = {detail: detailType}
   type selectEvent = select => unit
+
   @module("@shoelace-style/shoelace/dist/react/") @react.component
   external make: (
     ~children: React.element=?,
