@@ -19,6 +19,16 @@
   "ppx-flags": [
     "rescript-relay/ppx"
   ],
+  "gentypeconfig": {
+    "language": "typescript",
+    "shims": {},
+    "generatedFileExtension": ".gen.tsx",
+    "module": "commonjs",
+    "debug": {
+      "all": false,
+      "basic": false
+    }
+  },
   "bs-dependencies": [
     "@rescript/react",
     "rescript-relay",

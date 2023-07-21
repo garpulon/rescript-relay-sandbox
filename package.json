@@ -2,10 +2,15 @@
   "name": "rescript-relay-sandbox",
   "packageManager": "yarn@3.5.1",
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.1",
+    "@mui/material": "^5.14.1",
     "@rescript/core": "^0.3.1",
     "@rescript/react": "^0.11.0",
     "@shoelace-style/shoelace": "^2.5.2",
     "bs-fetch": "^0.6.2",
+    "material-react-table": "^1.14.0",
     "react": "18",
     "react-dom": "18",
     "react-relay": "15.x.x",
@@ -41,6 +46,7 @@
   },
   "devDependencies": {
     "dotenv-cli": "^7.2.1",
+    "gentype": "^4.5.0",
     "parcel": "^2.9.3",
     "process": "^0.11.10"
   }
